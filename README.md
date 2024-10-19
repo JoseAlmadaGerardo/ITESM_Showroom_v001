@@ -1,8 +1,6 @@
-# 🎈 Blank app template
+# ITESM 🐏  Data Science Hub Showroom at Tecnológico de Monterrey! 👋
 
-A simple Streamlit app template for you to modify!
-
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+A Streamlit app  AI showroom design to research and showcases various use cases across different industrial applications !
 
 ### How to run it on your own machine
 
@@ -15,5 +13,5 @@ A simple Streamlit app template for you to modify!
 2. Run the app
 
    ```
-   $ streamlit run ITESM_Showroom.py
+   $ streamlit run itesm_showroom.py
    ```
