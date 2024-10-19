@@ -1,4 +1,4 @@
-# ITESM 🐏  Data Science Hub Showroom at Tecnológico de Monterrey! 👋
+# ITESM  Data Science Hub Showroom at Tecnológico de Monterrey! 👋🐏
 
 A Streamlit app  AI showroom design to research and showcases various use cases across different industrial applications !
 
