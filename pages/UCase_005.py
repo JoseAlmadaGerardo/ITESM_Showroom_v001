@@ -3,6 +3,10 @@ import streamlit as st
 import streamlit as st
 from openai import OpenAI
 #import PyPDF2
+header= {
+    "authorization":st.secrets["auth_token"],
+    "content-type": "application/json"
+    }
 
 st.set_page_config(page_title="UCase_005", page_icon="📊")
 st.markdown("# UCase_005")
