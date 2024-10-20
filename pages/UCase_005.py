@@ -4,7 +4,7 @@ import streamlit as st
 from openai import OpenAI
 #import PyPDF2
 header= {
-    "authorization":st.secrets["auth_token"],
+    "authorization":st.secrets["Auth_Key"],
     "content-type": "application/json"
     }
 
