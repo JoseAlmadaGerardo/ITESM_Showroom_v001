@@ -1,25 +1,37 @@
-import streamlit as st
+ import streamlit as st
 
-# Set the page configuration
-st.set_page_config(page_title="Hello", page_icon="👋")
+st.set_page_config(
+    page_title="Hello",
+    page_icon="👋",
+)
 
 # Load the API key from secrets
+st.secrets["general"]["OpenAI_key"]  # Ensure this is configured in your Streamlit secrets
+
+# Store the API key in session state for use in page files
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["general"]["OpenAI_key"]
 
 st.write("# Welcome to the Data Science Hub Showroom at Tecnológico de Monterrey! 👋")
-st.sidebar.success("Select a demo above.")
+
+st.sidebar.success("Select a demo above. ")
 
 st.markdown(
-    """This AI showroom showcases various use cases across different industrial applications.
-    
-    👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!"""
-)
+        """This AI showroom showcases various use cases across different industrial applications. It is an open-source app built on the Streamlit framework, this showroom is specifically designed for AI agents utilizing RAG architecture from OpenAI.
 
-# Import the page function for Use Case #5
-from use_case_5 import run_use_case_5
+👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!
 
-# Call the function based on user selection
-page = st.sidebar.selectbox("Choose a page:", ["Home", "Use Case #5"])
-if page == "Use Case #5":
-    run_use_case_5(st.session_state.api_key)
+        ### Want to learn more about streamlit?
+
+        - Check out [streamlit.io](https://streamlit.io)
+        - Jump into our [documentation](https://docs.streamlit.io)
+        - Ask a question in our [community
+          forums](https://discuss.streamlit.io)
+
+        ### Want to learn more anout Assistant API use at this project?
+
+        - Check out [AssistanAPI.openAI](https://platform.openai.com/docs/assistants/overview)
+
+        ### See more complex demos
+    """
+    )
