@@ -33,8 +33,8 @@ st.markdown(
     )
 
 # Load the API key from secrets
-#openai_key = st.secrets["general"]["OpenAI_key"]  # Ensure this is configured in your Streamlit secrets
+Openai_key = st.secrets["general"]["OpenAI_key"]  # Ensure this is configured in your Streamlit secrets
 
 # Store the API key in session state for use in page files
-#if "api_key" not in st.session_state:
-   # st.session_state.api_key = openai_key
+if "api_key" not in st.session_state:
+    st.session_state.api_key = openai_key
