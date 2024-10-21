@@ -13,7 +13,7 @@ st.write("📄 Answers to questions about .TX, .MD, and .PDF documents. Upload a
 st.write("Note: To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys).")
 
 # Access the OpenAI API key from secrets
-api_key = st.secrets["general"]["OpenAI_key"]
+#api_key = st.secrets["general"]["OpenAI_key"]
 
 # Allow the user to upload a file
 uploaded_file = st.file_uploader("Upload a document (.txt or .md)", type=("txt", "md"))
