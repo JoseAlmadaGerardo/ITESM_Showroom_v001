@@ -8,6 +8,13 @@ st.set_page_config(
     page_icon="👋",
 )
 
+# Load the API key from secrets
+st.secrets["general"]["OpenAI_key"]  # Ensure this is configured in your Streamlit secrets
+
+# Store the API key in session state for use in page files
+if "api_key" not in st.session_state:
+    st.session_state.api_key = st.secrets["general"]["OpenAI_key"]
+
 st.write("# Welcome to the Data Science Hub Showroom at Tecnológico de Monterrey! 👋")
 
 st.sidebar.success("Select a demo above. ")
@@ -31,3 +38,4 @@ st.markdown(
         ### See more complex demos
     """
     )
+
