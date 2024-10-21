@@ -1,4 +1,4 @@
-import streamlit as st
+mport streamlit as st
 import openai
 
 # Set the page config and title
@@ -12,8 +12,6 @@ st.subheader("Factory Asset Effectiveness.​")
 st.write("📄 Answers to questions about .TX, .MD, and .PDF documents. Upload a document below and ask a question about it – GPT will answer!")
 st.write("Note: To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys).")
 
-# Access the OpenAI API key from the secrets file
-openai.api_key = st.secrets["OpenAI_key"]
 
 # Allow the user to upload a file
 uploaded_file = st.file_uploader("Upload a document (.txt or .md)", type=("txt", "md"))
