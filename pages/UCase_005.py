@@ -27,16 +27,32 @@ question = st.text_area(
 
 # If both a file is uploaded and a question is asked
 if uploaded_file and question:
-    # Read the uploaded document
-    document = uploaded_file.read().decode()
+    try:
+        # Read the uploaded document
+        document = uploaded_file.read().decode()
 
-    # Prepare the messages for OpenAI
-    messages = [
-        {
-            "role": "user",
-            "content": f"Here is a document: {document} \n\n---\n\n {question}",
-        }
-    ]
+        # Prepare the messages for OpenAI
+        messages = [
+            {
+                "role": "user",
+                "content": f"Here is a document: {document} \n\n---\n\n {question}",
+            }
+        ]
+
+        # Generate a response using OpenAI API
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            stream=True,
+            api_key=api_key,  # Make sure to pass the API key
+        )
+
+        # Display the response
+        for chunk in response:
+            st.write(chunk['choices'][0]['delta']['content'])
+    
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
 
     # Generate a response using OpenAI API
     response = openai.ChatCompletion.create(
