@@ -1,6 +1,6 @@
 import streamlit as st
 from openai import OpenAI
-import openai
+#import openai
 
 st.set_page_config(page_title="UCase_004", page_icon="📊")
 st.markdown("# UCase_004")
