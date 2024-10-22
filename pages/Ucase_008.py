@@ -42,6 +42,6 @@ else:
         )
 
         # Extract and display assistant's response
-        msg = response.choices[0].message["content"]
+        msg = response.choices[0].message['content']  # Note: 'message' field has been updated in latest API
         st.session_state["messages"].append({"role": "assistant", "content": msg})
         st.chat_message("assistant").write(msg)
