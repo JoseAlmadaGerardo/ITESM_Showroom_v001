@@ -1,43 +1,37 @@
 import streamlit as st
-from openai import OpenAI
-#import openai
+from langchain_openai.chat_models import ChatOpenAI
 
-st.set_page_config(page_title="UCase_004", page_icon="📊")
-st.markdown("# UCase_004")
-st.sidebar.header("UCase_004")
+# UCase_007(v002): Submit request PB was added
+st.set_page_config(page_title="UCase_007", page_icon="📊")
+st.markdown("# UCase_007")
+st.sidebar.header("UCase_007")
 
-st.title("Manufacturing: Use Case #4")
-st.subheader("Fanuc Robot Assistant")
-
-st.write("📄 Enter an alarm code for Fanuc robots, and GPT will provide troubleshooting steps!")
+st.title("🦜🔗 Quickstart App")
+st.subheader("Learn how to use the Langchain OpenAI model")
+st.write("📄 Enter a text prompt below and GPT will provide a response!")
 
 # Use API key from session state
 if "api_key" not in st.session_state:
     st.error("API key is missing. Please configure it in the main page.")
 else:
     openai_api_key = st.session_state.api_key
-    openai.api_key = openai_api_key
 
-    # Ask for an alarm code
-    alarm_code = st.text_area("Describe the Robot Alarm Code", placeholder="Enter the alarm code (e.g., SRVO-023)...")
+    # Function to generate a response using Langchain's ChatOpenAI model
+    def generate_response(input_text):
+        model = ChatOpenAI(temperature=0.7, api_key=openai_api_key)
+        response = model.invoke(input_text)
+        st.info(response)
 
-    if alarm_code:
-        # Generate a response using OpenAI API
-        question = f"Can you give me the explanation and road map to troubleshoot the Robot alarm code: {alarm_code}"
-        messages = [{"role": "user", "content": question}]
+    # Ask for input
+    text = st.text_area(
+        "Enter text:",
+        placeholder="What are the three key pieces of advice for learning how to code?",
+    )
 
-        # Create a placeholder to display the output
-        output_placeholder = st.empty()
-
-        # Stream the response
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=messages,
-            stream=True
-        )
-
-        # Iterate over the streamed responses and display them
-        for chunk in response:
-            if "choices" in chunk:
-                chunk_message = chunk["choices"][0]["delta"].get("content", "")
-                output_placeholder.write(chunk_message)
+    # Submit button
+    if st.button("Submit"):
+        # Check if API key is valid and process the input
+        if not openai_api_key.startswith("sk-"):
+            st.warning("Please enter your OpenAI API key!", icon="⚠")
+        else:
+            generate_response(text)

@@ -2,11 +2,11 @@ import streamlit as st
 from openai import OpenAI
 # UCase_006(v002): Submit request PB was added
 
-st.set_page_config(page_title="UCase_006", page_icon="📊")
-st.markdown("# UCase_006")
-st.sidebar.header("UCase_006")
+st.set_page_config(page_title="UCase_007", page_icon="📊")
+st.markdown("# UCase_007")
+st.sidebar.header("UCase_007")
 
-st.title("Manufacturing: Use Case #6")
+st.title("Manufacturing: Use Case #7")
 st.subheader("Fanuc Robot Assistant")
 st.write("📄 Enter an alarm code for Fanuc robots, and GPT will provide troubleshooting steps!")
 
@@ -40,7 +40,7 @@ else:
             ]
 
             stream = client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4",
                 messages=messages,
                 stream=True,
             )
