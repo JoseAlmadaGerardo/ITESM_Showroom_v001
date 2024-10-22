@@ -17,15 +17,3 @@ def get_assistant_response(messages):
     response = r.choices[0].message.content
     return response
 
-# Main chat loop
-while True:
-    # Display chat history
-    display_chat_history(messages)
-
-    # Get user input
-    prompt = input("User: ")
-    messages.append({"role": "user", "content": prompt})
-
-    # Get assistant response
-    response = get_assistant_response(messages)
-    messages.append({"role": "assistant", "content": response})
