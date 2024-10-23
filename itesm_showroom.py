@@ -26,7 +26,7 @@ col1, col2 = st.columns((1.5,1))
 with col1:
     st.markdown(
         """
-        ## Objectives.
+        ## Objectives 🔎.
         Analyze different industrial sectors to identify potential opportunities
         where it is feasible to develop AI-based assistants using RAG architecture.
         The industries to explore are the next, Accounting & Tax, Industry 4.0,
@@ -40,7 +40,8 @@ with col1:
 with col2:
     st.markdown(
         """
-        ### Learn About Streamlit, Assistant API and More Demos
+        ### 📝
+        Learn About Streamlit, Assistant API and More Demos
         - Check out [streamlit.io](https://streamlit.io)
         - Jump into our [documentation](https://docs.streamlit.io)
         - Ask a question in our [community forums](https://discuss.streamlit.io)
