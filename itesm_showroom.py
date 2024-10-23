@@ -10,8 +10,6 @@ if "api_key" not in st.session_state:
 st.write("# Welcome to the Data Science Hub Showroom at Tecnológico de Monterrey! 👋")
 st.sidebar.success("Select a demo above.")
 
-# Use the full page instead of a narrow central column
-
 st.markdown(
         """
         ### AI Use Cases
