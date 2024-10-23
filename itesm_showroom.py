@@ -12,7 +12,6 @@ st.sidebar.success("Select a demo above.")
 
 st.markdown(
         """
-        ### AI Use Cases
         This showroom showcases various AI use cases across different industries applications, and is an app built
         on the Streamlit framework specifically designed for AI agents utilizing RAG architecture from OpenAI.
 
