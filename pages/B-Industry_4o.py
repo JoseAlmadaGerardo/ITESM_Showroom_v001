@@ -47,6 +47,8 @@ else:
 
             stream = client.chat.completions.create(
                 model="gpt-4",
+                temperature=1.3,
+                max_tokens=256,
                 messages=messages,
                 stream=True,
             )
