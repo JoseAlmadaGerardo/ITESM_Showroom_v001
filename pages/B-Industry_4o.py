@@ -7,6 +7,12 @@ st.markdown("# AI at Industry 4.0 & Manufacturing  ")
 st.sidebar.header("Industry 4.0 & Manufacturing")
 
 st.title("Use Cases atIndustry 4.0 & Manufacturing")
+st.title("Use Cases atIndustry 4.0 & Manufacturing")
+st.write(" - 📄 Fanuc Robot Assistant")
+st.write(" - 📄  Configurations of electronic components Assistant.).")
+st.write (" - 📄  Factory Asset Effectiveness.")
+
+st.write(" 👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
 st.subheader("Fanuc Robot Assistant")
 st.write("📄 Enter an alarm code for Fanuc robots, and GPT will provide troubleshooting steps!")
 
