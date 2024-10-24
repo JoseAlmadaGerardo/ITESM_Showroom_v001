@@ -9,3 +9,9 @@ else:
     client = OpenAI(api_key=openai_api_key)
     import streamlit as st
     
+st.set_page_config(page_title="Proyect_documentation", page_icon="📊")
+st.markdown("# X_Documentation")
+st.sidebar.header("Project documentation")
+
+st.title("Project Documentation")
+st.subheader("Project documentation will be here.")
