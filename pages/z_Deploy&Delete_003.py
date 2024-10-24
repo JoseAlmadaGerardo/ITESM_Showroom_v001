@@ -6,7 +6,7 @@ from urllib.error import URLError
 #from openai import OpenAI
 
 st.set_page_config(page_title="UCase_002", page_icon="🌍")
-st.markdown("# template_004")
+st.markdown("# template_003")
 st.sidebar.header("Template")
 
 st.title("Just a template")
