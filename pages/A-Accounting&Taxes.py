@@ -4,12 +4,12 @@ import numpy as np
 #import PyPDF2
 #from openai import OpenAI
 
-st.set_page_config(page_title="UCase_001",  page_icon="1")
-st.markdown("# UCase_001")
-st.sidebar.header("UCase_001")
+st.set_page_config(page_title="Indusrty_#001",  page_icon="1")
+st.markdown("# Accounting and taxes.")
+st.sidebar.header("Accounting and taxes.")
 
-st.title("Manufacturing: Use Case #1​")
-st.subheader("Factory Asset Effectiveness.​")
+st.title(" Uses case at Accounting and taxes")
+st.subheader("Accounting records tracking. ")
 st.write("📄 Answers to questions about .TX, .MD, and .PDF documents. Upload a document below and ask a question about it – GPT will answer!")
 st.write("Note: To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys)."
 )
