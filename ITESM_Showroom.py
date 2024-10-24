@@ -41,9 +41,9 @@ with col2:
     st.markdown(
         """
         📝 Learn About Streamlit, Assistant API and More Demos:
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community forums](https://discuss.streamlit.io)
+        - Check out [Streamlit.io](https://streamlit.io)
+        - Jump into [Streamlit documentation](https://docs.streamlit.io)
+        - Ask a question in [Streamlit community forums](https://discuss.streamlit.io)
         - Check out [Assistant API by OpenAI](https://platform.openai.com/docs/assistants/overview)
         - Explore additional complex demos and industry use cases.
         """
