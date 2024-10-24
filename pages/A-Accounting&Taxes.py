@@ -1,18 +1,26 @@
 import streamlit as st
 import time
 import numpy as np
-#import PyPDF2
-#from openai import OpenAI
 
+#INTRO:
 st.set_page_config(page_title="Indusrty_#001",  page_icon="1")
-st.markdown("# Accounting and taxes.")
-st.sidebar.header("Accounting and taxes.")
-
-st.title(" Uses case at Accounting and taxes")
-st.subheader("Accounting records tracking. ")
-st.write("📄 Answers to questions about .TX, .MD, and .PDF documents. Upload a document below and ask a question about it – GPT will answer!")
-st.write("Note: To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys)."
+st.markdown("# AI applications at Accounting and taxes.")
+st.sidebar.header("AI APPLICATIONS AT ACCOUNTING AND TAXES.")
+st.markdown(
+    """
+    Accounting, finance, and taxation in Mexico are critical areas that demand accuracy 
+    and constant scrutiny. Confirming accounting records is essential to ensure that all 
+    financial transactions are properly documented and reflect the entity's economic reality. 
+    Additionally, accounting calculations such as depreciation and amortization help distribute 
+    asset costs over time, providing a more accurate view of their value and utility.
+    """
 )
+
+st.title("Uses case at Accounting and Taxes")
+st.write(" - 📄 Accounting records tracking.")
+st.write(" - 📄 Accounting calculations (depreciation, amortization, among others).")
+
+st.write(" 👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
 
 progress_bar = st.sidebar.progress(0)
 status_text = st.sidebar.empty()
