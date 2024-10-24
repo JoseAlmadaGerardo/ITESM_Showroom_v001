@@ -52,7 +52,6 @@ page_names_to_funcs[demo_name]()
 
 # General Progress Bar and Placeholder (can be reused across pages)
 #INTRO:
-st.set_page_config(page_title="Indusrty_#001",  page_icon="1")
 st.markdown("# AI applications at Accounting and taxes.")
 st.sidebar.header("AI APPLICATIONS AT ACCOUNTING AND TAXES.")
 st.markdown(
