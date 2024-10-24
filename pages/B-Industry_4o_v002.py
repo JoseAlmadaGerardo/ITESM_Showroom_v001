@@ -93,11 +93,6 @@ page_names_to_funcs = {
 # Sidebar for Navigation
 st.sidebar.header("Industry 4.0 & Manufacturing")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
-
-# Render Selected Page
-page_names_to_funcs[demo_name]()
-
-# General Introductory Content
 st.markdown("# AI at Industry 4.0 & Manufacturing")
 st.write(
     """
@@ -105,4 +100,12 @@ st.write(
     AI assistants can enhance productivity, troubleshooting, and equipment monitoring.
     """
 )
+st.write(" - 📄 Fanuc Robot Assistant")
+st.write(" - 📄  Configurations of electronic components Assistant.).")
+st.write (" - 📄  Factory Asset Effectiveness.")
+
+# Render Selected Page
+page_names_to_funcs[demo_name]()
+
+# General Introductory Content
 st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
