@@ -4,19 +4,10 @@ import numpy as np
 
 #INTRO:
 st.set_page_config(page_title="Indusrty_#001",  page_icon="1")
-st.markdown("# AI applications at Accounting and taxes.")
-st.sidebar.header("AI APPLICATIONS AT ACCOUNTING AND TAXES.")
-st.markdown(
-    """
-    Accounting, finance, and taxation in Mexico are critical areas that demand accuracy 
-    and constant scrutiny. Confirming accounting records is essential to ensure that all 
-    financial transactions are properly documented and reflect the entity's economic reality. 
-    Additionally, accounting calculations such as depreciation and amortization help distribute 
-    asset costs over time, providing a more accurate view of their value and utility.
-    """
-)
+st.markdown("# template_002")
+st.sidebar.header("Template")
 
-st.title("Uses case at Accounting and Taxes")
+st.title("Just a template")
 st.write(" - 📄 Accounting records tracking.")
 st.write(" - 📄 Accounting calculations (depreciation, amortization, among others).")
 st.write (" - 📄 Conversión de entrada de datos en facturas basadas en imágenes.")
