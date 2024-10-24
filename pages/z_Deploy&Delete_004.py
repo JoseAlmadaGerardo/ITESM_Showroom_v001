@@ -4,10 +4,10 @@ from openai import OpenAI
 
 st.set_page_config(page_title="UCase_006", page_icon="📊")
 st.markdown("# UCase_006")
-st.sidebar.header("UCase_006")
+st.sidebar.header("Template")
 
-st.title("Manufacturing: Use Case #6")
-st.subheader("Fanuc Robot Assistant")
+st.title("Just a template")
+st.subheader("GPT Assistant")
 st.write("📄 Enter an alarm code for Fanuc robots, and GPT will provide troubleshooting steps!")
 
 # Use API key from session state
