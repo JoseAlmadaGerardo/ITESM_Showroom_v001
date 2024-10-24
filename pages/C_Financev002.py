@@ -1,5 +1,5 @@
 import streamlit as st
-import openai  # Import OpenAI API
+from openai import OpenAI
 
 # Use API key from session state
 if "api_key" not in st.session_state:
