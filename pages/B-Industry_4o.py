@@ -2,11 +2,11 @@ import streamlit as st
 from openai import OpenAI
 # UCase_006(v002): Submit request PB was added
 
-st.set_page_config(page_title="UCase_007", page_icon="📊")
-st.markdown("# UCase_007")
-st.sidebar.header("UCase_007")
+st.set_page_config(page_title="Indusrty_#001", page_icon="📊")
+st.markdown("# AI at Industry 4.0 & Manufacturing  ")
+st.sidebar.header("Industry 4.0 & Manufacturing")
 
-st.title("Manufacturing: Use Case #7")
+st.title("Use Cases atIndustry 4.0 & Manufacturing")
 st.subheader("Fanuc Robot Assistant")
 st.write("📄 Enter an alarm code for Fanuc robots, and GPT will provide troubleshooting steps!")
 
