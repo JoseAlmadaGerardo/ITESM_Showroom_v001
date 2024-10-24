@@ -19,7 +19,7 @@ st.markdown(
 st.title("Uses case at Accounting and Taxes")
 st.write(" - 📄 Accounting records tracking.")
 st.write(" - 📄 Accounting calculations (depreciation, amortization, among others).")
-st.write (" -📄 Conversión de entrada de datos en facturas basadas en imágenes.")
+st.write (" - 📄 Conversión de entrada de datos en facturas basadas en imágenes.")
 
 st.write(" 👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
 
