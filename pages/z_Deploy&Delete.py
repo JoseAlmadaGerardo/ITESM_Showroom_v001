@@ -4,10 +4,10 @@ from openai import OpenAI
 # UCase_005(v002): Submit request PB was added
 
 st.set_page_config(page_title="UCase_005", page_icon="📊")
-st.markdown("# UCase_005")
-st.sidebar.header("UCase_005")
+st.markdown("# template_005")
+st.sidebar.header("Template")
 
-st.title("Manufacturing: Use Case #5")
+st.title("Just a template")
 st.subheader("Factory Asset Effectiveness")
 st.write("📄 Upload a document below and ask a question about it – GPT will answer!")
 
