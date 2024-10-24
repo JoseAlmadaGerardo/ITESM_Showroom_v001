@@ -7,11 +7,6 @@ st.set_page_config(page_title="Indusrty_#001",  page_icon="1")
 st.markdown("# template_002")
 st.sidebar.header("Template")
 
-st.title("Just a template")
-st.write(" - 📄 Accounting records tracking.")
-st.write(" - 📄 Accounting calculations (depreciation, amortization, among others).")
-st.write (" - 📄 Conversión de entrada de datos en facturas basadas en imágenes.")
-
 st.write(" 👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
 
 progress_bar = st.sidebar.progress(0)
