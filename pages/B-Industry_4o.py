@@ -7,7 +7,6 @@ st.markdown("# AI at Industry 4.0 & Manufacturing  ")
 st.sidebar.header("Industry 4.0 & Manufacturing")
 
 st.title("Use Cases atIndustry 4.0 & Manufacturing")
-st.title("Use Cases atIndustry 4.0 & Manufacturing")
 st.write(" - 📄 Fanuc Robot Assistant")
 st.write(" - 📄  Configurations of electronic components Assistant.).")
 st.write (" - 📄  Factory Asset Effectiveness.")
