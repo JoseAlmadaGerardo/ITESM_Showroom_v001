@@ -3,7 +3,7 @@ from openai import OpenAI
 # UCase_006(v002): Submit request PB was added
 
 st.set_page_config(page_title="UCase_006", page_icon="📊")
-st.markdown("# UCase_006")
+st.markdown("# template_004")
 st.sidebar.header("Template")
 
 st.title("Just a template")
