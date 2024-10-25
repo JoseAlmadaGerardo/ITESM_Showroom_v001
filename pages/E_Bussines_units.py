@@ -70,7 +70,6 @@ def documentation():
     )
     st.write("Documentation will be added here.")
 
-
 # Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
