@@ -70,7 +70,7 @@ if demo_name == "—":
         **Explore Use Cases:**
         - 📄 Accounting records tracking.
         - 📄 Accounting calculations (depreciation, amortization, among others.
-        - 📄 Conversión de entrada de datos en facturas basadas en imágenes.
+        - 📄 Converting data entry into image-based invoices.
         """
     )
     st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
