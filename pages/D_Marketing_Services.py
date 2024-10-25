@@ -59,6 +59,16 @@ def social_commitment():
     )
     st.write("More details about Social Commitment will be added here.")
 
+# Page 5: Documentation
+def documentation():
+    st.markdown("# 📄 Documentation ")
+    st.markdown(
+        """
+        At this section you will find the documentation about the cases explained for the Bussines units.
+        """
+    )
+    st.write("Documentation will be added here.")
+
 # Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
@@ -66,6 +76,7 @@ page_names_to_funcs = {
     "📄 Content Localization": content_localization,
     "📄 Authenticity of the Content": content_authenticity,
     "📄 Social Commitment": social_commitment,
+    "📄 Documentation": documentation,
 }
 
 # Sidebar for Navigation
@@ -85,6 +96,7 @@ if demo_name == "—":
         - 📄 Content Localization.
         - 📄 Authenticity of the Content.
         - 📄 Social Commitment.
+        - 📄 Documentation.
         """
     )
     st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
