@@ -10,32 +10,6 @@ if "api_key" not in st.session_state:
 else:
     openai_api_key = st.session_state.api_key
     client = OpenAI(api_key=openai_api_key)
-# Main Page Selection
-page_names_to_funcs = {
-    "—": lambda: st.write("Select a page from the sidebar."),
-    "📄 Fanuc Robot Assistant": fanuc_robot_assistant,
-    "📄 Configurations of Electronic Components Assistant": electronic_components_assistant,
-    "📄 Factory Asset Effectiveness": factory_asset_effectiveness,
-}
-
-# Sidebar for Navigation
-st.sidebar.header("Industry 4.0 & Manufacturing")
-demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
-st.markdown("# AI at Industry 4.0 & Manufacturing")
-
-st.markdown(
-    """
-    Industry 4.0 integrates AI to optimize manufacturing processes. Explore use cases that show how 
-    AI assistants can enhance productivity, troubleshooting, and equipment monitoring.
-    """
-    """
-        📝 Learn abou our ecplored use cases demos:, Assistant API and More Demos:
-        - 📄 Fanuc Robot Assistant.
-        - 📄  Configurations of electronic components Assistant.
-        - 📄  Factory Asset Effectiveness.
-
-    """
-    )
 
 # Render Selected Page
 page_names_to_funcs[demo_name]()
@@ -113,3 +87,30 @@ def factory_asset_effectiveness():
         """
     )
     st.write("More details about Factory Asset Effectiveness will be added here.")
+
+# Main Page Selection
+page_names_to_funcs = {
+    "—": lambda: st.write("Select a page from the sidebar."),
+    "📄 Fanuc Robot Assistant": fanuc_robot_assistant,
+    "📄 Configurations of Electronic Components Assistant": electronic_components_assistant,
+    "📄 Factory Asset Effectiveness": factory_asset_effectiveness,
+}
+
+# Sidebar for Navigation
+st.sidebar.header("Industry 4.0 & Manufacturing")
+demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
+st.markdown("# AI at Industry 4.0 & Manufacturing")
+
+st.markdown(
+    """
+    Industry 4.0 integrates AI to optimize manufacturing processes. Explore use cases that show how 
+    AI assistants can enhance productivity, troubleshooting, and equipment monitoring.
+    """
+    """
+        📝 Learn abou our ecplored use cases demos:, Assistant API and More Demos:
+        - 📄 Fanuc Robot Assistant.
+        - 📄  Configurations of electronic components Assistant.
+        - 📄  Factory Asset Effectiveness.
+
+    """
+    )
