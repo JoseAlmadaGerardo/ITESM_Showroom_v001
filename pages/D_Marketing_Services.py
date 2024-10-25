@@ -76,7 +76,6 @@ demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys()
 page_names_to_funcs[demo_name]()
 
 # Introductory content for the main page
-if demo_name == "—":
 st.markdown("# AI at Marketing")
 st.write(
     """
