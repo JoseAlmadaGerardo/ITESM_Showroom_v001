@@ -91,7 +91,7 @@ page_names_to_funcs = {
 }
 
 # Sidebar for Navigation
-st.sidebar.header("AI AT INDUSTRY 4.0 & MANUFACTURING')
+st.sidebar.header("AI AT INDUSTRY 4.0 & MANUFACTURING")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
 st.markdown("# AI AT INDUSTRY 4.0 & MANUFACTURING")
 
