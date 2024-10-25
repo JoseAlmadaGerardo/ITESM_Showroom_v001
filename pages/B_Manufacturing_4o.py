@@ -82,12 +82,23 @@ def factory_asset_effectiveness():
     )
     st.write("More details about Factory Asset Effectiveness will be added here.")
 
+# Page 4: Documentation
+def documentation():
+    st.markdown("# 📄 Documentation ")
+    st.markdown(
+        """
+        At this section you will find the documentation about the cases explained for the Bussines units.
+        """
+    )
+    st.write("Documentation will be added here.")
+
 # Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
     "📄 Fanuc Robot Assistant": fanuc_robot_assistant,
     "📄 Configurations of Electronic Components Assistant": electronic_components_assistant,
     "📄 Factory Asset Effectiveness": factory_asset_effectiveness,
+    "📄 Documentation": documentation,
 }
 
 # Sidebar for Navigation
@@ -106,6 +117,7 @@ if demo_name == "—":
         - 📄 Fanuc Robot Assistant.
         - 📄 Configurations of electronic components Assistant.
         - 📄 Factory Asset Effectiveness.
+        - 📄 Documentation.
         """
     )
     st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
