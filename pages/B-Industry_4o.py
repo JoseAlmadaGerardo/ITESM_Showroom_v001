@@ -94,15 +94,20 @@ page_names_to_funcs = {
 st.sidebar.header("Industry 4.0 & Manufacturing")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
 st.markdown("# AI at Industry 4.0 & Manufacturing")
-st.write(
+
+st.markdown(
     """
     Industry 4.0 integrates AI to optimize manufacturing processes. Explore use cases that show how 
     AI assistants can enhance productivity, troubleshooting, and equipment monitoring.
     """
-)
-st.write(" - 📄 Fanuc Robot Assistant")
-st.write(" - 📄  Configurations of electronic components Assistant.).")
-st.write (" - 📄  Factory Asset Effectiveness.")
+    """
+        📝 Learn abou our ecplored use cases demos:, Assistant API and More Demos:
+        - 📄 Fanuc Robot Assistant.
+        - 📄  Configurations of electronic components Assistant.
+        - 📄  Factory Asset Effectiveness.
+
+    """
+    )
 
 # Render Selected Page
 page_names_to_funcs[demo_name]()
