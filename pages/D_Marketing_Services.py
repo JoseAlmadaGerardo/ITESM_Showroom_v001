@@ -59,7 +59,7 @@ def social_commitment():
     )
     st.write("More details about Social Commitment will be added here.")
 
-# Dictionary to map page names to functions
+# Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
     "📄 Content Co-pilot": content_copilot,
@@ -68,26 +68,26 @@ page_names_to_funcs = {
     "📄 Social Commitment": social_commitment,
 }
 
-# Sidebar for navigation
-st.sidebar.header("Marketing Services")
+# Sidebar for Navigation
+st.sidebar.header("AI AT MARKETING SERVICES")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
+st.markdown("# AI AT MARKETING SERVICES")
 
-# Render the selected page
+# Render Main Introductory Content Only on Main Page
+if demo_name == "—":
+    st.markdown(
+        """
+        AI is revolutionizing marketing services by enhancing content creation, localization, and ensuring 
+        the authenticity of brand messaging. Additionally, AI tools can help brands demonstrate their social commitment.
+        
+        **Explore Use Cases:**
+        - 📄 Content Co-pilot.
+        - 📄 Content Localization.
+        - 📄 Authenticity of the Content.
+        - 📄 Social Commitment.
+        """
+    )
+    st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
+
+# Render Selected Page
 page_names_to_funcs[demo_name]()
-
-# Introductory content for the main page
-st.markdown("# AI at Marketing")
-st.write(
-    """
-    👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve in marketing.
-    AI is revolutionizing marketing services by enhancing content creation, localization, and ensuring 
-    the authenticity of brand messaging. Additionally, AI tools can help brands demonstrate their social commitment.
-    """
-)
-
-st.title("Use Cases in Marketing")
-st.write(" - 📄 Content Co-pilot.")
-st.write(" - 📄 Content Localization.")
-st.write(" - 📄 Authenticity of the Content.")
-st.write(" - 📄 Social Commitment.")
-st.write("👈 Select a page from the sidebar to explore AI use cases in marketing services.")
