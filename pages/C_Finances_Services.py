@@ -60,7 +60,7 @@ def next_best_investment():
     )
     st.write("More details about next best investment and product selection will be added here.")
 
-# Dictionary to map page names to functions
+# Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
     "📄 Redirection/Forecasting Customer Turnover": customer_turnover_forecasting,
@@ -69,27 +69,26 @@ page_names_to_funcs = {
     "📄 Next Best Investment and Product Selection": next_best_investment,
 }
 
-# Sidebar for navigation
-st.sidebar.header("Finance Services")
+# Sidebar for Navigation
+st.sidebar.header("AI AT FINANCE SERVICES")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
+st.markdown("# AI AT FINANCE SERVICES")
 
-# Render the selected page
+# Render Main Introductory Content Only on Main Page
+if demo_name == "—":
+    st.markdown(
+        """
+        Financial services are leveraging AI to improve customer experiences, streamline operations, 
+        and enhance decision-making processes.
+        
+        **Explore Use Cases:**
+        - 📄 Redirection/Forecasting Customer Turnover.
+        - 📄 Chatbots (Customer Service).
+        - 📄 Co-pilot Market Scenario Planner.
+        - 📄 Next Best Investment and Product Selection.
+        """
+    )
+    st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
+
+# Render Selected Page
 page_names_to_funcs[demo_name]()
-
-# Introductory content for the main page
-st.markdown("# AI in Financial Services")
-st.write(
-    """
-    👈 Select a use case from the dropdown on the left to explore how AI can enhance financial services.
-    Financial services are leveraging AI to improve customer experiences, streamline operations, 
-    and enhance decision-making processes.
-    """
-)
-
-st.title("Use Cases in Finance Services")
-st.write(" - 📄 Redirection/Forecasting Customer Turnover.")
-st.write(" - 📄 Chatbots (Customer Service).")
-st.write(" - 📄 Co-pilot Market Scenario Planner.")
-st.write(" - 📄 Next Best Investment and Product Selection.")
-st.write("👈 Select a page from the sidebar to explore AI use cases in finance services.")
-
