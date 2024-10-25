@@ -111,7 +111,7 @@ if demo_name == "—":
     st.markdown(
         """
         Manufacturing 4.0 integrates AI to optimize manufacturing processes. Explore use cases that show how 
-        AI assistants can enhance productivity, troubleshooting, and equipment monitoring.
+        AI assistants can enhance productivity, troubleshooting and equipment monitoring.
         
         **Explore Use Cases:**
         - 📄 Fanuc Robot Assistant.
