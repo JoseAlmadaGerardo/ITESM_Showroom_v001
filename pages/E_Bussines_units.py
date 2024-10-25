@@ -60,7 +60,7 @@ def it_support():
     )
     st.write("More details about AI in IT Support will be added here.")
 
-# Dictionary to map page names to functions
+# Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
     "📄 Customer Support": customer_support,
@@ -69,27 +69,26 @@ page_names_to_funcs = {
     "📄 IT Support": it_support,
 }
 
-# Sidebar for navigation
-st.sidebar.header("Business Units")
+# Sidebar for Navigation
+st.sidebar.header("AI AT BUSSINES UNITS")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
+st.markdown("# AI AT BUSSINES UNITS")
 
-# Introductory content for the main page
+# Render Main Introductory Content Only on Main Page
 if demo_name == "—":
-st.markdown("# AI at Business Units")
-st.write(
-    """
-    👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve in business units.
-    AI is transforming various business unit operations, from customer support and sales to human resources and IT support. 
-    Explore how AI can improve efficiency, decision-making, and overall performance across these areas.
-    """
-)
+    st.markdown(
+        """
+        AI is transforming various business unit operations, from customer support and sales to human resources and IT support. 
+        Explore how AI can improve efficiency, decision-making, and overall performance across these areas.
+        
+        **Explore Use Cases:**
+        - 📄 Customer Support.
+        - 📄 Sales.
+        - 📄 Human Resources.
+        - 📄 IT Support.
+        """
+    )
+    st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
 
-st.title("Use Cases in Business Units")
-st.write(" - 📄 Customer Support.")
-st.write(" - 📄 Sales.")
-st.write(" - 📄 Human Resources.")
-st.write(" - 📄 IT Support.")
-st.write("👈 Select a page from the sidebar to explore AI use cases in business units.")
-
-# Render the selected page
+# Render Selected Page
 page_names_to_funcs[demo_name]()
