@@ -7,8 +7,7 @@ if "api_key" not in st.session_state:
 else:
     openai_api_key = st.session_state.api_key
     client = OpenAI(api_key=openai_api_key)
-    import streamlit as st
-    
+
 # Set page configuration
 st.set_page_config(page_title="Industry_#003", page_icon="📊")
 
