@@ -91,15 +91,15 @@ page_names_to_funcs = {
 }
 
 # Sidebar for Navigation
-st.sidebar.header("AI AT INDUSTRY 4.0 & MANUFACTURING")
+st.sidebar.header("AI AT MANUFACTURING 4.0")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
-st.markdown("# AI AT INDUSTRY 4.0 & MANUFACTURING")
+st.markdown("# AI AT MANUFACTURING 4.0")
 
 # Render Main Introductory Content Only on Main Page
 if demo_name == "—":
     st.markdown(
         """
-        Industry 4.0 integrates AI to optimize manufacturing processes. Explore use cases that show how 
+        Manufacturing 4.0 integrates AI to optimize manufacturing processes. Explore use cases that show how 
         AI assistants can enhance productivity, troubleshooting, and equipment monitoring.
         
         **Explore Use Cases:**
