@@ -59,6 +59,16 @@ def next_best_investment():
     )
     st.write("More details about next best investment and product selection will be added here.")
 
+# Page 5: Documentation
+def documentation():
+    st.markdown("# 📄 Documentation ")
+    st.markdown(
+        """
+        At this section you will find the documentation about the cases explained for the Bussines units.
+        """
+    )
+    st.write("Documentation will be added here.")
+
 # Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
@@ -66,6 +76,7 @@ page_names_to_funcs = {
     "📄 Chatbots (Customer Service)": chatbots_customer_service,
     "📄 Co-pilot Market Scenario Planner": copilot_market_scenario_planner,
     "📄 Next Best Investment and Product Selection": next_best_investment,
+    "📄 Documentation": documentation,
 }
 
 # Sidebar for Navigation
@@ -85,6 +96,7 @@ if demo_name == "—":
         - 📄 Chatbots (Customer Service).
         - 📄 Co-pilot Market Scenario Planner.
         - 📄 Next Best Investment and Product Selection.
+         - 📄 Documentation.
         """
     )
     st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
