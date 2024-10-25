@@ -43,13 +43,24 @@ def data_entry_conversion():
         """
     )
     st.write("More details about Data Entry to Invoice Conversion will be added here.")
-# Modificacion
+
+# Page 4: Documentation
+def documentation():
+    st.markdown("# 📄 Documentation ")
+    st.markdown(
+        """
+        At this section you will find the documentation about the cases explained for the Bussines units.
+        """
+    )
+    st.write("Documentation will be added here.")
+
 # Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
     "📄 Accounting records tracking": accounting_records_tracking,
     "📄 Accounting calculations": accounting_calculations,
     "📄 Data entry conversion": data_entry_conversion,
+    "📄 Documentation": documentation,
 }
 
 # Sidebar for Navigation
@@ -71,6 +82,7 @@ if demo_name == "—":
         - 📄 Accounting records tracking.
         - 📄 Accounting calculations (depreciation, amortization, among others.
         - 📄 Converting data entry into image-based invoices.
+        - 📄 Documentation.
         """
     )
     st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
