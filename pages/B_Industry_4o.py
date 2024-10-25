@@ -91,9 +91,9 @@ page_names_to_funcs = {
 }
 
 # Sidebar for Navigation
-st.sidebar.header("Industry 4.0 & Manufacturing")
+st.sidebar.header("AI AT INDUSTRY 4.0 & MANUFACTURING')
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
-st.markdown("# AI at Industry 4.0 & Manufacturing")
+st.markdown("# AI AT INDUSTRY 4.0 & MANUFACTURING")
 
 # Render Main Introductory Content Only on Main Page
 if demo_name == "—":
