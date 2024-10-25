@@ -60,12 +60,12 @@ st.markdown("# AI AT ACCOUNTING AND TAXES.")
 # Render Main Introductory Content Only on Main Page
 if demo_name == "—":
     st.markdown(
-    """
-    Accounting, finance, and taxation in Mexico are critical areas that demand accuracy 
-    and constant scrutiny. Confirming accounting records is essential to ensure that all 
-    financial transactions are properly documented and reflect the entity's economic reality. 
-    Additionally, accounting calculations such as depreciation and amortization help distribute 
-    asset costs over time, providing a more accurate view of their value and utility.
+        """
+        Accounting, finance, and taxation in Mexico are critical areas that demand accuracy 
+        and constant scrutiny. Confirming accounting records is essential to ensure that all 
+        financial transactions are properly documented and reflect the entity's economic reality. 
+        Additionally, accounting calculations such as depreciation and amortization help distribute 
+        asset costs over time, providing a more accurate view of their value and utility.
         
         **Explore Use Cases:**
         - 📄 Accounting records tracking.
