@@ -53,9 +53,9 @@ page_names_to_funcs = {
 }
 
 # Sidebar for Navigation
-st.sidebar.header("AI APPLICATIONS AT ACCOUNTING AND TAXES.")
+st.sidebar.header("AI AT ACCOUNTING AND TAXES.")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
-st.markdown("# AI applications at Accounting and taxes.")
+st.markdown("# AI AT ACCOUNTING AND TAXES.")
 
 # Render Main Introductory Content Only on Main Page
 if demo_name == "—":
