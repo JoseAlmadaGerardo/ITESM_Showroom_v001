@@ -24,8 +24,9 @@ def fanuc_robot_assistant():
     st.write("More details about Fanuc Robot Assistant functionalities will be added here.")
 
     # Ask for the alarm code directly instead of uploading a document.
-    st.write(" I'm Lucas_727, your Fanuc Robot Assistant powered by OpenAI API!")
+    st.write(" I'm Lucas_7, your Fanuc Robot Assistant powered by OpenAI API!")
     st.write(" I will provide you the explanation and road map for troubleshooting a robot alarm code.")
+    St.write ("Note: This GPT still on trainning, sothe answers are not accurate yet"
     alarm_code = st.text_area(
         "Describe the Robot Alarm Code:",
         placeholder="Enter the alarm code (e.g., SRVO-023 or a description of the issue)...",
@@ -35,7 +36,7 @@ def fanuc_robot_assistant():
     if st.button("Submit"):
         if alarm_code:
             # Construct the specific prompt for the AI assistant.
-            question = f"Can you give me the explanation and road map to troubleshoot the Robot alarm code: {alarm_code}"
+            question = f"Can you give me the explanation and road map to troubleshoot specific Fanuc Robot alarm code: {alarm_code}"
 
             # Generate a response using the OpenAI API.
             messages = [
