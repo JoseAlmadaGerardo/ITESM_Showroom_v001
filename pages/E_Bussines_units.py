@@ -73,10 +73,8 @@ page_names_to_funcs = {
 st.sidebar.header("Business Units")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
 
-# Render the selected page
-page_names_to_funcs[demo_name]()
-
 # Introductory content for the main page
+if demo_name == "—":
 st.markdown("# AI at Business Units")
 st.write(
     """
@@ -92,3 +90,6 @@ st.write(" - 📄 Sales.")
 st.write(" - 📄 Human Resources.")
 st.write(" - 📄 IT Support.")
 st.write("👈 Select a page from the sidebar to explore AI use cases in business units.")
+
+# Render the selected page
+page_names_to_funcs[demo_name]()
