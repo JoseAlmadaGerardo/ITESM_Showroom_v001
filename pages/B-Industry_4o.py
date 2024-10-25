@@ -11,12 +11,6 @@ else:
     openai_api_key = st.session_state.api_key
     client = OpenAI(api_key=openai_api_key)
 
-# Render Selected Page
-page_names_to_funcs[demo_name]()
-
-# General Introductory Content
-st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
-
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
     st.markdown("# 📄 Fanuc Robot Assistant")
@@ -114,3 +108,9 @@ st.markdown(
 
     """
     )
+# Render Selected Page
+page_names_to_funcs[demo_name]()
+
+# General Introductory Content
+st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
+
