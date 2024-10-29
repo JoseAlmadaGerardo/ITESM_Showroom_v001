@@ -22,41 +22,15 @@ if "fanuc_total_tokens" not in st.session_state:
     st.session_state.fanuc_total_tokens = 0
 if "components_total_tokens" not in st.session_state:
     st.session_state.components_total_tokens = 0
-if "custom_components" not in st.session_state:
-    st.session_state.custom_components = []
+if "rag_files" not in st.session_state:
+    st.session_state.rag_files = {
+        "fanuc": [],
+        "components": [],
+        "documentation": []
+    }
 
 # Initialize OpenAI client
 client = OpenAI(api_key=st.session_state.api_key)
-
-# Custom CSS for better styling
-st.markdown("""
-    <style>
-    .main {
-        padding: 0rem 1rem;
-    }
-    .stButton>button {
-        width: 100%;
-    }
-    .chat-message {
-        padding: 1.5rem;
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
-        border: 1px solid #e0e0e0;
-    }
-    .user-message {
-        background-color: #f8f9fa;
-    }
-    .assistant-message {
-        background-color: #e8f4f9;
-    }
-    .token-counter {
-        padding: 0.5rem;
-        background-color: #f8f9fa;
-        border-radius: 0.5rem;
-        margin-top: 1rem;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 # Utility function for OpenAI API calls
 def get_ai_response(prompt, model="gpt-4", temperature=0.7, max_tokens=500):
@@ -72,29 +46,40 @@ def get_ai_response(prompt, model="gpt-4", temperature=0.7, max_tokens=500):
         st.error(f"An error occurred: {str(e)}")
         return None, 0
 
+# File Management Function
+def file_management_section(section_key):
+    uploaded_file = st.file_uploader(f"Upload RAG File for {section_key}", type=['txt', 'csv', 'json'], key=f"uploader_{section_key}")
+    if uploaded_file:
+        file_details = {"name": uploaded_file.name, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+        if file_details not in st.session_state.rag_files[section_key]:
+            st.session_state.rag_files[section_key].append(file_details)
+            st.success(f"File {uploaded_file.name} uploaded successfully!")
+
+    if st.session_state.rag_files[section_key]:
+        st.write("Available Files:")
+        for file in st.session_state.rag_files[section_key]:
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                st.text(f"{file['name']} - {file['timestamp']}")
+            with col2:
+                if st.button("Remove", key=f"remove_{section_key}_{file['name']}"):
+                    st.session_state.rag_files[section_key].remove(file)
+                    st.experimental_rerun()
+
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
     st.header("🤖 Fanuc Robot Assistant")
     
-    # Description
-    st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;'>
-        The Fanuc Robot Assistant supports automated operations, error troubleshooting, and 
-        configuration management of industrial robots. It helps in diagnosing and resolving 
-        common errors in Fanuc robotic systems for smooth manufacturing workflows.
-        </div>
-    """, unsafe_allow_html=True)
-
-    # AI Assistant Selection
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([2, 1])
     with col1:
-        ai_option = st.radio("Choose AI Assistant:", ["GPT-4", "Custom AI Assistant"])
+        st.info("👋 I'm Lucas_7, your Fanuc Robot Assistant!")
+        st.warning("Note: This AI assistant is still in development mode.")
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
 
-    # Main Interface
-    st.info("👋 I'm Lucas_7, your Fanuc Robot Assistant!")
-    st.warning("Note: This AI assistant is still in development mode.")
+    # RAG File Management
+    with st.expander("Manage RAG Files"):
+        file_management_section("fanuc")
 
     alarm_code = st.text_area(
         "Describe the Robot Alarm Code:",
@@ -104,16 +89,11 @@ def fanuc_robot_assistant():
 
     if st.button("Submit", key="fanuc_submit"):
         if alarm_code:
-            question = f"Provide a detailed explanation and step-by-step troubleshooting roadmap for the Fanuc Robot alarm code: {alarm_code}. Include possible causes, safety precautions, and resolution steps."
-            
+            question = f"Provide a detailed explanation and troubleshooting steps for: {alarm_code}"
             with st.spinner("Generating response..."):
                 response, tokens = get_ai_response(question)
                 if response:
-                    st.markdown(f"""
-                        <div class='chat-message assistant-message'>
-                        {response}
-                        </div>
-                    """, unsafe_allow_html=True)
+                    st.markdown(response)
                     st.session_state.fanuc_chat_history.append({
                         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         "question": alarm_code,
@@ -121,149 +101,104 @@ def fanuc_robot_assistant():
                     })
                     st.session_state.fanuc_total_tokens += tokens
 
-    # Chat History
     if st.session_state.fanuc_chat_history:
-        st.subheader("Chat History")
-        for chat in reversed(st.session_state.fanuc_chat_history):
-            with st.expander(f"Query from {chat['timestamp']}"):
-                st.markdown(f"**Question:** {chat['question']}")
-                st.markdown(f"**Answer:** {chat['answer']}")
+        with st.expander("View Chat History"):
+            for chat in reversed(st.session_state.fanuc_chat_history):
+                st.markdown(f"**Time:** {chat['timestamp']}")
+                st.markdown(f"**Q:** {chat['question']}")
+                st.markdown(f"**A:** {chat['answer']}")
+                st.markdown("---")
 
 # Page 2: Electronic Components Assistant
 def electronic_components_assistant():
-    st.header("🔌 Configurations of Electronic Components Assistant")
+    st.header("🔌 Electronic Components Assistant")
     
-    # Description
-    st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;'>
-        This assistant helps with the setup and configuration of electronic components 
-        used in manufacturing systems. It ensures optimal configurations for the best 
-        performance and compatibility across different systems.
-        </div>
-    """, unsafe_allow_html=True)
-
-    # Component Management
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([2, 1])
     with col1:
-        new_component = st.text_input("Add new component type:")
-        if st.button("Add Component"):
-            if new_component and new_component not in st.session_state.custom_components:
-                st.session_state.custom_components.append(new_component)
-                st.success(f"Added {new_component} to component types!")
+        st.info("Configure and optimize electronic components with AI assistance.")
     with col2:
         st.metric("Tokens Used", st.session_state.components_total_tokens)
 
-    # Component Selection and Query
-    component_types = ["PLC", "HMI", "Servo Drive", "Sensor", "Other"] + st.session_state.custom_components
-    component_type = st.selectbox("Select the type of electronic component:", component_types)
+    # RAG File Management
+    with st.expander("Manage RAG Files"):
+        file_management_section("components")
+
+    component_type = st.selectbox(
+        "Select Component Type:",
+        ["PLC", "HMI", "Servo Drive", "Sensor", "Other"]
+    )
     
-    configuration_query = st.text_area(
+    query = st.text_area(
         "Describe your configuration question:",
-        placeholder="E.g., How to set up communication between a Siemens S7-1200 PLC and an HMI panel?",
+        placeholder="E.g., How to set up communication between components?",
         height=100
     )
     
-    if st.button("Get Configuration Assistance"):
-        if configuration_query:
-            prompt = f"Provide a detailed guide for configuring a {component_type} in the context of: {configuration_query}. Include step-by-step instructions, best practices, and any safety considerations."
-            
-            with st.spinner("Generating configuration guide..."):
-                response, tokens = get_ai_response(prompt, temperature=0.5)
+    if st.button("Get Assistance"):
+        if query:
+            prompt = f"Help with {component_type} configuration: {query}"
+            with st.spinner("Generating response..."):
+                response, tokens = get_ai_response(prompt)
                 if response:
-                    st.markdown(f"""
-                        <div class='chat-message assistant-message'>
-                        {response}
-                        </div>
-                    """, unsafe_allow_html=True)
+                    st.markdown(response)
                     st.session_state.components_chat_history.append({
                         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         "component": component_type,
-                        "question": configuration_query,
+                        "question": query,
                         "answer": response
                     })
                     st.session_state.components_total_tokens += tokens
 
-    # Chat History
     if st.session_state.components_chat_history:
-        st.subheader("Configuration History")
-        for chat in reversed(st.session_state.components_chat_history):
-            with st.expander(f"{chat['component']} Configuration - {chat['timestamp']}"):
+        with st.expander("View Chat History"):
+            for chat in reversed(st.session_state.components_chat_history):
+                st.markdown(f"**Time:** {chat['timestamp']}")
                 st.markdown(f"**Component:** {chat['component']}")
-                st.markdown(f"**Question:** {chat['question']}")
-                st.markdown(f"**Solution:** {chat['answer']}")
+                st.markdown(f"**Q:** {chat['question']}")
+                st.markdown(f"**A:** {chat['answer']}")
+                st.markdown("---")
 
 # Page 3: Documentation
 def documentation():
     st.header("📚 Documentation")
     
-    st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;'>
-        Access comprehensive documentation about the use cases explained for the Business Units.
-        This section provides detailed guides, specifications, and best practices.
-        </div>
-    """, unsafe_allow_html=True)
+    # File Management
+    st.subheader("Document Management")
+    file_management_section("documentation")
     
-    # Documentation Categories
-    doc_categories = {
-        "User Manuals": ["Fanuc Robot Operation", "PLC Programming", "HMI Configuration"],
-        "Technical Specifications": ["Robot Models", "Component Specifications", "System Requirements"],
-        "Troubleshooting Guides": ["Common Error Codes", "Network Issues", "Safety Systems"],
-        "Best Practices": ["Operation Guidelines", "Maintenance Schedules", "Safety Protocols"]
-    }
-    
-    selected_category = st.selectbox("Select Documentation Category:", list(doc_categories.keys()))
-    
-    st.subheader(f"{selected_category} Available:")
-    for doc in doc_categories[selected_category]:
-        with st.expander(doc):
-            st.info("Documentation content is being updated. Please check back soon.")
-            st.button(f"Download {doc} PDF", key=f"download_{doc}")
+    # View/Edit Documentation
+    if st.session_state.rag_files["documentation"]:
+        st.subheader("Available Documentation")
+        for doc in st.session_state.rag_files["documentation"]:
+            with st.expander(f"{doc['name']}"):
+                st.text(f"Last Updated: {doc['timestamp']}")
+                st.text_area("Edit Content", "", key=f"edit_{doc['name']}")
+                col1, col2 = st.columns([1, 1])
+                with col1:
+                    st.button("Save Changes", key=f"save_{doc['name']}")
+                with col2:
+                    st.button("Discard Changes", key=f"discard_{doc['name']}")
 
 # Main Page
 def main_page():
     st.title("AI AT MANUFACTURING 4.0")
     
     st.markdown("""
-        <div style='background-color: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem;'>
-        <h2>Welcome to the AI-powered Manufacturing 4.0 platform</h2>
-        <p>This system integrates artificial intelligence to optimize manufacturing processes, 
-        enhance productivity, and streamline equipment monitoring.</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # Feature Cards
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown("""
-            <div style='background-color: #e8f4f9; padding: 1rem; border-radius: 0.5rem; height: 200px;'>
-            <h3>🤖 Fanuc Robot Assistant</h3>
-            <p>Troubleshoot and manage Fanuc robotic systems with AI-powered assistance.</p>
-            </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-            <div style='background-color: #e8f4f9; padding: 1rem; border-radius: 0.5rem; height: 200px;'>
-            <h3>🔌 Electronic Components</h3>
-            <p>Configure and optimize electronic components with expert guidance.</p>
-            </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown("""
-            <div style='background-color: #e8f4f9; padding: 1rem; border-radius: 0.5rem; height: 200px;'>
-            <h3>📚 Documentation</h3>
-            <p>Access comprehensive guides and technical information.</p>
-            </div>
-        """, unsafe_allow_html=True)
+        Welcome to the AI-powered Manufacturing 4.0 platform. This system integrates 
+        artificial intelligence to optimize manufacturing processes and enhance productivity.
+        
+        **Available Features:**
+        - 🤖 Fanuc Robot Assistant
+        - 🔌 Electronic Components Assistant
+        - 📚 Documentation Management
+        
+        Select a feature from the sidebar to get started.
+    """)
 
 # Sidebar Navigation
 with st.sidebar:
     st.title("AI AT MANUFACTURING 4.0")
-    st.markdown("---")
     
-    # Navigation
     pages = {
         "Home": main_page,
         "🤖 Fanuc Robot Assistant": fanuc_robot_assistant,
@@ -272,15 +207,6 @@ with st.sidebar:
     }
     
     selected_page = st.radio("Navigation", list(pages.keys()))
-    
-    st.markdown("---")
-    # Token Usage Summary
-    st.markdown("### Token Usage Summary")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("Fanuc", st.session_state.fanuc_total_tokens)
-    with col2:
-        st.metric("Components", st.session_state.components_total_tokens)
     
     st.markdown("---")
     st.info("© 2024 AI Manufacturing Solutions")
