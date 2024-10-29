@@ -10,7 +10,7 @@ else:
     openai_api_key = st.session_state.api_key
     client = OpenAI(api_key=openai_api_key)
 
-#Page 1:
+# Depreciation and Amortization Calculations
 def calculate_straight_line_depreciation(initial_value, salvage_value, useful_life):
     annual_depreciation = (initial_value - salvage_value) / useful_life
     years = range(1, useful_life + 1)
@@ -24,20 +24,7 @@ def calculate_straight_line_depreciation(initial_value, salvage_value, useful_li
         'Accumulated Depreciation': accumulated_depreciation,
         'Book Value': book_value
     })
-    
-    st.header('Straight-Line Depreciation Calculator')
-    
-    initial_value = st.number_input('Initial Asset Value', min_value=0.0, value=10000.0, step=100.0)
-    salvage_value = st.number_input('Salvage Value', min_value=0.0, value=1000.0, step=100.0)
-    useful_life = st.number_input('Useful Life (years)', min_value=1, value=5, step=1)
-    
-    if st.button('Calculate Straight-Line Depreciation'):
-        df = calculate_straight_line_depreciation(initial_value, salvage_value, useful_life)
-        st.write(df)
-        st.plotly_chart(plot_depreciation(df, 'Straight-Line Depreciation'))
 
-
-#Page 2:
 def calculate_declining_balance_depreciation(initial_value, salvage_value, useful_life, rate):
     years = range(1, useful_life + 1)
     book_value = [initial_value]
@@ -45,11 +32,7 @@ def calculate_declining_balance_depreciation(initial_value, salvage_value, usefu
     accumulated_depreciation = []
     
     for year in years:
-        if year == useful_life:
-            dep = book_value[-1] - salvage_value
-        else:
-            dep = min(book_value[-1] * rate, book_value[-1] - salvage_value)
-        
+        dep = min(book_value[-1] * rate, book_value[-1] - salvage_value) if year != useful_life else book_value[-1] - salvage_value
         annual_depreciation.append(dep)
         accumulated_depreciation.append(sum(annual_depreciation))
         book_value.append(book_value[-1] - dep)
@@ -60,62 +43,23 @@ def calculate_declining_balance_depreciation(initial_value, salvage_value, usefu
         'Accumulated Depreciation': accumulated_depreciation,
         'Book Value': book_value[:-1]
     })
-    
-    st.header('Declining Balance Depreciation Calculator')
-    initial_value = st.number_input('Initial Asset Value', min_value=0.0, value=10000.0, step=100.0)
-    salvage_value = st.number_input('Salvage Value', min_value=0.0, value=1000.0, step=100.0)
-    useful_life = st.number_input('Useful Life (years)', min_value=1, value=5, step=1)
-    rate = st.number_input('Depreciation Rate (as decimal)', min_value=0.0, max_value=1.0, value=0.2, step=0.05)
-    
-    if st.button('Calculate Declining Balance Depreciation'):
-        df = calculate_declining_balance_depreciation(initial_value, salvage_value, useful_life, rate)
-        st.write(df)
-        st.plotly_chart(plot_depreciation(df, 'Declining Balance Depreciation'))
-        
-#Page 3:
+
 def calculate_amortization(principal, interest_rate, years):
     monthly_rate = interest_rate / 12 / 100
     num_payments = years * 12
-    
     monthly_payment = principal * (monthly_rate * (1 + monthly_rate)**num_payments) / ((1 + monthly_rate)**num_payments - 1)
-    
     schedule = []
     balance = principal
-    
+
     for payment in range(1, num_payments + 1):
         interest = balance * monthly_rate
         principal_payment = monthly_payment - interest
         balance -= principal_payment
-        
-        schedule.append({
-            'Payment': payment,
-            'Principal': principal_payment,
-            'Interest': interest,
-            'Balance': max(0, balance)
-        })
+        schedule.append({'Payment': payment, 'Principal': principal_payment, 'Interest': interest, 'Balance': max(0, balance)})
     
     return pd.DataFrame(schedule)
-    
-    st.header('Loan Amortization Calculator')
-    principal = st.number_input('Loan Principal', min_value=0.0, value=100000.0, step=1000.0)
-    interest_rate = st.number_input('Annual Interest Rate (%)', min_value=0.0, max_value=100.0, value=5.0, step=0.1)
-    years = st.number_input('Loan Term (years)', min_value=1, value=30, step=1)
-    
-    if st.button('Calculate Loan Amortization'):
-        df = calculate_amortization(principal, interest_rate, years)
-        st.write(df)
-        st.plotly_chart(plot_amortization(df))
 
-# Page 4: Documentation
-def documentation():
-    st.markdown("# 📄 Documentation ")
-    st.markdown(
-        """
-        At this section you will find the documentation about the cases explained for the Bussines units.
-        """
-    )
-    st.write("Documentation will be added here.")
-
+# Plotting Functions
 def plot_depreciation(df, title):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df['Year'], y=df['Book Value'], mode='lines+markers', name='Book Value'))
@@ -131,13 +75,48 @@ def plot_amortization(df):
     fig.update_layout(title='Amortization Schedule', xaxis_title='Payment Number', yaxis_title='Amount')
     return fig
 
+# Main Page Functions
+def straight_line_depreciation():
+    st.header('Straight-Line Depreciation Calculator')
+    initial_value = st.number_input('Initial Asset Value', min_value=0.0, value=10000.0, step=100.0)
+    salvage_value = st.number_input('Salvage Value', min_value=0.0, value=1000.0, step=100.0)
+    useful_life = st.number_input('Useful Life (years)', min_value=1, value=5, step=1)
+    if st.button('Calculate Straight-Line Depreciation'):
+        df = calculate_straight_line_depreciation(initial_value, salvage_value, useful_life)
+        st.write(df)
+        st.plotly_chart(plot_depreciation(df, 'Straight-Line Depreciation'))
 
-# Main Page Selection
+def declining_balance_depreciation():
+    st.header('Declining Balance Depreciation Calculator')
+    initial_value = st.number_input('Initial Asset Value', min_value=0.0, value=10000.0, step=100.0)
+    salvage_value = st.number_input('Salvage Value', min_value=0.0, value=1000.0, step=100.0)
+    useful_life = st.number_input('Useful Life (years)', min_value=1, value=5, step=1)
+    rate = st.number_input('Depreciation Rate (as decimal)', min_value=0.0, max_value=1.0, value=0.2, step=0.05)
+    if st.button('Calculate Declining Balance Depreciation'):
+        df = calculate_declining_balance_depreciation(initial_value, salvage_value, useful_life, rate)
+        st.write(df)
+        st.plotly_chart(plot_depreciation(df, 'Declining Balance Depreciation'))
+
+def amortization_calculator():
+    st.header('Loan Amortization Calculator')
+    principal = st.number_input('Loan Principal', min_value=0.0, value=100000.0, step=1000.0)
+    interest_rate = st.number_input('Annual Interest Rate (%)', min_value=0.0, max_value=100.0, value=5.0, step=0.1)
+    years = st.number_input('Loan Term (years)', min_value=1, value=30, step=1)
+    if st.button('Calculate Loan Amortization'):
+        df = calculate_amortization(principal, interest_rate, years)
+        st.write(df)
+        st.plotly_chart(plot_amortization(df))
+
+def documentation():
+    st.markdown("# 📄 Documentation ")
+    st.markdown("Documentation details about the cases explained for the Business units will be added here.")
+
+# Page Navigation
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
-    "📄 Straight line depreciation":  calculate_straight_line_depreciation,
-    "📄 Declining balance depreciation": calculate_declining_balance_depreciation,
-    "📄 Amortization calculator": calculate_amortization,
+    "📄 Straight-Line Depreciation": straight_line_depreciation,
+    "📄 Declining Balance Depreciation": declining_balance_depreciation,
+    "📄 Amortization Calculator": amortization_calculator,
     "📄 Documentation": documentation,
 }
 
@@ -146,23 +125,6 @@ st.sidebar.header("AI AT ACCOUNTING AND TAXES.")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
 st.markdown("# AI AT ACCOUNTING AND TAXES.")
 
-# Render Main Introductory Content Only on Main Page
-if demo_name == "—":
-    st.markdown(
-        """
-        Accounting, finance, and taxation in Mexico are critical areas that demand accuracy 
-        and constant scrutiny. Accounting calculations such as depreciation and amortization are vital for spreading the
-        cost of assets over their useful lives. This provides a clearer picture of the actual value 
-        and utility of an asset over time.
-        
-        **Explore Use Cases:**
-        - 📄 Accounting records tracking.
-        - 📄 Accounting calculations (depreciation, amortization, among others.
-        - 📄 Converting data entry into image-based invoices.
-        - 📄 Documentation.
-        """
-    )
-    st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
-
 # Render Selected Page
-page_names_to_funcs[demo_name]()
+if demo_name:
+    page_names_to_funcs[demo_name]()
