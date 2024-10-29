@@ -1,151 +1,149 @@
 import streamlit as st
 from openai import OpenAI
 import time
-import tiktoken
+import os
+from datetime import datetime
 
-# Initialize OpenAI client
-client = OpenAI(api_key=st.session_state.api_key)
+# Page configuration
+st.set_page_config(page_title="Manufacturing Assistant", page_icon="🏭", layout="wide")
 
-# Initialize session state variables
-if "fanuc_assistant" not in st.session_state:
-    st.session_state.fanuc_assistant = None
-if "fanuc_chat_history" not in st.session_state:
-    st.session_state.fanuc_chat_history = []
-if "fanuc_total_tokens" not in st.session_state:
-    st.session_state.fanuc_total_tokens = 0
+# Initialize session states if they don't exist
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Hello! I am your Fanuc Robot Assistant. How can I help you today?"}
+    ]
+if "token_usage" not in st.session_state:
+    st.session_state.token_usage = {"total": 1250, "current": 0}
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
 
-def load_assistants():
-    try:
-        assistants = client.beta.assistants.list()
-        return assistants.data
-    except Exception as e:
-        st.error(f"Error loading assistants: {str(e)}")
-        return []
+# Initialize OpenAI client (assuming API key is in environment variables)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-def create_assistant(name, instructions, model):
-    try:
-        assistant = client.beta.assistants.create(
-            name=name,
-            instructions=instructions,
-            model=model
-        )
-        return assistant
-    except Exception as e:
-        st.error(f"Error creating assistant: {str(e)}")
-        return None
+# Custom CSS for better styling
+st.markdown("""
+    <style>
+    .stApp {
+        max-width: 100%;
+        padding: 1rem;
+    }
+    .chat-message {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .user-message {
+        background-color: #2e7d32;
+        color: white;
+        margin-left: 20%;
+    }
+    .assistant-message {
+        background-color: #f0f2f6;
+        margin-right: 20%;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-def upload_file(file):
-    try:
-        response = client.files.create(file=file, purpose='assistants')
-        return response.id
-    except Exception as e:
-        st.error(f"Error uploading file: {str(e)}")
-        return None
+# Create three columns layout
+file_col, chat_col, stats_col = st.columns([1, 2, 1])
 
-def add_file_to_assistant(assistant_id, file_id):
-    try:
-        client.beta.assistants.files.create(assistant_id=assistant_id, file_id=file_id)
-        st.success("File added to assistant successfully!")
-    except Exception as e:
-        st.error(f"Error adding file to assistant: {str(e)}")
-
-def chat_with_assistant(assistant_id, user_message):
-    try:
-        thread = client.beta.threads.create()
-        client.beta.threads.messages.create(
-            thread_id=thread.id,
-            role="user",
-            content=user_message
-        )
-        run = client.beta.threads.runs.create(
-            thread_id=thread.id,
-            assistant_id=assistant_id
-        )
-        
-        while run.status != 'completed':
-            time.sleep(1)
-            run = client.beta.threads.runs.retrieve(thread_id=thread.id, run_id=run.id)
-        
-        messages = client.beta.threads.messages.list(thread_id=thread.id)
-        response = messages.data[0].content[0].text.value
-        
-        # Calculate and update token usage
-        encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
-        tokens_used = len(encoding.encode(user_message)) + len(encoding.encode(response))
-        st.session_state.fanuc_total_tokens += tokens_used
-        
-        return response
-    except Exception as e:
-        st.error(f"Error chatting with assistant: {str(e)}")
-        return None
-
-def fanuc_robot_assistant():
-    st.header("🤖 Fanuc Robot Assistant")
-    st.markdown(
-        """
-        The Fanuc Robot Assistant supports automated operations, error troubleshooting, and 
-        configuration management of industrial robots. It helps in diagnosing and resolving 
-        common errors in Fanuc robotic systems for smooth manufacturing workflows.
-        """
-    )
-
-    # Load or create Fanuc Robot Assistant
-    assistants = load_assistants()
-    fanuc_assistant = next((a for a in assistants if a.name == "Fanuc Robot Assistant"), None)
+# Left column - RAG Files
+with file_col:
+    st.subheader("Available RAG Files")
     
-    if not fanuc_assistant:
-        st.warning("Fanuc Robot Assistant not found. Creating a new one...")
-        fanuc_assistant = create_assistant(
-            name="Fanuc Robot Assistant",
-            instructions="You are an expert in Fanuc robots. Assist with troubleshooting, configuration, and operations.",
-            model="gpt-4"
-        )
+    # File upload section
+    uploaded_file = st.file_uploader("Upload New File", type=['pdf', 'txt'])
+    if uploaded_file is not None:
+        st.success(f"File uploaded: {uploaded_file.name}")
     
-    st.session_state.fanuc_assistant = fanuc_assistant
+    # Available files list
+    st.markdown("### Current Files")
+    files = ["Fanuc_Manual_2024.pdf", "Error_Codes.pdf", "Maintenance_Guide.pdf"]
+    for file in files:
+        if st.button(f"📄 {file}", key=file):
+            st.session_state.selected_file = file
 
-    # File upload for RAG
-    uploaded_file = st.file_uploader("Upload a file for RAG (optional)", type=['txt', 'pdf', 'csv'])
-    if uploaded_file and st.button("Add File to Assistant"):
-        file_id = upload_file(uploaded_file)
-        if file_id:
-            add_file_to_assistant(st.session_state.fanuc_assistant.id, file_id)
+# Middle column - Chat Interface
+with chat_col:
+    st.header("Fanuc Robot Assistant")
+    
+    # Display chat messages
+    for message in st.session_state.messages:
+        with st.container():
+            if message["role"] == "user":
+                st.markdown(f"""
+                    <div class="chat-message user-message">
+                        {message["content"]}
+                    </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.markdown(f"""
+                    <div class="chat-message assistant-message">
+                        {message["content"]}
+                    </div>
+                """, unsafe_allow_html=True)
+    
+    # Chat input
+    with st.container():
+        user_input = st.text_area("Type your message:", key="user_input", height=100)
+        if st.button("Send", key="send"):
+            if user_input:
+                # Add user message to chat
+                st.session_state.messages.append({"role": "user", "content": user_input})
+                
+                # Simulate AI response (replace with actual OpenAI call)
+                try:
+                    response = client.chat.completions.create(
+                        model="gpt-4",
+                        messages=[{"role": "user", "content": user_input}],
+                        temperature=0.7,
+                        max_tokens=500,
+                    )
+                    
+                    # Add assistant response
+                    assistant_response = response.choices[0].message.content
+                    st.session_state.messages.append({"role": "assistant", "content": assistant_response})
+                    
+                    # Update token usage
+                    st.session_state.token_usage["current"] += response.usage.total_tokens
+                    
+                    # Add to chat history
+                    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+                    st.session_state.chat_history.append(f"Chat at {timestamp}")
+                    
+                    # Clear input
+                    st.experimental_rerun()
+                    
+                except Exception as e:
+                    st.error(f"An error occurred: {str(e)}")
 
-    st.info("👋 I'm Lucas_7, your Fanuc Robot Assistant!")
-    st.write("I will provide you with an explanation and roadmap for troubleshooting a robot alarm code.")
-    st.warning("Note: This AI assistant is still in development mode. Please consider that the answers may not be fully accurate yet.")
-
-    alarm_code = st.text_area(
-        "Describe the Robot Alarm Code:",
-        placeholder="Enter the alarm code (e.g., SRVO-023) or a description of the issue...",
-    )
-
-    if st.button("Submit", key="fanuc_submit"):
-        if alarm_code:
-            with st.spinner("Generating response..."):
-                response = chat_with_assistant(st.session_state.fanuc_assistant.id, alarm_code)
-                if response:
-                    st.markdown(response)
-                    st.session_state.fanuc_chat_history.append({"question": alarm_code, "answer": response})
-
-    # Display chat history and token consumption
+# Right column - Stats and History
+with stats_col:
+    # Token Usage
+    st.subheader("Token Usage")
+    st.metric("Current Session", st.session_state.token_usage["current"])
+    st.metric("Total Available", st.session_state.token_usage["total"])
+    
+    # Progress bar for token usage
+    progress = st.session_state.token_usage["current"] / st.session_state.token_usage["total"]
+    st.progress(progress)
+    
+    # Chat History
     st.subheader("Chat History")
-    for chat in st.session_state.fanuc_chat_history:
-        st.text(f"Q: {chat['question']}")
-        st.text(f"A: {chat['answer']}")
-        st.markdown("---")
-    
-    st.sidebar.metric("Total Tokens Used (Fanuc)", st.session_state.fanuc_total_tokens)
+    for chat in st.session_state.chat_history:
+        if st.button(f"💬 {chat}", key=chat):
+            st.session_state.selected_chat = chat
 
-# Main app
-def main():
-    st.set_page_config(page_title="Fanuc Robot Assistant", page_icon="🤖", layout="wide")
-    st.title("AI AT MANUFACTURING 4.0 - Fanuc Robot Assistant")
+# Footer
+st.sidebar.markdown("---")
+st.sidebar.info("© 2024 AI Manufacturing Solutions")
 
-    # Load API key
-    if "api_key" not in st.session_state:
-        st.session_state.api_key = st.secrets["openai"]["api_key"]
+# Error handling and notifications
+if "error" in st.session_state:
+    st.error(st.session_state.error)
+    del st.session_state.error
 
-    fanuc_robot_assistant()
-
-if __name__ == "__main__":
-    main()
+if "success" in st.session_state:
+    st.success(st.session_state.success)
+    del st.session_state.success
+      
