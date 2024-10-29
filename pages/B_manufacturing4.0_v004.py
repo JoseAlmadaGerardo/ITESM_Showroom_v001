@@ -238,4 +238,52 @@ def main_page():
         st.markdown("""
             <div style='background-color: #e8f4f9; padding: 1rem; border-radius: 0.5rem; height: 200px;'>
             <h3>🤖 Fanuc Robot Assistant</h3>
-            <p>Troubleshoot 
+            <p>Troubleshoot and manage Fanuc robotic systems with AI-powered assistance.</p>
+            </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+            <div style='background-color: #e8f4f9; padding: 1rem; border-radius: 0.5rem; height: 200px;'>
+            <h3>🔌 Electronic Components</h3>
+            <p>Configure and optimize electronic components with expert guidance.</p>
+            </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+            <div style='background-color: #e8f4f9; padding: 1rem; border-radius: 0.5rem; height: 200px;'>
+            <h3>📚 Documentation</h3>
+            <p>Access comprehensive guides and technical information.</p>
+            </div>
+        """, unsafe_allow_html=True)
+
+# Sidebar Navigation
+with st.sidebar:
+    st.title("AI AT MANUFACTURING 4.0")
+    st.markdown("---")
+    
+    # Navigation
+    pages = {
+        "Home": main_page,
+        "🤖 Fanuc Robot Assistant": fanuc_robot_assistant,
+        "🔌 Electronic Components": electronic_components_assistant,
+        "📚 Documentation": documentation
+    }
+    
+    selected_page = st.radio("Navigation", list(pages.keys()))
+    
+    st.markdown("---")
+    # Token Usage Summary
+    st.markdown("### Token Usage Summary")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Fanuc", st.session_state.fanuc_total_tokens)
+    with col2:
+        st.metric("Components", st.session_state.components_total_tokens)
+    
+    st.markdown("---")
+    st.info("© 2024 AI Manufacturing Solutions")
+
+# Render Selected Page
+pages[selected_page]()
