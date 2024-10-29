@@ -178,7 +178,7 @@ else:
         )
     st.write(" Note: To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys).")
     
-    st.write("Please select an assistant from the sidebar to start chatting.")
+    st.write("👈 Please select an assistant from the sidebar to start chatting.")
 
 # Display total token usage at the bottom of the sidebar
 with st.sidebar:
