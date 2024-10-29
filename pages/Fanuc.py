@@ -18,7 +18,7 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
 # Initialize OpenAI client (assuming API key is in environment variables)
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=st.session_state.api_key)
 
 # Custom CSS for better styling
 st.markdown("""
