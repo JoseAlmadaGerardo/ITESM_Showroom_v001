@@ -48,18 +48,13 @@ def get_ai_response(prompt, model="gpt-4", temperature=0.7, max_tokens=500):
 
 # File Management Function
 def file_management_section(section_key):
-    # Accept PDF files along with txt, csv, and json
-    uploaded_file = st.file_uploader(f"Upload RAG File for {section_key}", type=['txt', 'csv', 'json', 'pdf'], key=f"uploader_{section_key}")
-    
+    uploaded_file = st.file_uploader(f"Upload RAG File for {section_key}", type=['txt', 'csv', 'json'], key=f"uploader_{section_key}")
     if uploaded_file:
         file_details = {"name": uploaded_file.name, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-        
-        # Check for duplicates before appending
         if file_details not in st.session_state.rag_files[section_key]:
             st.session_state.rag_files[section_key].append(file_details)
             st.success(f"File {uploaded_file.name} uploaded successfully!")
-    
-    # Display list of uploaded files
+
     if st.session_state.rag_files[section_key]:
         st.write("Available Files:")
         for file in st.session_state.rag_files[section_key]:
