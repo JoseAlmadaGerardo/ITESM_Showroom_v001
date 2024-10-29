@@ -183,3 +183,4 @@ else:
 # Display total token usage at the bottom of the sidebar
 with st.sidebar:
     st.metric("Total Session Tokens", st.session_state.total_tokens)
+
