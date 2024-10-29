@@ -9,18 +9,7 @@ if "api_key" not in st.session_state:
 else:
     openai_api_key = st.session_state.api_key
     client = OpenAI(api_key=openai_api_key)
-    
-# Page 1: Accounting Records Tracking
-def accounting_records_tracking():
-    st.markdown("# 📄 Accounting Records Tracking")
-    st.markdown(
-        """
-        Accounting records tracking is crucial for ensuring accurate financial documentation.
-        Monitoring financial transactions ensures that an entity's financial statements reflect 
-        its true financial position.
-        """
-    )
-    st.write("More details about Accounting Records Tracking will be added here.")
+
 
 # Page 2: Accounting Calculations (Depreciation, Amortization, etc.)
 def accounting_calculations():
@@ -178,9 +167,7 @@ def documentation():
 # Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
-    "📄 Accounting records tracking": accounting_records_tracking,
     "📄 Accounting calculations": accounting_calculations,
-    "📄 Data entry conversion": data_entry_conversion,
     "📄 Documentation": documentation,
 }
 
