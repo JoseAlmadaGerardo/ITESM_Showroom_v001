@@ -142,7 +142,6 @@ def electronic_components_assistant():
                 if response:
                     st.markdown(response)
                     st.session_state.components_chat_history.append({
-                        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         "component": component_type,
                         "question": query,
                         "answer": response
@@ -152,7 +151,6 @@ def electronic_components_assistant():
     if st.session_state.components_chat_history:
         with st.expander("View Chat History"):
             for chat in reversed(st.session_state.components_chat_history):
-                st.markdown(f"**Time:** {chat['timestamp']}")
                 st.markdown(f"**Component:** {chat['component']}")
                 st.markdown(f"**Q:** {chat['question']}")
                 st.markdown(f"**A:** {chat['answer']}")
