@@ -95,6 +95,10 @@ def electronic_components_assistant():
     with col2:
         st.metric("Tokens Used", st.session_state.components_total_tokens)
         
+    new_component = st.sidebar.text_input("Add new component type:")
+    if st.sidebar.button("Add Component"):
+        if new_component and new_component not in st.session_state.custom_components:
+            st.session_state.custom_components.append(new_component)    
     component_type = st.selectbox(
         "Select Component Type:",
         ["PLC", "HMI", "Servo Drive", "Sensor", "Other"]
@@ -102,7 +106,7 @@ def electronic_components_assistant():
     
     query = st.text_area(
         "Describe your configuration question:",
-        placeholder="E.g., How to set up communication between components?",
+        placeholder="E.g., How to set up communication between a Siemens S7-1200 PLC and an HMI panel?",
         height=100
     )
     
