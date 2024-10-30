@@ -81,7 +81,7 @@ def main():
         st.write("The following parameters are visible but not editable:")
         st.write(f"- Tenure: Random integer between 0 and 10 years")
         st.write(f"- Is Active Member: Random choice between 0 and 1")
-        st.write(f"- Estimated Salary: Random uniform between $30,000 and $200,000")
+        st.write(f"- Estimated Salary: Random uniform between $30K and $200K")
         st.write(f"- Churn: Random choice with 20% probability of churning")
 
         if st.button("Regenerate Data"):
