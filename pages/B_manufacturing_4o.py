@@ -22,12 +22,8 @@ if "fanuc_total_tokens" not in st.session_state:
     st.session_state.fanuc_total_tokens = 0
 if "components_total_tokens" not in st.session_state:
     st.session_state.components_total_tokens = 0
-if "rag_files" not in st.session_state:
-    st.session_state.rag_files = {
-        "fanuc": [],
-        "components": [],
-        "documentation": []
-    }
+if "custom_components" not in st.session_state:
+    st.session_state.custom_components = []
 
 # Initialize OpenAI client
 client = OpenAI(api_key=st.session_state.api_key)
