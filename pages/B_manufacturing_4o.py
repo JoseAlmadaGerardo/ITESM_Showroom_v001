@@ -178,9 +178,10 @@ with st.sidebar:
     }
     
     selected_page = st.radio("Navigation", list(pages.keys()))
-    
+
+    # Render Selected Page
+pages[selected_page]()
+
+# Footer
     st.markdown("---")
     st.info("© 2024 AI Manufacturing Solutions")
-
-# Render Selected Page
-pages[selected_page]()
