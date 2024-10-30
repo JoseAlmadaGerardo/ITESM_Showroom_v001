@@ -181,6 +181,3 @@ with st.sidebar:
 
     # Render Selected Page
     pages[selected_page]()
-
-    st.markdown("---")
-    st.info("© 2024 MNA TEAM #16 Solutions")
