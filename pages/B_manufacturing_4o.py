@@ -94,11 +94,10 @@ def electronic_components_assistant():
     new_component = st.sidebar.text_input("Add new component type:")
     if st.sidebar.button("Add Component"):
         if new_component and new_component not in st.session_state.custom_components:
-            st.session_state.custom_components.append(new_component)    
-    component_type = st.selectbox(
-        "Select Component Type:",
-        ["PLC", "HMI", "Servo Drive", "Sensor", "Other"]
-    )
+            st.session_state.custom_components.append(new_component)  
+
+    component_types = ["PLC", "HMI", "Servo Drive", "Sensor", "Other"] + st.session_state.custom_components
+    component_type = st.selectbox("Select the type of electronic component:", component_types)
     
     query = st.text_area(
         "Describe your configuration question:",
