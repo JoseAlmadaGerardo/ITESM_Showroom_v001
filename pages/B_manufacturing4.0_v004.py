@@ -46,40 +46,16 @@ def get_ai_response(prompt, model="gpt-4", temperature=0.7, max_tokens=500):
         st.error(f"An error occurred: {str(e)}")
         return None, 0
 
-# File Management Function
-def file_management_section(section_key):
-    uploaded_file = st.file_uploader(f"Upload RAG File for {section_key}", type=['txt', 'csv', 'json'], key=f"uploader_{section_key}")
-    if uploaded_file:
-        file_details = {"name": uploaded_file.name, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-        if file_details not in st.session_state.rag_files[section_key]:
-            st.session_state.rag_files[section_key].append(file_details)
-            st.success(f"File {uploaded_file.name} uploaded successfully!")
-
-    if st.session_state.rag_files[section_key]:
-        st.write("Available Files:")
-        for file in st.session_state.rag_files[section_key]:
-            col1, col2 = st.columns([3, 1])
-            with col1:
-                st.text(f"{file['name']} - {file['timestamp']}")
-            with col2:
-                if st.button("Remove", key=f"remove_{section_key}_{file['name']}"):
-                    st.session_state.rag_files[section_key].remove(file)
-                    st.experimental_rerun()
-
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
     st.header("🤖 Fanuc Robot Assistant")
     
     col1, col2 = st.columns([2, 1])
     with col1:
-        st.info("👋 I'm Lucas_7, your Fanuc Robot Assistant!")
+        st.info("👋 I'm your Fanuc Robot Assistant!")
         st.warning("Note: This AI assistant is still in development mode.")
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
-
-    # RAG File Management
-    with st.expander("Manage RAG Files"):
-        file_management_section("fanuc")
 
     alarm_code = st.text_area(
         "Describe the Robot Alarm Code:",
@@ -118,11 +94,7 @@ def electronic_components_assistant():
         st.info("Configure and optimize electronic components with AI assistance.")
     with col2:
         st.metric("Tokens Used", st.session_state.components_total_tokens)
-
-    # RAG File Management
-    with st.expander("Manage RAG Files"):
-        file_management_section("components")
-
+        
     component_type = st.selectbox(
         "Select Component Type:",
         ["PLC", "HMI", "Servo Drive", "Sensor", "Other"]
