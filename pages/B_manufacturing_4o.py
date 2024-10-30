@@ -183,4 +183,4 @@ with st.sidebar:
     pages[selected_page]()
 
     st.markdown("---")
-    st.info("© 2024 AI Manufacturing Solutions")
+    st.info("© 2024 MNA TEAM #16 Solutions")
