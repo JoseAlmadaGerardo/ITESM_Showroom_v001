@@ -1,30 +1,64 @@
 import streamlit as st
-import time
-import numpy as np
+import pandas as pd
+import altair as alt
+from urllib.error import URLError
+#import PyPDF2
+#from openai import OpenAI
 
-#INTRO:
-st.set_page_config(page_title="Indusrty_#001",  page_icon="1")
-st.markdown("# template_002")
+st.set_page_config(page_title="UCase_003", page_icon="📊")
+st.markdown("# template_001")
 st.sidebar.header("Template")
 
-st.write(" 👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
+st.title("Just a template")
+st.subheader("Factory Asset Effectiveness.​")
+st.write("📄 Answers to questions about .TX, .MD, and .PDF documents. Upload a document below and ask a question about it – GPT will answer!")
+st.write("Note: To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys)."
+)
 
-progress_bar = st.sidebar.progress(0)
-status_text = st.sidebar.empty()
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
+st.write(
+    """This demo shows how to use `st.write` to visualize Pandas DataFrames.
+(Data courtesy of the [UN Data Explorer](http://data.un.org/Explorer.aspx).)"""
+)
 
-for i in range(1, 101):
-    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-    status_text.text("%i%% Complete" % i)
-    chart.add_rows(new_rows)
-    progress_bar.progress(i)
-    last_rows = new_rows
-    time.sleep(0.05)
 
-progress_bar.empty()
+@st.cache_data
+def get_UN_data():
+    AWS_BUCKET_URL = "http://streamlit-demo-data.s3-us-west-2.amazonaws.com"
+    df = pd.read_csv(AWS_BUCKET_URL + "/agri.csv.gz")
+    return df.set_index("Region")
 
-# Streamlit widgets automatically run the script from top to bottom. Since
-# this button is not connected to any other logic, it just causes a plain
-# rerun.
-st.button("Re-run")
+
+try:
+    df = get_UN_data()
+    countries = st.multiselect(
+        "Choose countries", list(df.index), ["China", "United States of America"]
+    )
+    if not countries:
+        st.error("Please select at least one country.")
+    else:
+        data = df.loc[countries]
+        data /= 1000000.0
+        st.write("### Gross Agricultural Production ($B)", data.sort_index())
+
+        data = data.T.reset_index()
+        data = pd.melt(data, id_vars=["index"]).rename(
+            columns={"index": "year", "value": "Gross Agricultural Product ($B)"}
+        )
+        chart = (
+            alt.Chart(data)
+            .mark_area(opacity=0.3)
+            .encode(
+                x="year:T",
+                y=alt.Y("Gross Agricultural Product ($B):Q", stack=None),
+                color="Region:N",
+            )
+        )
+        st.altair_chart(chart, use_container_width=True)
+except URLError as e:
+    st.error(
+        """
+        **This demo requires internet access.**
+        Connection error: %s
+    """
+        % e.reason
+    )
