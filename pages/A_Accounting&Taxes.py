@@ -164,6 +164,8 @@ page_names_to_funcs = {
 st.sidebar.header("AI AT ACCOUNTING AND TAXES.")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
 st.markdown("# AI AT ACCOUNTING AND TAXES.")
+st.markdown("---")
+st.info("© 2024 MNA TEAM #16 Solutions")
 
 # Render Main Introductory Content Only on Main Page
 if demo_name == "—":
@@ -185,6 +187,3 @@ if demo_name == "—":
 # Render Selected Page
 if demo_name:
     page_names_to_funcs[demo_name]()
-    
-    st.markdown("---")
-    st.info("© 2024 MNA TEAM #16 Solutions")
