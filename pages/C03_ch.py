@@ -105,10 +105,8 @@ def main():
         st.plotly_chart(fig)
 
         # Correlation Heatmap
-        st.write("Columns in data:", data.columns.tolist())
         st.subheader("Feature Correlation")
-        #corr = data.drop(['customer_id', 'churn', 'age_group'], axis=1).corr()
-         X = data.drop(['customer_id', 'churn', 'age_group'], axis=1, errors='ignore')
+        corr = data.drop(['customer_id', 'churn', 'age_group'], axis=1).corr()
         fig = px.imshow(corr, text_auto=True, aspect="auto", title="Correlation Heatmap")
         st.plotly_chart(fig)
 
@@ -116,7 +114,8 @@ def main():
         st.header("Customer Churn Prediction Model")
 
         # Train model
-        X = data.drop(['customer_id', 'churn', 'age_group'], axis=1)
+        st.write("Columns in data:", data.columns.tolist())
+        X = data.drop(['customer_id', 'churn', 'age_group'], axis=1, errors='ignore')
         y = data['churn']
         model, X_test, y_test = train_model(X, y)
 
