@@ -48,5 +48,3 @@ with col2:
         - Explore additional complex demos and industry use cases.
         """
     )
-
- st.info("© 2024 AI Manufacturing Solutions")
