@@ -24,6 +24,7 @@ def load_data():
         'estimated_salary': np.random.uniform(30000, 200000, 1000),
         'churn': np.random.choice([0, 1], 1000, p=[0.8, 0.2])  # 20% churn rate
     })
+    data['age_group'] = pd.cut(data['age'], bins=[0, 30, 40, 50, 60, 100], labels=['18-30', '31-40', '41-50', '51-60', '60+'])
     return data
 
 # Train model function
@@ -69,9 +70,11 @@ def main():
 
     elif page == "Prediction Model":
         st.header("Customer Churn Prediction Model")
-
+        
         # Train model
-        X = data.drop(['customer_id', 'churn', 'age_group'], axis=1)
+        st.write("Columns in data:", data.columns.tolist())
+        #X = data.drop(['customer_id', 'churn', 'age_group'], axis=1)
+        X = data.drop(['customer_id', 'churn', 'age_group'], axis=1, errors='ignore')
         y = data['churn']
         model, X_test, y_test = train_model(X, y)
 
