@@ -152,7 +152,6 @@ def documentation():
     st.write("For specific documentation requests, please contact your system administrator.")
 
 # Main Page
-# Main Page
 def main_page():
     st.title("AI AT MANUFACTURING 4.0")
     
@@ -180,10 +179,9 @@ with st.sidebar:
     }
     
     selected_page = st.radio("Navigation", list(pages.keys()))
-
-    # Render Selected Page
-    pages[selected_page]()
-
-    #Footer
+    
     st.markdown("---")
-    st.info("© 2024 AI Manufacturing Solutions")
+
+# Render Selected Page
+pages[selected_page]()
+
