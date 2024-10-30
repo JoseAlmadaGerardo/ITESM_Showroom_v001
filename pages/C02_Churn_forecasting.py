@@ -72,7 +72,6 @@ def main():
         
         # Train model
         st.write("Columns in data:", data.columns.tolist())
-        #X = data.drop(['customer_id', 'churn', 'age_group'], axis=1)
         X = data.drop(['customer_id', 'churn', 'age_group'], axis=1, errors='ignore')
         y = data['churn']
         model, X_test, y_test = train_model(X, y)
