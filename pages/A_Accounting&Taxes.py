@@ -186,5 +186,5 @@ if demo_name == "—":
 if demo_name:
     page_names_to_funcs[demo_name]()
     
-        st.markdown("---")
+    st.markdown("---")
     st.info("© 2024 MNA TEAM #16 Solutions")
