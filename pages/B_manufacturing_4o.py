@@ -87,7 +87,11 @@ def electronic_components_assistant():
     
     col1, col2 = st.columns([2, 1])
     with col1:
-        st.info("Configure and optimize electronic components with AI assistance.")
+        st.markdown("""
+        This assistant helps with the setup and configuration of electronic components 
+        used in manufacturing systems. It ensures optimal configurations for the best 
+        performance and compatibility across different systems.
+        """)
     with col2:
         st.metric("Tokens Used", st.session_state.components_total_tokens)
         
