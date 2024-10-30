@@ -24,7 +24,7 @@ def load_data():
         'estimated_salary': np.random.uniform(30000, 200000, 1000),
         'churn': np.random.choice([0, 1], 1000, p=[0.8, 0.2])  # 20% churn rate
     })
-    data['age_group'] = pd.cut(data['age'], bins=[0, 30, 40, 50, 60, 100], labels=['18-30', '31-40', '41-50', '51-60', '60+'])
+    #data['age_group'] = pd.cut(data['age'], bins=[0, 30, 40, 50, 60, 100], labels=['18-30', '31-40', '41-50', '51-60', '60+'])
     return data
 
 # Train model function
