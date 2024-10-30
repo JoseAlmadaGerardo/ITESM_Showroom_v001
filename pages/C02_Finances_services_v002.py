@@ -13,7 +13,7 @@ st.set_page_config(page_title="AI AT FINANCE SERVICES", page_icon="📊", layout
 
 # Page 1: Redirection/Forecasting Customer Turnover
 def customer_turnover_forecasting():
-    st.markdown("# 📄 Redirection/Forecasting Customer Turnover")
+    st.markdown("# 📄 Redirection/forecasting customer turnover")
     st.markdown(
         """
         Redirection and forecasting of customer turnover helps finance companies anticipate
