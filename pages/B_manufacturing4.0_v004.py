@@ -159,24 +159,22 @@ def electronic_components_assistant():
 # Page 3: Documentation
 def documentation():
     st.header("📚 Documentation")
+    st.markdown(
+        """
+        In this section, you will find comprehensive documentation about the use cases explained for the Business Units.
+        """
+    )
     
-    # File Management
-    st.subheader("Document Management")
-    file_management_section("documentation")
+    # Placeholder for future documentation content
+    st.info("Detailed documentation is currently being compiled. Check back soon for updates!")
     
-    # View/Edit Documentation
-    if st.session_state.rag_files["documentation"]:
-        st.subheader("Available Documentation")
-        for doc in st.session_state.rag_files["documentation"]:
-            with st.expander(f"{doc['name']}"):
-                st.text(f"Last Updated: {doc['timestamp']}")
-                st.text_area("Edit Content", "", key=f"edit_{doc['name']}")
-                col1, col2 = st.columns([1, 1])
-                with col1:
-                    st.button("Save Changes", key=f"save_{doc['name']}")
-                with col2:
-                    st.button("Discard Changes", key=f"discard_{doc['name']}")
-
+    # Example structure for future documentation
+    st.subheader("Available Documentation:")
+    doc_types = ["User Manuals", "Technical Specifications", "Troubleshooting Guides", "Best Practices"]
+    for doc in doc_types:
+        st.write(f"- {doc}")
+    
+    st.write("For specific documentation requests, please contact your system administrator.")
 # Main Page
 def main_page():
     st.title("AI AT MANUFACTURING 4.0")
