@@ -151,6 +151,20 @@ def documentation():
     st.markdown("# 📄 Documentation ")
     st.markdown("Documentation details about the cases explained for the Business units will be added here.")
 
+# Page Navigation
+page_names_to_funcs = {
+    "—": lambda: st.write("Select a page from the sidebar."),
+    "📄 Straight-Line Depreciation": straight_line_depreciation,
+    "📄 Declining Balance Depreciation": declining_balance_depreciation,
+    "📄 Amortization Calculator": amortization_calculator,
+    "📄 Documentation": documentation,
+}
+
+# Sidebar for Navigation
+st.sidebar.header("AI AT ACCOUNTING AND TAXES.")
+demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
+st.markdown("# AI AT ACCOUNTING AND TAXES.")
+
 # Render Main Introductory Content Only on Main Page
 if demo_name == "—":
     st.markdown(
@@ -171,20 +185,3 @@ if demo_name == "—":
 # Render Selected Page
 if demo_name:
     page_names_to_funcs[demo_name]()
-
-# Page Navigation
-page_names_to_funcs = {
-    "—": lambda: st.write("Select a page from the sidebar."),
-    "📄 Straight-Line Depreciation": straight_line_depreciation,
-    "📄 Declining Balance Depreciation": declining_balance_depreciation,
-    "📄 Amortization Calculator": amortization_calculator,
-    "📄 Documentation": documentation,
-}
-
-# Sidebar for Navigation
-st.sidebar.header("AI AT ACCOUNTING AND TAXES.")
-demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
-st.markdown("# AI AT ACCOUNTING AND TAXES.")
-
-st.markdown("---")
-st.info("© 2024 MNA TEAM #16 Solutions")
