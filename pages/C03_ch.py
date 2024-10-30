@@ -107,7 +107,8 @@ def main():
         # Correlation Heatmap
         st.write("Columns in data:", data.columns.tolist())
         st.subheader("Feature Correlation")
-        corr = data.drop(['customer_id', 'churn', 'age_group'], axis=1).corr(), errors='ignore')
+        #corr = data.drop(['customer_id', 'churn', 'age_group'], axis=1).corr()
+         X = data.drop(['customer_id', 'churn', 'age_group'], axis=1, errors='ignore')
         fig = px.imshow(corr, text_auto=True, aspect="auto", title="Correlation Heatmap")
         st.plotly_chart(fig)
 
