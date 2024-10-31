@@ -8,7 +8,8 @@ from datetime import datetime, timedelta
 st.set_page_config(page_title="Token Usage Dashboard", layout="wide")
 
 # Function to load data
-@st.cache_data
+#@st.cache_data
+@st.cache_data(ttl=600)  # Cache data for 10 minutes
 def load_data(file):
     if file.name.endswith('.csv'):
         df = pd.read_csv(file)
