@@ -11,14 +11,20 @@ st.set_page_config(page_title="Token Usage Dashboard", layout="wide")
 #@st.cache_data
 @st.cache_data(ttl=600)  # Cache data for 10 minutes
 def load_data(file):
-    if file.name.endswith('.csv'):
-        df = pd.read_csv(file)
-    elif file.name.endswith('.tsv'):
-        df = pd.read_csv(file, sep='\t')
-    elif file.name.endswith('.json'):
-        df = pd.read_json(file)
-    else:
-        st.error("Unsupported file format. Please upload a CSV, TSV, or JSON file.")
+    try:
+        if file.name.endswith('.csv'):
+            df = pd.read_csv(file)
+        elif file.name.endswith('.tsv'):
+            df = pd.read_csv(file, sep='\t')
+        elif file.name.endswith('.json'):
+            df = pd.read_json(file)
+        else:
+            st.error("Unsupported file format. Please upload a CSV, TSV, or JSON file.")
+            return None
+        df['date'] = pd.to_datetime(df['date'])
+        return df
+    except Exception as e:
+        st.error(f"Error loading file: {e}")
         return None
     
     # Ensure 'date' column is datetime
