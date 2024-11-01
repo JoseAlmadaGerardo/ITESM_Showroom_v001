@@ -29,7 +29,7 @@ if "custom_components" not in st.session_state:
 client = OpenAI(api_key=st.session_state.api_key)
 
 # Utility function for OpenAI API calls
-def get_ai_response(prompt, model="gpt-4", temperature=0.7, max_tokens=256):
+def get_ai_response(prompt, model="gpt-4", temperature=1, max_tokens=126):
     try:
         response = client.chat.completions.create(
             model=model,
