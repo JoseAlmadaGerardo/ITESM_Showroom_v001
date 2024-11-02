@@ -58,9 +58,12 @@ if repo_url:
             st.subheader("Recently Updated Files")
             contents = get_repo_contents(owner, repo)
             if contents:
-                sorted_contents = sorted(contents, key=lambda x: x.get("updated_at", ""), reverse=True)
-                for item in sorted_contents[:5]:
-                    st.write(f"- {item['name']} (Last updated: {item['updated_at']})")
+            # Sort by 'updated_at' if it exists, else default to an empty string for items without it
+            sorted_contents = sorted(contents, key=lambda x: x.get("updated_at", ""), reverse=True)
+            for item in sorted_contents[:5]:
+            # Check if 'updated_at' exists in the item
+            updated_at = item.get("updated_at", "N/A")  # Default to "N/A" if 'updated_at' is not available
+            st.write(f"- {item['name']} (Last updated: {updated_at})")
             
             # Display README content
             st.subheader("README")
