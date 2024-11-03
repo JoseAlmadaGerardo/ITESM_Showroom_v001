@@ -11,6 +11,9 @@ import io  # Added import for io.StringIO()
 from io import BytesIO
 import requests
 
+# Streamlit app
+st.set_page_config(page_title="Accounting Data Autom", page_icon="📊", layout="")
+
 def convertir_fecha(fecha_str):
     meses_es_en = {
         'enero': 'January', 'febrero': 'February', 'marzo': 'March',
@@ -108,6 +111,4 @@ else:
     except Exception as e:
         st.error(f"An error occurred while reading the Google Sheet: {e}")
 
-# Streamlit app
-st.set_page_config(page_title="Accounting Data Autom", page_icon="📊", layout="")
 Component()
