@@ -135,7 +135,7 @@ if uploaded_file is not None:
                     st.session_state.chat_history.append(("You", user_input, st.session_state.current_time))
                     st.session_state.chat_history.append(("AI", response, st.session_state.current_time))
                 # Clear the chat input after sending
-                st.session_state.user_input = ""
+                #st.session_state.user_input = ""
 
     with col2:
         st.subheader("Key Points Min= 3 & Max=10")
