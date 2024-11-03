@@ -83,10 +83,8 @@ def chat_with_ai(user_input, context):
         ]
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=messages,
-            max_tokens=300,
-            temperature=1
-        )
+            messages=messages,temperature=1, max_tokens=300,)
+        
         st.session_state.total_tokens += response.usage.total_tokens
         return response.choices[0].message.content
     except Exception as e:
