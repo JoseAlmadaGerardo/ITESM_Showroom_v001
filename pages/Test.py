@@ -54,7 +54,7 @@ def Component():
     #csv_url = f"https://docs.google.com/spreadsheets/d/10Xc91vr4t5uLtwkdYZgDHNqlBWv0LJvR/edit?usp=sharing&ouid=117917482215490954026&rtpof=true&sd=true"
     #import requests
 
-excel_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx&id={sheet_id}"
+excel_url = f"https://docs.google.com/spreadsheets/d/1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy/edit?usp=sharing&ouid=102032149093714214712&rtpof=true&sd=true"
 response = requests.get(excel_url)
 if response.status_code == 200:
     with open('temp.xlsx', 'wb') as f:
@@ -93,7 +93,7 @@ else:
         st.pyplot(fig)
 
         # Model training and evaluation
-        X = processed_df.drop(['Fecha de Venta', '11 Total (MXN)'], axis=1)
+        X = processed_df.drop(['Fecha de Venta', 'Total (MXN)'], axis=1)
         y = (processed_df['Total (MXN)'] > processed_df['Total (MXN)'].mean()).astype(int)
         model, X_test, y_test, y_pred = train_model(X, y)
 
