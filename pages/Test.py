@@ -12,8 +12,7 @@ from io import BytesIO
 import requests
 
 # Streamlit app
-st.set_page_config(page_title="Accounting Data Autom", page_icon="📊", layout="")
-
+st.set_page_config(page_title="Accounting Data Autom", page_icon="📊")
 def convertir_fecha(fecha_str):
     meses_es_en = {
         'enero': 'January', 'febrero': 'February', 'marzo': 'March',
