@@ -7,6 +7,8 @@ import io
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["openai"]["api_key"]
 openai.api_key = st.session_state.api_key  # Set the API key globally for OpenAI
+# Initialize the OpenAI client
+client = OpenAI(api_key=st.session_state.api_key)
 
 def extract_text_from_pdf(file):
     pdf_reader = PyPDF2.PdfReader(file)
@@ -19,19 +21,22 @@ def extract_text_from_txt(file):
     return file.getvalue().decode("utf-8")
 
 def get_key_points(text, num_points):
-    # Check if text and num_points are provided before making API call
     if text and num_points:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant that extracts key points from text."},
-                {"role": "user", "content": f"Extract {num_points} key points from the following text:\n\n{text}"}
-            ]
-        )
-        # Return the generated response text
-        return response.choices[0].message['content']
+        try:
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant that extracts key points from text."},
+                    {"role": "user", "content": f"Extract {num_points} key points from the following text:\n\n{text}"}
+                ]
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            st.error(f"An error occurred while generating key points: {str(e)}")
+            return None
     else:
         st.error("Text is empty or the number of key points is not set.")
+        return None
 
 st.title("File Analyzer with ChatGPT")
 
