@@ -43,13 +43,18 @@ def train_model(X, y):
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
     return model, X_test, y_test, y_pred
-
 def Component():
     st.title("Accounting Data Automation")
 
-    uploaded_file = st.file_uploader("Choose an XLSX file", type="xlsx")
-    if uploaded_file is not None:
-        df = pd.read_excel(uploaded_file)  # Ensure this line is correct
+    # Google Sheets CSV export URL
+    sheet_id = "1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy"
+    gid = "1937746016"
+    csv_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}"
+
+    try:
+        # Read the Google Sheet data into a DataFrame
+        df = pd.read_csv(csv_url)
+
         st.write("Original Data:")
         st.write(df.head())
 
@@ -79,10 +84,11 @@ def Component():
 
         st.write("Confusion Matrix:")
         fig, ax = plt.subplots()
-        sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, ax=ax)
+        sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', ax=ax)
         st.pyplot(fig)
 
-    return None
+    except Exception as e:
+        st.error(f"An error occurred while reading the Google Sheet: {e}")
 
 # Streamlit app
 st.set_page_config(page_title="Accounting Data Automation", page_icon="📊", layout="wide")
