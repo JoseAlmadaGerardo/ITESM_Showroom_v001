@@ -21,15 +21,13 @@ def extract_text_from_txt(file):
 def get_key_points(text, num_points):
     # Check if text and num_points are provided before making API call
     if text and num_points:
-        response = client.chat.completions.create(
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
-            {"role": "system", "content": "You are a helpful assistant that extracts key points from text."},
-            {"role": "user", "content": f"Extract {num_points} key points from the following text:\n\n{text}"}
-        ]
+                {"role": "system", "content": "You are a helpful assistant that extracts key points from text."},
+                {"role": "user", "content": f"Extract {num_points} key points from the following text:\n\n{text}"}
+            ]
         )
-        st.write("Chatbot:", response.choices[0].message.content)
-    
         # Return the generated response text
         return response.choices[0].message['content']
     else:
