@@ -5,3 +5,4 @@ tiktoken
 plotly
 scikit-learn
 matplotlib
+seaborn
