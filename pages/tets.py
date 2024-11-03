@@ -22,14 +22,20 @@ def extract_text_from_txt(file):
     return file.getvalue().decode("utf-8")
 
 def get_key_points(text, num_points):
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant that extracts key points from text."},
-            {"role": "user", "content": f"Extract {num_points} key points from the following text:\n\n{text}"}
-        ]
-    )
-    return response.choices[0].message['content']
+    # Add submit button
+    if st.button("Submit"):
+        if uploaded_file and question:
+            # Process uploaded file and question
+            document = uploaded_file.read().decode()
+            messages = [{"role": "system", "content": "You are a helpful assistant that extracts key points from text."},
+            {"role": "user", "content": f"Extract {num_points} key points from the following text:\n\n{text}"}]
+
+            # Generate response using OpenAI API
+            stream = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=messages,
+                stream=True,
+            )
 
 st.title("File Analyzer with ChatGPT")
 
