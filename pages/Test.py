@@ -56,7 +56,8 @@ def Component():
     st.title("Accounting Data Automation")
 
     # Correct Google Sheets URL for data retrieval
-    excel_url = "https://docs.google.com/spreadsheets/d/1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy/edit?usp=sharing&ouid=102032149093714214712&rtpof=true&sd=true"
+    #excel_url = "https://docs.google.com/spreadsheets/d/1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy/edit?usp=sharing&ouid=102032149093714214712&rtpof=true&sd=true"
+    excel_url = "https://docs.google.com/spreadsheets/d/1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy/edit?usp=sharing&ouid=102032149093714214712&rtpof=true&sd=true/export?format=xlsx"
     response = requests.get(excel_url)
 
     if response.status_code == 200 and response.headers['Content-Type'] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
