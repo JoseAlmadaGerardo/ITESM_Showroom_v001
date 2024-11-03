@@ -133,11 +133,11 @@ if uploaded_file is not None:
     show_history = st.checkbox("Show Chat History", value=st.session_state.show_chat_history)
     st.session_state.show_chat_history = show_history
 
-    if st.session_state.show_chat_history:
-        chat_col1, chat_col2 = st.columns(2)
-        for i, (role, message) in enumerate(st.session_state.chat_history):
-            with chat_col1 if i % 2 == 0 else chat_col2:
-                st.write(f"**{role}:** {message}")
+   # if st.session_state.show_chat_history:
+    #    chat_col1, chat_col2 = st.columns(2)
+     #   for i, (role, message) in enumerate(st.session_state.chat_history):
+      #      with chat_col1 if i % 2 == 0 else chat_col2:
+       #         st.write(f"**{role}:** {message}")
 
 st.write("Note: Make sure to set your OpenAI API key in the Streamlit secrets.")
 
