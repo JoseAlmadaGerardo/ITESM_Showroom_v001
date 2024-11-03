@@ -138,8 +138,8 @@ if uploaded_file is not None:
                 st.session_state.user_input = ""
 
     with col2:
-        st.subheader("Key Points")
-        num_points = st.number_input("Number of key points", min_value=5, max_value=10, value=5, step=1)
+        st.subheader("Key Points Min= 3 & Max=10")
+        num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=5, step=1)
         if st.button("Generate Key Points"):
             st.session_state.key_points = get_key_points(text, num_points)
 
