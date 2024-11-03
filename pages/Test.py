@@ -56,49 +56,52 @@ def Component():
     st.title("Accounting Data Automation")
 
     # Google Sheets URL for data retrieval
-    excel_url = "https://docs.google.com/spreadsheets/d/10Xc91vr4t5uLtwkdYZgDHNqlBWv0LJvR/edit?usp=sharing&ouid=117917482215490954026&rtpof=true&sd=true"
+    excel_url = "https://docs.google.com/spreadsheets/d/1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy/export?format=xlsx"
     response = requests.get(excel_url)
 
-    if response.status_code == 200:
-        df = pd.read_excel(BytesIO(response.content))
+    if response.status_code == 200 and response.headers['Content-Type'] == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+        try:
+            df = pd.read_excel(BytesIO(response.content))
 
-        # Display original data
-        st.write("Original Data:")
-        st.write(df.head())
+            # Display original data
+            st.write("Original Data:")
+            st.write(df.head())
 
-        # Process data
-        processed_df = process_data(df)
-        st.write("Processed Data:")
-        st.write(processed_df.head())
+            # Process data
+            processed_df = process_data(df)
+            st.write("Processed Data:")
+            st.write(processed_df.head())
 
-        # Display data info
-        st.write("Data Info:")
-        buffer = io.StringIO()
-        processed_df.info(buf=buffer)
-        st.text(buffer.getvalue())
+            # Display data info
+            st.write("Data Info:")
+            buffer = io.StringIO()
+            processed_df.info(buf=buffer)
+            st.text(buffer.getvalue())
 
-        # Simple visualization
-        st.write("Total Sales by Date:")
-        fig, ax = plt.subplots()
-        processed_df.groupby('Fecha de Venta')['Total (MXN)'].sum().plot(ax=ax)
-        st.pyplot(fig)
+            # Simple visualization
+            st.write("Total Sales by Date:")
+            fig, ax = plt.subplots()
+            processed_df.groupby('Fecha de Venta')['Total (MXN)'].sum().plot(ax=ax)
+            st.pyplot(fig)
 
-        # Model training and evaluation
-        X = processed_df.drop(['Fecha de Venta', 'Total (MXN)'], axis=1)
-        y = (processed_df['Total (MXN)'] > processed_df['Total (MXN)'].mean()).astype(int)
-        model, X_test, y_test, y_pred = train_model(X, y)
+            # Model training and evaluation
+            X = processed_df.drop(['Fecha de Venta', 'Total (MXN)'], axis=1)
+            y = (processed_df['Total (MXN)'] > processed_df['Total (MXN)'].mean()).astype(int)
+            model, X_test, y_test, y_pred = train_model(X, y)
 
-        # Display model evaluation
-        st.write("Model Evaluation:")
-        st.text(classification_report(y_test, y_pred))
+            # Display model evaluation
+            st.write("Model Evaluation:")
+            st.text(classification_report(y_test, y_pred))
 
-        # Confusion matrix
-        st.write("Confusion Matrix:")
-        fig, ax = plt.subplots()
-        sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', ax=ax)
-        st.pyplot(fig)
+            # Confusion matrix
+            st.write("Confusion Matrix:")
+            fig, ax = plt.subplots()
+            sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt='d', ax=ax)
+            st.pyplot(fig)
+        except Exception as e:
+            st.error(f"An error occurred while processing the data: {e}")
     else:
-        st.error("Failed to retrieve data from Google Sheets.")
+        st.error("Failed to retrieve data from Google Sheets or invalid content type.")
 
 # Run the main component function
 Component()
