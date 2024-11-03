@@ -109,5 +109,5 @@ else:
         st.error(f"An error occurred while reading the Google Sheet: {e}")
 
 # Streamlit app
-st.set_page_config(page_title="Accounting Data Automation", page_icon="📊", layout="wide")
+st.set_page_config(page_title="Accounting Data Autom", page_icon="📊", layout="")
 Component()
