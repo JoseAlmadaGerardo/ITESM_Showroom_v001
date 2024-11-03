@@ -49,7 +49,7 @@ def Component():
     # Google Sheets CSV export URL
     sheet_id = "1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy"
     gid = "1937746016"
-    csv_url = f"https://docs.google.com/spreadsheets/d/1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy/edit?usp=sharing&ouid=102032149093714214712&rtpof=true&sd=true"
+    csv_url = f"https://docs.google.com/spreadsheets/d/10Xc91vr4t5uLtwkdYZgDHNqlBWv0LJvR/edit?usp=sharing&ouid=117917482215490954026&rtpof=true&sd=true"
 
     try:
         # Read the Google Sheet data into a DataFrame
