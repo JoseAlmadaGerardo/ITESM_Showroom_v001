@@ -36,6 +36,10 @@ def get_key_points(text, num_points):
                 messages=messages,
                 stream=True,
             )
+             # Display the response
+            st.write_stream(stream)
+        else:
+            st.error("Please upload a document and ask a question.")
 
 st.title("File Analyzer with ChatGPT")
 
