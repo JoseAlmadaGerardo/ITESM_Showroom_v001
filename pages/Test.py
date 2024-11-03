@@ -55,7 +55,7 @@ def train_model(X, y):
 def Component():
     st.title("Accounting Data Automation")
 
-    # Google Sheets URL for data retrieval
+    # Correct Google Sheets URL for data retrieval
     excel_url = "https://docs.google.com/spreadsheets/d/1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy/export?format=xlsx"
     response = requests.get(excel_url)
 
