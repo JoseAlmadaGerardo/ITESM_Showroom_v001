@@ -1,6 +1,7 @@
 import streamlit as st
 import PyPDF2
 import openai
+from openai import OpenAI
 import io
 
 # Load the API key from secrets
