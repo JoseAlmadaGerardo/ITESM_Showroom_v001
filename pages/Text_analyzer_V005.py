@@ -139,7 +139,7 @@ if uploaded_file is not None:
 
     with col2:
         st.subheader("Key Points Min= 3 & Max=10")
-        num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=5, step=1)
+        num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
         if st.button("Generate Key Points"):
             st.session_state.key_points = get_key_points(text, num_points)
 
