@@ -8,6 +8,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sns
 import io  # Added import for io.StringIO()
+from io import BytesIO
+import requests
 
 def convertir_fecha(fecha_str):
     meses_es_en = {
@@ -47,13 +49,29 @@ def Component():
     st.title("Accounting Data Automation")
 
     # Google Sheets CSV export URL
-    sheet_id = "1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy"
-    gid = "1937746016"
-    csv_url = f"https://docs.google.com/spreadsheets/d/10Xc91vr4t5uLtwkdYZgDHNqlBWv0LJvR/edit?usp=sharing&ouid=117917482215490954026&rtpof=true&sd=true"
+    #sheet_id = "1za4GhpjjmdqW2dkx0qLiAtVarzEgPkYy"
+    #gid = "1937746016"
+    #csv_url = f"https://docs.google.com/spreadsheets/d/10Xc91vr4t5uLtwkdYZgDHNqlBWv0LJvR/edit?usp=sharing&ouid=117917482215490954026&rtpof=true&sd=true"
+    #import requests
+
+excel_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx&id={sheet_id}"
+response = requests.get(excel_url)
+if response.status_code == 200:
+    with open('temp.xlsx', 'wb') as f:
+        f.write(response.content)
+    df = pd.read_excel('temp.xlsx')
+else:
+    st.error("Failed to retrieve data from Google Sheets.")
+
+response = requests.get(excel_url)
+if response.status_code == 200:
+    df = pd.read_excel(BytesIO(response.content))
+else:
+    st.error("Failed to retrieve data from Google Sheets.")
 
     try:
         # Read the Google Sheet data into a DataFrame
-        df = pd.read_csv(csv_url)
+        df = pd.read_csv(excel_url)
 
         st.write("Original Data:")
         st.write(df.head())
