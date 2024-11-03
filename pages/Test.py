@@ -30,7 +30,7 @@ def process_data(df):
     df = df.drop(df.columns[columns_to_remove], axis=1)
     
     # Convert date
-    df['1 Fecha de Venta'] = df['1 Fecha de Venta'].apply(convertir_fecha)
+    df['1 Fecha de Venta'] = df['Fecha de Venta'].apply(convertir_fecha)
     
     # Fill NaN values
     df = df.fillna(0)
@@ -71,12 +71,12 @@ def Component():
         # Simple visualization
         st.write("Total Sales by Date:")
         fig, ax = plt.subplots()
-        processed_df.groupby('1 Fecha de Venta')['11 Total (MXN)'].sum().plot(ax=ax)
+        processed_df.groupby('Fecha de Venta')['Total (MXN)'].sum().plot(ax=ax)
         st.pyplot(fig)
 
         # Model training and evaluation
-        X = processed_df.drop(['1 Fecha de Venta', '11 Total (MXN)'], axis=1)
-        y = (processed_df['11 Total (MXN)'] > processed_df['11 Total (MXN)'].mean()).astype(int)
+        X = processed_df.drop(['Fecha de Venta', '11 Total (MXN)'], axis=1)
+        y = (processed_df['Total (MXN)'] > processed_df['Total (MXN)'].mean()).astype(int)
         model, X_test, y_test, y_pred = train_model(X, y)
 
         st.write("Model Evaluation:")
