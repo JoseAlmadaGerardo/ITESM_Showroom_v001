@@ -2,15 +2,12 @@ import streamlit as st
 import PyPDF2
 import openai
 import io
-from openai import OpenAI
 
 # Load the API key from secrets
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["openai"]["api_key"]
-else:
-    openai_api_key = st.session_state.api_key
-    client = OpenAI(api_key=openai_api_key)
-    
+openai.api_key = st.session_state.api_key  # Set the API key globally for OpenAI
+
 def extract_text_from_pdf(file):
     pdf_reader = PyPDF2.PdfReader(file)
     text = ""
@@ -22,24 +19,23 @@ def extract_text_from_txt(file):
     return file.getvalue().decode("utf-8")
 
 def get_key_points(text, num_points):
-    # Add submit button
-    if st.button("Submit"):
-        if uploaded_file and question:
-            # Process uploaded file and question
-            document = uploaded_file.read().decode()
-            messages = [{"role": "system", "content": "You are a helpful assistant that extracts key points from text."},
-            {"role": "user", "content": f"Extract {num_points} key points from the following text:\n\n{text}"}]
+    # Check if text and num_points are provided before making API call
+    if text and num_points:
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant that extracts key points from text."},
+            {"role": "user", "content": f"Extract {num_points} key points from the following text:\n\n{text}"}
+        ]
 
-            # Generate response using OpenAI API
-            stream = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=messages,
-                stream=True,
-            )
-             # Display the response
-            st.write_stream(stream)
-        else:
-            st.error("Please upload a document and ask a question.")
+        # Generate response using OpenAI API
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+        )
+
+        # Return the generated response text
+        return response.choices[0].message['content']
+    else:
+        st.error("Text is empty or the number of key points is not set.")
 
 st.title("File Analyzer with ChatGPT")
 
@@ -49,6 +45,7 @@ num_points = st.slider("Number of key points", min_value=5, max_value=10, value=
 if uploaded_file is not None:
     st.write("Analyzing file...")
     
+    # Extract text based on file type
     if uploaded_file.type == "application/pdf":
         text = extract_text_from_pdf(uploaded_file)
     else:
@@ -57,7 +54,8 @@ if uploaded_file is not None:
     st.write("Generating key points...")
     key_points = get_key_points(text, num_points)
     
-    st.write("Key Points:")
-    st.write(key_points)
+    if key_points:
+        st.write("Key Points:")
+        st.write(key_points)
 
 st.write("Note: Make sure to set your OpenAI API key in the Streamlit secrets.")
