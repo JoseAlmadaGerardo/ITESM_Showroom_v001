@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sns
+import io  # Added import for io.StringIO()
 
 def convertir_fecha(fecha_str):
     meses_es_en = {
@@ -48,7 +49,7 @@ def Component():
 
     uploaded_file = st.file_uploader("Choose an XLSX file", type="xlsx")
     if uploaded_file is not None:
-        df = pd.read_excel(uploaded_file)
+        df = pd.read_excel(uploaded_file)  # Ensure this line is correct
         st.write("Original Data:")
         st.write(df.head())
 
