@@ -8,8 +8,8 @@ from datetime import datetime
 
 # Page Configuration
 st.set_page_config(
-    page_title="# Text analyzer",page_icon="🔍", layout="wide",initial_sidebar_state="expanded")
-st.title("AI text analyzer")
+    page_title="# File analyzer",page_icon="🔍", layout="wide",initial_sidebar_state="expanded")
+st.title("AI File analyzer")
 
 # Load the API key from secrets
 if "api_key" not in st.session_state:
