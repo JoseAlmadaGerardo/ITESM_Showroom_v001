@@ -2,14 +2,8 @@ import streamlit as st
 
 # Set page configuration
 st.set_page_config(page_title="Hello", page_icon="👋", layout="wide")
-
-# Load the API key from secrets
-if "api_key" not in st.session_state:
-    st.session_state.api_key = st.secrets["openai"]["api_key"]
-
 st.write("# Welcome to the Data Science Hub Showroom at Tecnológico de Monterrey! 👋")
 st.sidebar.success("Select a demo above.")
-
 st.markdown(
         """
         This showroom showcases various AI use cases across different industries applications, and is an app built
@@ -19,6 +13,9 @@ st.markdown(
         """
     )
 
+# Load the API key from secrets
+if "api_key" not in st.session_state:
+    st.session_state.api_key = st.secrets["openai"]["api_key"]
 
 # Create 2 columns
 col1, col2 = st.columns((1.5,1))
