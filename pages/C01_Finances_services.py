@@ -1,6 +1,11 @@
 import streamlit as st
 from openai import OpenAI
 
+# Page Configuration
+st.set_page_config(
+    page_title="# AI at finance services",page_icon="📊", layout="wide",initial_sidebar_state="expanded")
+st.title(" AI at finance services")
+
 # Load the API key from secrets
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["openai"]["api_key"]
@@ -8,12 +13,9 @@ else:
     openai_api_key = st.session_state.api_key
     client = OpenAI(api_key=openai_api_key)
 
-# Set page configuration
-st.set_page_config(page_title="AI AT FINANCE SERVICES", page_icon="📊", layout="wide")
-
 # Page 1: Redirection/Forecasting Customer Turnover
 def customer_turnover_forecasting():
-    st.markdown("# 📄 Redirection/forecasting customer turnover")
+    st.markdown("# Redirection/forecasting customer turnover")
     st.markdown(
         """
         Redirection and forecasting of customer turnover helps finance companies anticipate
@@ -25,7 +27,7 @@ def customer_turnover_forecasting():
 
 # Page 2: Chatbots for Customer Service
 def chatbots_customer_service():
-    st.markdown("# 📄 Chatbots (Customer Service)")
+    st.markdown("# Chatbots (Customer Service)")
     st.markdown(
         """
         Chatbots powered by AI can handle a variety of customer service tasks such as answering
@@ -48,7 +50,7 @@ def chatbots_customer_service():
 
 # Page 3: Co-pilot Market Scenario Planner
 def copilot_market_scenario_planner():
-    st.markdown("# 📄 Co-pilot Market Scenario Planner")
+    st.markdown("# Co-pilot Market Scenario Planner")
     st.markdown(
         """
         A co-pilot market scenario planner helps finance professionals explore different market
@@ -60,7 +62,7 @@ def copilot_market_scenario_planner():
 
 # Page 4: Next Best Investment and Product Selection
 def next_best_investment():
-    st.markdown("# 📄 Next Best Investment and Product Selection")
+    st.markdown("# Next Best Investment and Product Selection")
     st.markdown(
         """
         AI can assist in identifying the next best investment opportunities by analyzing market trends,
@@ -72,7 +74,7 @@ def next_best_investment():
 
 # Page 5: Documentation
 def documentation():
-    st.markdown("# 📄 Documentation ")
+    st.markdown("# Documentation ")
     st.markdown(
         """
         In this section, you will find the documentation about the cases explained for the Business units.
@@ -97,7 +99,6 @@ def main():
     page = st.sidebar.radio("Choose a use case", pages)
 
     if page == "Home":
-        st.markdown("# AI AT FINANCE SERVICES")
         st.markdown(
             """
             Financial services are leveraging AI to improve customer experiences, streamline operations, 
