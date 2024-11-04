@@ -6,8 +6,10 @@ import docx
 import markdown
 from datetime import datetime
 
-# Set page layout to wide
-st.set_page_config(layout="wide")
+# Page Configuration
+st.set_page_config(
+    page_title="# Text analyzer",page_icon="📈", layout="wide",initial_sidebar_state="expanded")
+st.title("AI text analyzer")
 
 # Load the API key from secrets
 if "api_key" not in st.session_state:
@@ -91,7 +93,7 @@ def chat_with_ai(user_input, context):
         st.error(f"An error occurred during the chat: {str(e)}")
         return None
 
-st.title("Enhanced File Analyzer with ChatGPT")
+st.title("File Analyzer with ChatGPT")
 
 col_file, col_tokens = st.columns([3, 1])
 
