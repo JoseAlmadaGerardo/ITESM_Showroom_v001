@@ -7,8 +7,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 import joblib
 
-# Set page configuration
-st.set_page_config(page_title="Customer Turnover Forecasting", page_icon="📊", layout="wide")
+# Page Configuration
+st.set_page_config(
+    page_title="# Customer Turnover Forecasting",page_icon="💰", layout="wide",initial_sidebar_state="expanded")
+st.title("📊 Customer Turnover Forecasting")
 
 # Initialize session state
 if 'data_params' not in st.session_state:
@@ -50,8 +52,6 @@ def train_model(X, y):
 
 # Main function
 def main():
-    st.title("📊 Customer Turnover Forecasting")
-    
     # Sidebar
     st.sidebar.header("Navigation")
     page = st.sidebar.radio("Go to", ["Home", "Dashboard", "Prediction Model", "Customer Analysis"])
