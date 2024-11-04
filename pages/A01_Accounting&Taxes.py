@@ -5,7 +5,7 @@ from openai import OpenAI
 
 # Page Configuration
 st.set_page_config(
-    page_title="Accounting & Taxes", page_icon="🤖", layout="wide", initial_sidebar_state="expanded")
+    page_title="Accounting & Taxes", page_icon="📊", layout="wide", initial_sidebar_state="expanded")
 st.title("AI at accounting and taxes")
 
 # Load the API key from secrets
