@@ -93,10 +93,6 @@ def chat_with_assistant(assistant_id, user_message):
         st.error(f"Error chatting with assistant: {str(e)}")
         return None
 
-# Streamlit UI
-#st.set_page_config(layout="wide")
-#st.title("OpenAI assistant manager & developer")
-
 # Sidebar for configuration and assistant management
 with st.sidebar:
     st.header("Configuration")
