@@ -5,11 +5,7 @@ import tiktoken
 
 # Page Configuration
 st.set_page_config(
-    page_title="Ai-Assistant",
-    page_icon="🤖",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+    page_title="Ai-Assistant",page_icon="🤖",layout="wide",initial_sidebar_state="expanded")
 st.title("OpenAI assistant manager & developer")
 
 # Initialize session state variables
