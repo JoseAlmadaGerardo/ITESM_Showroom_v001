@@ -3,6 +3,15 @@ import openai
 import time
 import tiktoken
 
+# Page Configuration
+st.set_page_config(
+    page_title="Ai-Assistant",
+    page_icon="🤖",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+st.title("OpenAI assistant manager & developer")
+
 # Initialize session state variables
 if 'api_key' not in st.session_state:
     st.session_state.api_key = ''
@@ -85,8 +94,8 @@ def chat_with_assistant(assistant_id, user_message):
         return None
 
 # Streamlit UI
-st.set_page_config(layout="wide")
-st.title("OpenAI assistant manager & developer")
+#st.set_page_config(layout="wide")
+#st.title("OpenAI assistant manager & developer")
 
 # Sidebar for configuration and assistant management
 with st.sidebar:
