@@ -5,11 +5,8 @@ from datetime import datetime
 
 # Page Configuration
 st.set_page_config(
-    page_title="Manufacturing_4o",
-    page_icon="🏭",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+    page_title="Manufacturing_4o", page_icon="🏭", layout="wide",initial_sidebar_state="expanded")
+st.title("AI at manufacturing 4.0")
 
 # Initialize session state variables
 if "api_key" not in st.session_state:
@@ -153,8 +150,6 @@ def documentation():
 
 # Main Page
 def main_page():
-    st.title("AI AT MANUFACTURING 4.0")
-    
     st.markdown("""
         Welcome to the AI-powered Manufacturing 4.0 platform. This system integrates 
         artificial intelligence to optimize manufacturing processes and enhance productivity.
@@ -184,4 +179,3 @@ with st.sidebar:
 
 # Render Selected Page
 pages[selected_page]()
-
