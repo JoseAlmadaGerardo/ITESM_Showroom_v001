@@ -7,7 +7,6 @@ from openai import OpenAI
 st.set_page_config(
     page_title="Accounting & Taxes", page_icon="🤖", layout="wide", initial_sidebar_state="expanded")
 st.title("AI at accounting and taxes")
-#st.markdown("# AI AT ACCOUNTING AND TAXES.")
 
 # Load the API key from secrets
 if "api_key" not in st.session_state:
