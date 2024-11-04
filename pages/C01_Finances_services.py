@@ -89,11 +89,11 @@ def main():
     # Radio button for navigation
     pages = [
         "Home",
-        "📄 Redirection/Forecasting Customer Turnover",
-        "📄 Chatbots (Customer Service)",
-        "📄 Co-pilot Market Scenario Planner",
-        "📄 Next Best Investment and Product Selection",
-        "📄 Documentation"
+        "Churn Forecasting",
+        "Customer Service",
+        "Co-pilot Market Planner",
+        "Next Best Investment",
+        "Documentation"
     ]
     
     page = st.sidebar.radio("Choose a use case", pages)
