@@ -89,7 +89,7 @@ def main():
     # Radio button for navigation
     pages = [
         "Home",
-        "Churn Forecasting",
+        "Churn_Forecasting",
         "Customer Service",
         "Co-pilot Market Planner",
         "Next Best Investment",
@@ -113,15 +113,15 @@ def main():
             """
         )
         st.write("👈 Select a use case from the radio buttons on the left to explore examples of what AI assistance can achieve!")
-    elif page == "📄 Redirection/Forecasting Customer Turnover":
+    elif page == "Churn_Forecasting":
         customer_turnover_forecasting()
-    elif page == "📄 Chatbots (Customer Service)":
+    elif page == "Customer Service":
         chatbots_customer_service()
-    elif page == "📄 Co-pilot Market Scenario Planner":
+    elif page == "Co-pilot Market Planner":
         copilot_market_scenario_planner()
-    elif page == "📄 Next Best Investment and Product Selection":
+    elif page == "Next Best Investment":
         next_best_investment()
-    elif page == "📄 Documentation":
+    elif page == "Documentation":
         documentation()
 
 if __name__ == "__main__":
