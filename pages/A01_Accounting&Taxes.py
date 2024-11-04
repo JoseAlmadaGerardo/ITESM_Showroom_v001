@@ -3,6 +3,12 @@ import pandas as pd
 import plotly.graph_objects as go
 from openai import OpenAI
 
+# Page Configuration
+st.set_page_config(
+    page_title="Accounting & Taxes", page_icon="🤖", layout="wide", initial_sidebar_state="expanded")
+st.title("AI at accounting and taxes")
+#st.markdown("# AI AT ACCOUNTING AND TAXES.")
+
 # Load the API key from secrets
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["openai"]["api_key"]
@@ -163,7 +169,6 @@ page_names_to_funcs = {
 # Sidebar for Navigation
 st.sidebar.header("AI AT ACCOUNTING AND TAXES.")
 demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
-st.markdown("# AI AT ACCOUNTING AND TAXES.")
 
 # Render Main Introductory Content Only on Main Page
 if demo_name == "—":
