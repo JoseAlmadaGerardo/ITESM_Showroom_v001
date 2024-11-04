@@ -4,8 +4,10 @@ import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime, timedelta
 
-# Set page config
-st.set_page_config(page_title="Token Usage Dashboard", layout="wide")
+# Page Configuration
+st.set_page_config(
+    page_title="# Token Usage Dashboard",page_icon="🔢", layout="wide",initial_sidebar_state="expanded")
+st.title("Token Usage Dashboard")
 
 # Function to load data
 @st.cache_data
