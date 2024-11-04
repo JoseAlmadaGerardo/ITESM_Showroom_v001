@@ -3,7 +3,7 @@ from openai import OpenAI
 
 # Page Configuration
 st.set_page_config(
-    page_title="# AI at finance services",page_icon="📊", layout="wide",initial_sidebar_state="expanded")
+    page_title="# AI at finance services",page_icon="💰", layout="wide",initial_sidebar_state="expanded")
 st.title(" AI at finance services")
 
 # Load the API key from secrets
