@@ -3,6 +3,14 @@ import openai
 import time
 import tiktoken
 
+# Page Configuration
+st.set_page_config(
+    page_title="AI_Assistant",
+    page_icon="🤖",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 # Initialize session state variables
 if 'api_key' not in st.session_state:
     st.session_state.api_key = ''
