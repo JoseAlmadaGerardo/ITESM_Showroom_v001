@@ -114,7 +114,7 @@ def fanuc_robot_assistant():
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
 
-    col3, col4 = st.columns([2, 1])
+    col3, col4, col5 = st.columns([3, 1, 2])
      # Chat functionality
     with col3:
         st.subheader("Chat with Fanuc Robot Assistant")
@@ -133,7 +133,7 @@ def fanuc_robot_assistant():
                 st.markdown(f"**A:** {chat['answer']}")
                 st.markdown("---")
 
-      # Key points extraction
+      # Document extraction
     with col4:
         uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
     if uploaded_file:
@@ -146,19 +146,20 @@ def fanuc_robot_assistant():
             text = extract_text_from_md(uploaded_file)
         elif uploaded_file.type == "text/plain":
             text = extract_text_from_txt(uploaded_file)
+        else:
+            st.error("Unsupported file type")
+            return
+            
+            st.session_state.fanuc_context = text
+            st.success("Document uploaded and processed successfully!")
 
-        st.session_state.fanuc_context = text
-        st.success("Document uploaded and processed successfully!")
-
+         # Key points extraction
+         with col5:
         num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
-        
         if st.button("Extract Key Points"):
             key_points = get_key_points(text, num_points)
             st.markdown("### Key Points:")
             st.write(key_points)
-        else:
-            st.error("Unsupported file type")
-            return
 
 # Page 2: Electronic Components Assistant
 def electronic_components_assistant():
