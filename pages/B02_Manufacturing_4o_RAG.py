@@ -11,8 +11,8 @@ import re
 
 # Page Configuration
 st.set_page_config(
-    page_title="Manufacturing_4o", page_icon="🏭", layout="wide", initial_sidebar_state="expanded")
-st.title("AI at manufacturing 4.0")
+    page_title="Manufacturing_4o_RAG", page_icon="🏭", layout="wide", initial_sidebar_state="expanded")
+st.title("AI at manufacturing 4.0 using upadate documents for a RAG")
 
 # Initialize session state variables
 if "api_key" not in st.session_state:
@@ -277,7 +277,7 @@ with st.sidebar:
     st.write(f"Total: {st.session_state.fanuc_total_tokens + st.session_state.components_total_tokens}")
     
     # Download Chat History
-    st.markdown(download_chat_history(), unsafe_allow_html=True)
+    st.markdown(download_chat_history(), unsafe_allow_html=False)
 
 # Render Selected Page
 pages[selected_page]()
