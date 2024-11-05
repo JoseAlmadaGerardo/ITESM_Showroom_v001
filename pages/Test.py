@@ -2,11 +2,13 @@ import streamlit as st
 from openai import OpenAI
 import time
 from datetime import datetime
+import json
+import base64
 
 # Page Configuration
 st.set_page_config(
     page_title="Manufacturing_4o", page_icon="🏭", layout="wide", initial_sidebar_state="expanded")
-st.title("AI at Manufacturing 4.0")
+st.title("AI at manufacturing 4.0")
 
 # Initialize session state variables
 if "api_key" not in st.session_state:
@@ -25,7 +27,7 @@ if "custom_components" not in st.session_state:
 # Initialize OpenAI client
 client = OpenAI(api_key=st.session_state.api_key)
 
-# Utility function for OpenAI API calls with error handling
+# Utility function for OpenAI API calls
 def get_ai_response(prompt, model="gpt-4", temperature=1, max_tokens=126):
     try:
         response = client.chat.completions.create(
@@ -36,8 +38,21 @@ def get_ai_response(prompt, model="gpt-4", temperature=1, max_tokens=126):
         )
         return response.choices[0].message.content, response.usage.total_tokens
     except Exception as e:
-        st.error(f"An error occurred with OpenAI API: {str(e)}")
+        st.error(f"An error occurred: {str(e)}")
         return None, 0
+
+# Function to download chat history
+def download_chat_history():
+    data = {
+        "fanuc_chat_history": st.session_state.fanuc_chat_history,
+        "components_chat_history": st.session_state.components_chat_history,
+        "fanuc_total_tokens": st.session_state.fanuc_total_tokens,
+        "components_total_tokens": st.session_state.components_total_tokens
+    }
+    json_string = json.dumps(data, indent=2)
+    b64 = base64.b64encode(json_string.encode()).decode()
+    href = f'<a href="data:application/json;base64,{b64}" download="chat_history.json">Download Chat History</a>'
+    return href
 
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
@@ -71,10 +86,9 @@ def fanuc_robot_assistant():
                     st.session_state.fanuc_total_tokens += tokens
 
     if st.session_state.fanuc_chat_history:
-        with st.expander("View Chat History"):
-            for chat in reversed(st.session_state.fanuc_chat_history):
-                st.markdown(f"**Time:** {chat['timestamp']}")
-                st.markdown(f"**Q:** {chat['question']}")
+        st.subheader("Chat History")
+        for chat in reversed(st.session_state.fanuc_chat_history):
+            with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
                 st.markdown(f"**A:** {chat['answer']}")
                 st.markdown("---")
 
@@ -121,10 +135,9 @@ def electronic_components_assistant():
                     st.session_state.components_total_tokens += tokens
 
     if st.session_state.components_chat_history:
-        with st.expander("View Chat History"):
-            for chat in reversed(st.session_state.components_chat_history):
-                st.markdown(f"**Component:** {chat['component']}")
-                st.markdown(f"**Q:** {chat['question']}")
+        st.subheader("Chat History")
+        for chat in reversed(st.session_state.components_chat_history):
+            with st.expander(f"{chat['component']}: {chat['question']}"):
                 st.markdown(f"**A:** {chat['answer']}")
                 st.markdown("---")
 
@@ -136,11 +149,18 @@ def documentation():
         In this section, you will find comprehensive documentation about the use cases explained for the Business Units.
         """
     )
-    st.info("Detailed documentation is currently being compiled. Check back soon for updates!")
+    
     st.subheader("Available Documentation:")
-    doc_types = ["User Manuals", "Technical Specifications", "Troubleshooting Guides", "Best Practices"]
-    for doc in doc_types:
-        st.write(f"- {doc}")
+    doc_types = {
+        "User Manuals": "https://example.com/user-manuals",
+        "Technical Specifications": "https://example.com/tech-specs",
+        "Troubleshooting Guides": "https://example.com/troubleshooting",
+        "Best Practices": "https://example.com/best-practices"
+    }
+    for doc, link in doc_types.items():
+        st.markdown(f"- [{doc}]({link})")
+    
+    st.info("For specific documentation requests, please contact your system administrator.")
 
 # Main Page
 def main_page():
@@ -159,15 +179,26 @@ def main_page():
 # Sidebar Navigation
 with st.sidebar:
     st.title("AI AT MANUFACTURING 4.0")
-    st.metric("Total Tokens Used", st.session_state.fanuc_total_tokens + st.session_state.components_total_tokens)
+    
     pages = {
         "Home": main_page,
         "🤖 Fanuc Robot Assistant": fanuc_robot_assistant,
         "🔌 Electronic Components": electronic_components_assistant,
         "📚 Documentation": documentation
     }
+    
     selected_page = st.radio("Navigation", list(pages.keys()))
+    
     st.markdown("---")
+    
+    # Token Usage Summary
+    st.subheader("Token Usage Summary")
+    st.write(f"Fanuc: {st.session_state.fanuc_total_tokens}")
+    st.write(f"Components: {st.session_state.components_total_tokens}")
+    st.write(f"Total: {st.session_state.fanuc_total_tokens + st.session_state.components_total_tokens}")
+    
+    # Download Chat History
+    st.markdown(download_chat_history(), unsafe_allow_html=True)
 
 # Render Selected Page
 pages[selected_page]()
