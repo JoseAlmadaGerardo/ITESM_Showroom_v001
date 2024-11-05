@@ -141,7 +141,7 @@ def fanuc_robot_assistant():
                 text = extract_text_from_pdf(uploaded_file)
             elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
                 text = extract_text_from_docx(uploaded_file)
-        elif uploaded_file.type == "text/markdown":
+            elif uploaded_file.type == "text/markdown":
             text = extract_text_from_md(uploaded_file)
         elif uploaded_file.type == "text/plain":
             text = extract_text_from_txt(uploaded_file)
@@ -153,6 +153,7 @@ def fanuc_robot_assistant():
         st.success("Document uploaded and processed successfully!")
 
         num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
+        
         if st.button("Extract Key Points"):
             key_points = get_key_points(text, num_points)
             st.markdown("### Key Points:")
