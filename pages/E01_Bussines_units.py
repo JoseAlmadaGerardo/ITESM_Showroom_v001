@@ -10,10 +10,6 @@ from datetime import datetime
 st.set_page_config(
     page_title="# Bussines_units",page_icon="📈", layout="wide",initial_sidebar_state="expanded")
 st.title("AI at bussines units")
-# Page Configuration
-st.set_page_config(
-    page_title="# File analyzer",page_icon="🔍", layout="wide",initial_sidebar_state="expanded")
-st.title("AI File analyzer")
 
 # Load the API key from secrets
 if "api_key" not in st.session_state:
