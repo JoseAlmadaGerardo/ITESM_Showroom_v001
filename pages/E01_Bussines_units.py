@@ -226,12 +226,12 @@ if uploaded_file is not None:
 
 # Main Page Selection
 page_names_to_funcs = {
-    "—": lambda: st.write("Select a page from the sidebar."),
+    "🏡 Home": lambda: st.write("Select a page from the sidebar."),
     "📄 Document Analyzer": document_analyzer,
     "📄 Sales": sales,
     "📄 Human Resources": human_resources,
     "📄 IT Support": it_support,
-     "📄 Customer Support": customer_support,
+    "📄 Customer Support": customer_support,
     "📄 Documentation": documentation,
 }
 
@@ -247,10 +247,11 @@ if demo_name == "—":
         Explore how AI can improve efficiency, decision-making, and overall performance across these areas.
         
         **Explore Use Cases:**
-        - 📄 Customer Support.
+        - 📄 CDocument Analyzer.
         - 📄 Sales.
         - 📄 Human Resources.
         - 📄 IT Support.
+        - 📄 Customer Support.
         - 📄 Documentation.
         """
     )
