@@ -3,6 +3,7 @@ from openai import OpenAI
 import time
 from datetime import datetime
 
+
 # Page Configuration
 st.set_page_config(
     page_title="Manufacturing_4o", page_icon="🏭", layout="wide",initial_sidebar_state="expanded")
