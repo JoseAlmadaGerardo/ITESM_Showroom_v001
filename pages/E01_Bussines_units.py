@@ -47,6 +47,65 @@ def document_analyzer():
         """
     )
 
+
+# Page 2: Sales
+def sales():
+    st.markdown("# 📄 Sales")
+    st.markdown(
+        """
+        AI in sales can optimize the sales process by analyzing customer data, predicting customer 
+        behavior, and recommending next best actions. This enables sales teams to focus on high-value 
+        opportunities and close deals faster.
+        """
+    )
+    st.write("More details about AI in Sales will be added here.")
+
+# Page 3: Human Resources
+def human_resources():
+    st.markdown("# 📄 Human Resources")
+    st.markdown(
+        """
+        AI tools in human resources can streamline recruitment, assist in talent management, 
+        and improve employee engagement. AI can help match candidates with roles, automate 
+        administrative tasks, and enhance workforce management.
+        """
+    )
+    st.write("More details about AI in Human Resources will be added here.")
+
+# Page 4: IT Support
+def it_support():
+    st.markdown("# 📄 IT Support")
+    st.markdown(
+        """
+        AI in IT support helps diagnose issues, automate troubleshooting, and assist in monitoring 
+        IT infrastructure. AI tools can provide real-time alerts, recommend fixes, and reduce 
+        downtime for business operations.
+        """
+    )
+    st.write("More details about AI in IT Support will be added here.")
+
+# Page 5: Customer Support
+def customer_support():
+    st.markdown("# 📄 Customer Support")
+    st.markdown(
+        """
+        AI-powered customer support solutions can assist in handling inquiries, resolving issues, 
+        and enhancing the overall customer experience. With AI chatbots, businesses can provide 
+        24/7 support and quickly address customer needs.
+        """
+    )
+    st.write("More details about AI in Customer Support will be added here.")
+
+# Page 6: Documentation
+def documentation():
+    st.markdown("# 📄 Documentation ")
+    st.markdown(
+        """
+        At this section you will find the documentation about the cases explained for the Bussines units.
+        """
+    )
+    st.write("Documentation will be added here.")
+
 def extract_text_from_pdf(file):
     pdf_reader = PyPDF2.PdfReader(file)
     text = ""
@@ -164,63 +223,6 @@ if uploaded_file is not None:
             st.write(f"**{role}** ({timestamp}):")
             st.write(message)
 
-# Page 2: Sales
-def sales():
-    st.markdown("# 📄 Sales")
-    st.markdown(
-        """
-        AI in sales can optimize the sales process by analyzing customer data, predicting customer 
-        behavior, and recommending next best actions. This enables sales teams to focus on high-value 
-        opportunities and close deals faster.
-        """
-    )
-    st.write("More details about AI in Sales will be added here.")
-
-# Page 3: Human Resources
-def human_resources():
-    st.markdown("# 📄 Human Resources")
-    st.markdown(
-        """
-        AI tools in human resources can streamline recruitment, assist in talent management, 
-        and improve employee engagement. AI can help match candidates with roles, automate 
-        administrative tasks, and enhance workforce management.
-        """
-    )
-    st.write("More details about AI in Human Resources will be added here.")
-
-# Page 4: IT Support
-def it_support():
-    st.markdown("# 📄 IT Support")
-    st.markdown(
-        """
-        AI in IT support helps diagnose issues, automate troubleshooting, and assist in monitoring 
-        IT infrastructure. AI tools can provide real-time alerts, recommend fixes, and reduce 
-        downtime for business operations.
-        """
-    )
-    st.write("More details about AI in IT Support will be added here.")
-
-# Page 5: Customer Support
-def customer_support():
-    st.markdown("# 📄 Customer Support")
-    st.markdown(
-        """
-        AI-powered customer support solutions can assist in handling inquiries, resolving issues, 
-        and enhancing the overall customer experience. With AI chatbots, businesses can provide 
-        24/7 support and quickly address customer needs.
-        """
-    )
-    st.write("More details about AI in Customer Support will be added here.")
-
-# Page 6: Documentation
-def documentation():
-    st.markdown("# 📄 Documentation ")
-    st.markdown(
-        """
-        At this section you will find the documentation about the cases explained for the Bussines units.
-        """
-    )
-    st.write("Documentation will be added here.")
 
 # Main Page Selection
 page_names_to_funcs = {
