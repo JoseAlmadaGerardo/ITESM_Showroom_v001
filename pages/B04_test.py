@@ -113,6 +113,11 @@ def fanuc_robot_assistant():
         st.warning("Note: This AI assistant is still in development mode.")
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
+        num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
+        if st.button("Extract Key Points"):
+            key_points = get_key_points(text, num_points)
+            st.markdown("### Key Points:")
+            st.write(key_points)
 
     # Document upload
     uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
@@ -132,12 +137,6 @@ def fanuc_robot_assistant():
         st.session_state.fanuc_context = text
         st.success("Document uploaded and processed successfully!")
 
-        # Key points extraction
-        num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
-        if st.button("Extract Key Points"):
-            key_points = get_key_points(text, num_points)
-            st.markdown("### Key Points:")
-            st.write(key_points)
 
     # Chat functionality
     st.subheader("Chat with Fanuc Robot Assistant")
