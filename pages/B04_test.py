@@ -146,9 +146,6 @@ def fanuc_robot_assistant():
             text = extract_text_from_md(uploaded_file)
         elif uploaded_file.type == "text/plain":
             text = extract_text_from_txt(uploaded_file)
-        else:
-            st.error("Unsupported file type")
-            return
 
         st.session_state.fanuc_context = text
         st.success("Document uploaded and processed successfully!")
@@ -159,6 +156,9 @@ def fanuc_robot_assistant():
             key_points = get_key_points(text, num_points)
             st.markdown("### Key Points:")
             st.write(key_points)
+        else:
+            st.error("Unsupported file type")
+            return
 
 # Page 2: Electronic Components Assistant
 def electronic_components_assistant():
