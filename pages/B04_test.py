@@ -131,6 +131,7 @@ def fanuc_robot_assistant():
             key_points = get_key_points(text, num_points)
             st.markdown("### Key Points:")
             st.write(key_points)
+            return key_points
 
        # Chat functionality
     with col2:
