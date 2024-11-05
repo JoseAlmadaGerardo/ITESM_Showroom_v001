@@ -146,17 +146,17 @@ with col4:
             st.session_state.fanuc_context = text
             st.success("Document uploaded and processed successfully!")
 
-    st.header("🤖 Fanuc Robot Assistant")
-    st.info("👋 I'm your Fanuc Robot Assistant!")
-    st.warning("Note: This AI assistant is still in development mode.")
-    st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
-
 # Key points extraction
     num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
     if st.button("Extract Key Points"):
         key_points = get_key_points(text, num_points)
         st.markdown("### Key Points:")
         st.write(key_points)
+
+    st.header("🤖 Fanuc Robot Assistant")
+    st.info("👋 I'm your Fanuc Robot Assistant!")
+    st.warning("Note: This AI assistant is still in development mode.")
+    st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
         
 # Page 2: Electronic Components Assistant
 def electronic_components_assistant():
