@@ -130,8 +130,15 @@ if st.session_state.fanuc_chat_history:
             st.markdown(f"**A:** {chat['answer']}")
             st.markdown("---")
 
-# Document extraction
+# Key points extraction
 with col2:
+    num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
+    if st.button("Extract Key Points"):
+        key_points = get_key_points(text, num_points)
+        st.markdown("### Key Points:")
+        st.write(key_points)
+
+# Document extraction
     uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
     if uploaded_file:
         if uploaded_file.type == "application/pdf":
@@ -150,13 +157,6 @@ with col2:
             st.session_state.fanuc_context = text
             st.success("Document uploaded and processed successfully!")
 
-# Key points extraction
-    num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
-    if st.button("Extract Key Points"):
-        key_points = get_key_points(text, num_points)
-        st.markdown("### Key Points:")
-        st.write(key_points)
-        
 # Page 2: Electronic Components Assistant
 def electronic_components_assistant():
     st.header("🔌 Electronic Components Assistant")
