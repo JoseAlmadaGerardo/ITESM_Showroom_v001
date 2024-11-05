@@ -148,7 +148,7 @@ with col4:
             text = extract_text_from_txt(uploaded_file)
         else:
             st.error("Unsupported file type")
-            return
+        return
 
         st.session_state.fanuc_context = text
         st.success("Document uploaded and processed successfully!")
