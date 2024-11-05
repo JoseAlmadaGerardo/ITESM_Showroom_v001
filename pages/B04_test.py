@@ -109,7 +109,7 @@ def fanuc_robot_assistant():
     
     col1, col2 = st.columns([2, 1])
     with col1:
-    uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
+uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
     if uploaded_file:
         if uploaded_file.type == "application/pdf":
             text = extract_text_from_pdf(uploaded_file)
@@ -121,7 +121,11 @@ def fanuc_robot_assistant():
             text = extract_text_from_txt(uploaded_file)
         else:
             st.error("Unsupported file type")
-            return
+            text = None  # Set text to None or an empty string to indicate unsupported type
+            
+        if text:  # Proceed only if a supported file type was uploaded
+            st.session_state.fanuc_context = text
+            st.success("Document uploaded and processed successfully!")
 
         st.session_state.fanuc_context = text
         st.success("Document uploaded and processed successfully!")
