@@ -105,40 +105,16 @@ def chat_with_ai(context, question, chat_history):
 
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
-    st.subheader("🤖 Fanuc Robot Assistant")
-    st.info("👋 I'm your Fanuc Robot Assistant!")
-    st.warning("Note: This AI assistant is still in development mode.")
-    st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
-        
-col1, col2 = st.columns([1, 1])
+    st.header("🤖 Fanuc Robot Assistant")
+    
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.info("👋 I'm your Fanuc Robot Assistant!")
+        st.warning("Note: This AI assistant is still in development mode.")
+    with col2:
+        st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
 
-# Chat functionality
-with col1:
-    st.markdown("Chat with Fanuc Robot Assistant")
-    question = st.text_input("Ask a question about Fanuc robots:")
-    if st.button("Send"):
-        if question:
-            response, tokens = chat_with_ai(st.session_state.fanuc_context, question, st.session_state.fanuc_chat_history)
-            st.markdown(f"**Answer:** {response}")
-            st.session_state.fanuc_total_tokens += tokens
-
-# Chat history
-if st.session_state.fanuc_chat_history:
-    st.markdown("Chat History")
-    for chat in reversed(st.session_state.fanuc_chat_history):
-        with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
-            st.markdown(f"**A:** {chat['answer']}")
-            st.markdown("---")
-
-# Key points extraction
-with col2:
-    num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
-    if st.button("Extract Key Points"):
-        key_points = get_key_points(text, num_points)
-        st.markdown("### Key Points:")
-        st.write(key_points)
-
-# Document extraction
+    # Document upload
     uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
     if uploaded_file:
         if uploaded_file.type == "application/pdf":
@@ -151,11 +127,34 @@ with col2:
             text = extract_text_from_txt(uploaded_file)
         else:
             st.error("Unsupported file type")
-            text = None  # Set text to None or an empty string to indicate unsupported type
-            
-        if text:  # Proceed only if a supported file type was uploaded
-            st.session_state.fanuc_context = text
-            st.success("Document uploaded and processed successfully!")
+            return
+
+        st.session_state.fanuc_context = text
+        st.success("Document uploaded and processed successfully!")
+
+        # Key points extraction
+        num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
+        if st.button("Extract Key Points"):
+            key_points = get_key_points(text, num_points)
+            st.markdown("### Key Points:")
+            st.write(key_points)
+
+    # Chat functionality
+    st.subheader("Chat with Fanuc Robot Assistant")
+    question = st.text_input("Ask a question about Fanuc robots:")
+    if st.button("Send"):
+        if question:
+            response, tokens = chat_with_ai(st.session_state.fanuc_context, question, st.session_state.fanuc_chat_history)
+            st.markdown(f"**Answer:** {response}")
+            st.session_state.fanuc_total_tokens += tokens
+
+    # Chat history
+    if st.session_state.fanuc_chat_history:
+        st.subheader("Chat History")
+        for chat in reversed(st.session_state.fanuc_chat_history):
+            with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
+                st.markdown(f"**A:** {chat['answer']}")
+                st.markdown("---")
 
 # Page 2: Electronic Components Assistant
 def electronic_components_assistant():
@@ -276,9 +275,6 @@ with st.sidebar:
     st.write(f"Fanuc: {st.session_state.fanuc_total_tokens}")
     st.write(f"Components: {st.session_state.components_total_tokens}")
     st.write(f"Total: {st.session_state.fanuc_total_tokens + st.session_state.components_total_tokens}")
-    
-    # Download Chat History
-    #st.markdown(download_chat_history())
 
 # Render Selected Page
 pages[selected_page]()
