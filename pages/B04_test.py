@@ -138,8 +138,8 @@ def fanuc_robot_assistant():
 
     # Chat functionality
     with col3:
-    st.subheader("Chat with Fanuc Robot Assistant")
-    question = st.text_input("Ask a question about Fanuc robots:")
+        st.subheader("Chat with Fanuc Robot Assistant")
+        question = st.text_input("Ask a question about Fanuc robots:")
     if st.button("Send"):
         if question:
             response, tokens = chat_with_ai(st.session_state.fanuc_context, question, st.session_state.fanuc_chat_history)
@@ -155,7 +155,7 @@ def fanuc_robot_assistant():
                 st.markdown("---")
                 
         with col4:
-        num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
+            num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
         if st.button("Extract Key Points"):
             key_points = get_key_points(text, num_points)
             st.markdown("### Key Points:")
