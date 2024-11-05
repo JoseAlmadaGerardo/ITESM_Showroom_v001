@@ -105,12 +105,16 @@ def chat_with_ai(context, question, chat_history):
 
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
+    st.header("🤖 Fanuc Robot Assistant")
+    st.info("👋 I'm your Fanuc Robot Assistant!")
+    st.warning("Note: This AI assistant is still in development mode.")
+    st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
         
 col3, col4 = st.columns([2, 1])
 
 # Chat functionality
 with col3:
-    st.subheader("Chat with Fanuc Robot Assistant")
+    st.markdown("Chat with Fanuc Robot Assistant")
     question = st.text_input("Ask a question about Fanuc robots:")
     if st.button("Send"):
         if question:
@@ -120,7 +124,7 @@ with col3:
 
 # Chat history
 if st.session_state.fanuc_chat_history:
-    st.subheader("Chat History")
+    st.markdown("Chat History")
     for chat in reversed(st.session_state.fanuc_chat_history):
         with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
             st.markdown(f"**A:** {chat['answer']}")
@@ -152,11 +156,6 @@ with col4:
         key_points = get_key_points(text, num_points)
         st.markdown("### Key Points:")
         st.write(key_points)
-
-    st.header("🤖 Fanuc Robot Assistant")
-    st.info("👋 I'm your Fanuc Robot Assistant!")
-    st.warning("Note: This AI assistant is still in development mode.")
-    st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
         
 # Page 2: Electronic Components Assistant
 def electronic_components_assistant():
