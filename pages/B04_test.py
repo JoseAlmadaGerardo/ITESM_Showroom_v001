@@ -113,31 +113,31 @@ def fanuc_robot_assistant():
         st.warning("Note: This AI assistant is still in development mode.")
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
+        
+col3, col4, col5 = st.columns([3, 1, 2])
 
-    col3, col4, col5 = st.columns([3, 1, 2])
-     # Chat functionality
-    with col3:
-        st.subheader("Chat with Fanuc Robot Assistant")
-        question = st.text_input("Ask a question about Fanuc robots:")
-        if st.button("Send"):
-            if question:
-                response, tokens = chat_with_ai(st.session_state.fanuc_context, question, st.session_state.fanuc_chat_history)
-                st.markdown(f"**Answer:** {response}")
-                st.session_state.fanuc_total_tokens += tokens
+# Chat functionality
+with col3:
+    st.subheader("Chat with Fanuc Robot Assistant")
+    question = st.text_input("Ask a question about Fanuc robots:")
+    if st.button("Send"):
+        if question:
+            response, tokens = chat_with_ai(st.session_state.fanuc_context, question, st.session_state.fanuc_chat_history)
+            st.markdown(f"**Answer:** {response}")
+            st.session_state.fanuc_total_tokens += tokens
 
-    # Chat history
-    if st.session_state.fanuc_chat_history:
-        st.subheader("Chat History")
-        for chat in reversed(st.session_state.fanuc_chat_history):
-            with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
-                st.markdown(f"**A:** {chat['answer']}")
-                st.markdown("---")
+# Chat history
+if st.session_state.fanuc_chat_history:
+    st.subheader("Chat History")
+    for chat in reversed(st.session_state.fanuc_chat_history):
+        with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
+            st.markdown(f"**A:** {chat['answer']}")
+            st.markdown("---")
 
-      # Document extraction
-    with col4:
-        uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
+# Document extraction
+with col4:
+    uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
     if uploaded_file:
-        # Only check file type if there is an uploaded file
         if uploaded_file.type == "application/pdf":
             text = extract_text_from_pdf(uploaded_file)
         elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
@@ -149,18 +149,18 @@ def fanuc_robot_assistant():
         else:
             st.error("Unsupported file type")
             return
-            
-            st.session_state.fanuc_context = text
-            st.success("Document uploaded and processed successfully!")
 
-         # Key points extraction
-         with col5:
-             num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
-             if st.button("Extract Key Points"):
-                 key_points = get_key_points(text, num_points) 
-                 st.markdown("### Key Points:")
-                 st.write(key_points)
+        st.session_state.fanuc_context = text
+        st.success("Document uploaded and processed successfully!")
 
+# Key points extraction
+with col5:
+    num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
+    if st.button("Extract Key Points"):
+        key_points = get_key_points(text, num_points)
+        st.markdown("### Key Points:")
+        st.write(key_points)
+        
 # Page 2: Electronic Components Assistant
 def electronic_components_assistant():
     st.header("🔌 Electronic Components Assistant")
