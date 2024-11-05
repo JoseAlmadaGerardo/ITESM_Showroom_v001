@@ -59,16 +59,8 @@ def extract_text_from_docx(file):
     return text
     
 # Page 1: Document Analyzer
-def customer_support():
-    st.markdown("# 📄 Customer Support")
-    st.markdown(
-        """
-        AI-powered customer support solutions can assist in handling inquiries, resolving issues, 
-        and enhancing the overall customer experience. With AI chatbots, businesses can provide 
-        24/7 support and quickly address customer needs.
-        """
-    )
-    st.write("More details about AI in Customer Support will be added here.")
+def document_analyzer():
+
 def get_key_points(text, num_points):
     if text and num_points:
         try:
@@ -104,7 +96,15 @@ def chat_with_ai(user_input, context):
         st.error(f"An error occurred during the chat: {str(e)}")
         return None
 
-st.title("File Analyzer with ChatGPT")
+    st.markdown("# 📄 Document Analyzer with ChatGPT")
+    st.markdown(
+        """
+        AI-powered document analyzer leverages the OpenAI API to extract insights, summarize content, and identify 
+        key points from documents. This tool enables efficient data processing and knowledge extraction, helping users 
+        quickly understand and analyze text content. With AI-driven analysis, you can streamline document review, 
+        gain valuable insights, and make informed decisions.
+        """
+    )
 
 col_file, col_tokens = st.columns([3, 1])
 
@@ -200,7 +200,19 @@ def it_support():
     )
     st.write("More details about AI in IT Support will be added here.")
 
-# Page 5: Documentation
+# Page 5: Customer Support
+def customer_support():
+    st.markdown("# 📄 Customer Support")
+    st.markdown(
+        """
+        AI-powered customer support solutions can assist in handling inquiries, resolving issues, 
+        and enhancing the overall customer experience. With AI chatbots, businesses can provide 
+        24/7 support and quickly address customer needs.
+        """
+    )
+    st.write("More details about AI in Customer Support will be added here.")
+
+# Page 6: Documentation
 def documentation():
     st.markdown("# 📄 Documentation ")
     st.markdown(
@@ -213,10 +225,11 @@ def documentation():
 # Main Page Selection
 page_names_to_funcs = {
     "—": lambda: st.write("Select a page from the sidebar."),
-    "📄 Customer Support": customer_support,
+    "📄 Document Analyzer": document_analyzer,
     "📄 Sales": sales,
     "📄 Human Resources": human_resources,
     "📄 IT Support": it_support,
+     "📄 Customer Support": customer_support,
     "📄 Documentation": documentation,
 }
 
