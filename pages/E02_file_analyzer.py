@@ -154,15 +154,3 @@ if uploaded_file is not None:
             st.write(message)
 
 st.write("Note: Make sure to set your OpenAI API key in the Streamlit secrets.")
-
-# CSS to improve the layout
-st.markdown("""
-<style>
-.stButton>button {
-    width: 100%;
-}
-.stTextInput>div>div>input {
-    width: 100%;
-}
-</style>
-""", unsafe_allow_html=False)
