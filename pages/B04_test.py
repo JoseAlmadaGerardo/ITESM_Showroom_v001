@@ -148,10 +148,11 @@ with col4:
             text = extract_text_from_txt(uploaded_file)
         else:
             st.error("Unsupported file type")
-        return
-
-        st.session_state.fanuc_context = text
-        st.success("Document uploaded and processed successfully!")
+            text = None  # Set text to None or an empty string to indicate unsupported type
+            
+        if text:  # Proceed only if a supported file type was uploaded
+            st.session_state.fanuc_context = text
+            st.success("Document uploaded and processed successfully!")
 
 # Key points extraction
 with col5:
