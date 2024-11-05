@@ -60,7 +60,7 @@ def extract_text_from_docx(file):
     
 # Page 1: Document Analyzer
 def document_analyzer():
-
+    st.markdown("# 📄 Document Analyzer with ChatGPT")
 def get_key_points(text, num_points):
     if text and num_points:
         try:
