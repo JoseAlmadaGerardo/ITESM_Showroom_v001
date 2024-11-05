@@ -114,7 +114,7 @@ def fanuc_robot_assistant():
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
         
-col3, col4, col5 = st.columns([3, 1, 2])
+col3, col4 = st.columns([2, 1])
 
 # Chat functionality
 with col3:
@@ -155,7 +155,6 @@ with col4:
             st.success("Document uploaded and processed successfully!")
 
 # Key points extraction
-with col5:
     num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
     if st.button("Extract Key Points"):
         key_points = get_key_points(text, num_points)
