@@ -114,24 +114,6 @@ def fanuc_robot_assistant():
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
 
-    # Document upload
-    uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
-    if uploaded_file:
-        if uploaded_file.type == "application/pdf":
-            text = extract_text_from_pdf(uploaded_file)
-        elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-            text = extract_text_from_docx(uploaded_file)
-        elif uploaded_file.type == "text/markdown":
-            text = extract_text_from_md(uploaded_file)
-        elif uploaded_file.type == "text/plain":
-            text = extract_text_from_txt(uploaded_file)
-        else:
-            st.error("Unsupported file type")
-            return
-
-        st.session_state.fanuc_context = text
-        st.success("Document uploaded and processed successfully!")
-        #
     col3, col4 = st.columns([2, 1])
      # Chat functionality
     with col3:
@@ -153,6 +135,24 @@ def fanuc_robot_assistant():
 
       # Key points extraction
     with col4:
+            # Document upload
+    uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
+    if uploaded_file:
+        if uploaded_file.type == "application/pdf":
+            text = extract_text_from_pdf(uploaded_file)
+        elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+            text = extract_text_from_docx(uploaded_file)
+        elif uploaded_file.type == "text/markdown":
+            text = extract_text_from_md(uploaded_file)
+        elif uploaded_file.type == "text/plain":
+            text = extract_text_from_txt(uploaded_file)
+        else:
+            st.error("Unsupported file type")
+            return
+
+        st.session_state.fanuc_context = text
+        st.success("Document uploaded and processed successfully!")
+
         num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
         if st.button("Extract Key Points"):
             key_points = get_key_points(text, num_points)
