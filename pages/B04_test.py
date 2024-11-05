@@ -105,10 +105,6 @@ def chat_with_ai(context, question, chat_history):
 
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
-    st.header("🤖 Fanuc Robot Assistant")
-    st.info("👋 I'm your Fanuc Robot Assistant!")
-    st.warning("Note: This AI assistant is still in development mode.")
-    st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
         
 col3, col4 = st.columns([2, 1])
 
@@ -149,6 +145,11 @@ with col4:
         if text:  # Proceed only if a supported file type was uploaded
             st.session_state.fanuc_context = text
             st.success("Document uploaded and processed successfully!")
+
+    st.header("🤖 Fanuc Robot Assistant")
+    st.info("👋 I'm your Fanuc Robot Assistant!")
+    st.warning("Note: This AI assistant is still in development mode.")
+    st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
 
 # Key points extraction
     num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
