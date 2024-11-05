@@ -126,18 +126,15 @@ def fanuc_robot_assistant():
         if text:  # Proceed only if a supported file type was uploaded
             st.session_state.fanuc_context = text
             st.success("Document uploaded and processed successfully!")
+            num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
+        if st.button("Extract Key Points"):
+            key_points = get_key_points(text, num_points)
+            st.markdown("### Key Points:")
+            st.write(key_points)
 
-        st.session_state.fanuc_context = text
-        st.success("Document uploaded and processed successfully!")
-        st.warning("Note: This AI assistant is still in development mode.")
-        
+       # Chat functionality
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
-        
-        col3, col4 = st.columns([1, 1])
-
-    # Chat functionality
-    with col3:
         st.subheader("Chat with Fanuc Robot Assistant")
         question = st.text_input("Ask a question about Fanuc robots:")
     if st.button("Send"):
@@ -153,13 +150,6 @@ def fanuc_robot_assistant():
             with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
                 st.markdown(f"**A:** {chat['answer']}")
                 st.markdown("---")
-                
-        with col4:
-            num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
-        if st.button("Extract Key Points"):
-            key_points = get_key_points(text, num_points)
-            st.markdown("### Key Points:")
-            st.write(key_points)
 
 # Page 2: Electronic Components Assistant
 def electronic_components_assistant():
