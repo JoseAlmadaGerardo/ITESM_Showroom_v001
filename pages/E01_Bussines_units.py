@@ -35,6 +35,17 @@ if "user_input" not in st.session_state:
 # Update current time
 st.session_state.current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+# Page 1: Document Analyzer
+def document_analyzer():
+    st.markdown("# 📄 Document Analyzer with ChatGPT")
+    st.markdown(
+        """
+        AI-powered document analyzer leverages the OpenAI API to extract insights, summarize content, and identify 
+        key points from documents. This tool enables efficient data processing and knowledge extraction, helping users 
+        quickly understand and analyze text content. With AI-driven analysis, you can streamline document review, 
+        gain valuable insights, and make informed decisions.
+        """
+    )
 
 def extract_text_from_pdf(file):
     pdf_reader = PyPDF2.PdfReader(file)
@@ -58,9 +69,6 @@ def extract_text_from_docx(file):
         text += para.text + "\n"
     return text
     
-# Page 1: Document Analyzer
-def document_analyzer():
-    st.markdown("# 📄 Document Analyzer with ChatGPT")
 def get_key_points(text, num_points):
     if text and num_points:
         try:
@@ -97,14 +105,6 @@ def chat_with_ai(user_input, context):
         return None
 
     st.markdown("# 📄 Document Analyzer with ChatGPT")
-    st.markdown(
-        """
-        AI-powered document analyzer leverages the OpenAI API to extract insights, summarize content, and identify 
-        key points from documents. This tool enables efficient data processing and knowledge extraction, helping users 
-        quickly understand and analyze text content. With AI-driven analysis, you can streamline document review, 
-        gain valuable insights, and make informed decisions.
-        """
-    )
 
 col_file, col_tokens = st.columns([3, 1])
 
