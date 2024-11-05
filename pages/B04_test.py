@@ -135,13 +135,12 @@ def fanuc_robot_assistant():
 
       # Key points extraction
     with col4:
-            # Document upload
-    uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
-    if uploaded_file:
-        if uploaded_file.type == "application/pdf":
-            text = extract_text_from_pdf(uploaded_file)
-        elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-            text = extract_text_from_docx(uploaded_file)
+        uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
+        if uploaded_file:
+            if uploaded_file.type == "application/pdf":
+                text = extract_text_from_pdf(uploaded_file)
+            elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+                text = extract_text_from_docx(uploaded_file)
         elif uploaded_file.type == "text/markdown":
             text = extract_text_from_md(uploaded_file)
         elif uploaded_file.type == "text/plain":
