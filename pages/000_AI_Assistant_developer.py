@@ -3,6 +3,7 @@ import openai
 import time
 import tiktoken
 
+
 # Page Configuration
 st.set_page_config(
     page_title="Ai-Assistant",page_icon="🤖",layout="wide",initial_sidebar_state="expanded")
