@@ -277,7 +277,7 @@ with st.sidebar:
     st.write(f"Total: {st.session_state.fanuc_total_tokens + st.session_state.components_total_tokens}")
     
     # Download Chat History
-    st.markdown(download_chat_history(), unsafe_allow_html=False)
+    st.markdown(download_chat_history()
 
 # Render Selected Page
 pages[selected_page]()
