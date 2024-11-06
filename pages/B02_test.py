@@ -127,7 +127,7 @@ def fanuc_robot_assistant():
     if uploaded_file:
         if uploaded_file.type == "application/pdf":
             text = extract_text_from_pdf(uploaded_file)
-        #elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
             text = extract_text_from_docx(uploaded_file)
         elif uploaded_file.type == "text/markdown":
             text = extract_text_from_md(uploaded_file)
