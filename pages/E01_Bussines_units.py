@@ -14,7 +14,6 @@ st.title("AI at bussines units")
 # Load the API key from secrets
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["openai"]["api_key"]
-
 # Initialize the OpenAI client
 client = OpenAI(api_key=st.session_state.api_key)
 
