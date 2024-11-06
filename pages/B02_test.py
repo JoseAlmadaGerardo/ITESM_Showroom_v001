@@ -153,23 +153,14 @@ def fanuc_robot_assistant2():
 
     # Chat functionality
 # Add a Submit button to trigger the request
-if st.button("Submit"):
-    if alarm_code:
-        # Construct the specific prompt for the AI assistant.
-        question = f"Can you give me the explanation and road map to troubleshoot the Robot alarm code: {alarm_code}"
-
-        def get_ai_response_fanuc(prompt, model="gpt-3.5-turbo", temperature=1, max_tokens=256):
-            try:
-                response = client.chat.completions.create(
-                    model=model,
-                    messages=[{"role": "user", "content": question}],
-                    temperature=temperature,
-                    max_tokens=max_tokens
-                )
-                return response.choices[0].message.content, response.usage.total_tokens
-            except Exception as e:
-                st.error(f"An error occurred: {str(e)}")
-                return None, 0
+    # Chat functionality
+    st.subheader("Chat with Fanuc Robot Assistant")
+    question = st.text_input("Ask a question about Fanuc robots:")
+    if st.button("Send"):
+        if question:
+            response, tokens = chat_with_ai(st.session_state.fanuc_context, question, st.session_state.fanuc_chat_history)
+            st.markdown(f"**Answer:** {response}")
+            st.session_state.fanuc_total_tokens += tokens
 
     # Chat history
     if st.session_state.fanuc_chat_history:
@@ -178,7 +169,6 @@ if st.button("Submit"):
             with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
                 st.markdown(f"**A:** {chat['answer']}")
                 st.markdown("---")
-
 
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
