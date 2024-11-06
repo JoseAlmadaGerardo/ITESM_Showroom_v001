@@ -220,7 +220,11 @@ def electronic_components_assistant():
 
     # Chat functionality
     st.subheader("Chat with Electronic Components Assistant")
-    question = st.text_input("Ask a question about electronic components:")
+    question = st.text_area(
+        "Describe your configuration question:",
+        placeholder="E.g., How to set up communication between a Siemens S7-1200 PLC and an HMI panel?",
+        height=100
+    )
     if st.button("Send"):
         if question:
             response, tokens = chat_with_ai(st.session_state.components_context, question, st.session_state.components_chat_history)
