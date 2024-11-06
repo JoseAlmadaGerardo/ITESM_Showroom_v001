@@ -140,8 +140,8 @@ def fanuc_robot_assistant2():
                     )
         return response.choices[0].message.content, response.usage.total_tokens
     except Exception as e:
-        st.error(f"An error occurred: {str(e)}")
-        return None, 0
+    st.error(f"An error occurred: {str(e)}")
+    return None, 0
 
 
 # Page 1: Fanuc Robot Assistant
