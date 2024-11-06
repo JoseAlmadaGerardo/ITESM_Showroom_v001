@@ -131,7 +131,7 @@ def fanuc_robot_assistant2():
             question = f"Can you give me the explanation and road map to troubleshoot the Robot alarm code: {alarm_code}"
 
             def get_ai_response_fanuc(prompt, model="gpt-3.5-turbo", temperature=1, max_tokens=256):
-    try:
+                try:
         response = client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": question}],
