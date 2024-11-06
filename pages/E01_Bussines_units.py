@@ -24,12 +24,8 @@ if "total_tokens" not in st.session_state:
     st.session_state.total_tokens = 0
 if "key_points" not in st.session_state:
     st.session_state.key_points = ""
-#if "show_chat_history" not in st.session_state:
-   # st.session_state.show_chat_history = False
 if "current_time" not in st.session_state:
     st.session_state.current_time = ""
-#if "user_input" not in st.session_state:
-    #st.session_state.user_input = ""
 
 # Update current time
 st.session_state.current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -45,7 +41,6 @@ def document_analyzer():
         gain valuable insights, and make informed decisions.
         """
     )
-
 
 # Page 2: Sales
 def sales():
