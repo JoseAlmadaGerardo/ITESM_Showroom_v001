@@ -115,10 +115,7 @@ def fanuc_robot_assistant2():
         """
     )
     st.write(" I'm Lucas_7, your Fanuc Robot Assistant powered by OpenAI API!. I will provide you the explanation and road map for troubleshooting a robot alarm code.")
-    alarm_code = st.text_area(
-        "Describe the Robot Alarm Code:",
-        placeholder="Enter the alarm code (e.g., SRVO-023 or a description of the issue)...",
-    )
+    
     col1, col2 = st.columns([2, 1])
     with col1:
         st.info("👋 I'm your Fanuc Robot Assistant!")
@@ -155,7 +152,10 @@ def fanuc_robot_assistant2():
 # Add a Submit button to trigger the request
     # Chat functionality
     st.subheader("Chat with Fanuc Robot Assistant")
-    question = st.text_input("Ask a question about Fanuc robots:")
+    question = st.text_area(
+        "Describe the Robot Alarm Code:",
+        placeholder="Enter the alarm code (e.g., SRVO-023 or a description of the issue)...",
+    )
     if st.button("Send"):
         if question:
             response, tokens = chat_with_ai(st.session_state.fanuc_context, question, st.session_state.fanuc_chat_history)
