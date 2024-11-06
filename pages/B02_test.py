@@ -260,7 +260,6 @@ def main_page():
         
         **Available Features:**
         - 🤖 Fanuc Robot Assistant
-        - Fanuc Assistant 2
         - 🔌 Electronic Components Assistant
         - 📚 Documentation Management
         
@@ -273,7 +272,6 @@ with st.sidebar:
     
     pages = {
         "Home": main_page,
-        " Fanuc Robot Assistant 2": fanuc_robot_assistant2,
         "🤖 Fanuc Robot Assistant": fanuc_robot_assistant,
         "🔌 Electronic Components": electronic_components_assistant,
         "📚 Documentation": documentation
