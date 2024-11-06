@@ -109,7 +109,15 @@ def chat_with_ai(context, question, chat_history):
 
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
-    st.header("🤖 Fanuc Robot Assistant")
+    st.markdown("# 🤖  Fanuc Robot Assistant")
+    st.markdown(
+        """
+        The Fanuc Robot Assistant supports automated operations, error troubleshooting, and 
+        configuration management of industrial robots. It helps in diagnosing and resolving 
+        common errors in Fanuc robotic systems for smooth manufacturing workflows.
+        """
+    )
+    st.write(" I'm Lucas_7, your Fanuc Robot Assistant powered by OpenAI API!. I will provide you the explanation and road map for troubleshooting a robot alarm code.")
     
     col1, col2 = st.columns([2, 1])
     with col1:
@@ -145,7 +153,10 @@ def fanuc_robot_assistant():
 
     # Chat functionality
     st.subheader("Chat with Fanuc Robot Assistant")
-    question = st.text_input("Ask a question about Fanuc robots:")
+    question = st.text_area(
+        "Describe the Robot Alarm Code:",
+        placeholder="Enter the alarm code (e.g., SRVO-023 or a description of the issue)...",
+    )
     if st.button("Send"):
         if question:
             response, tokens = chat_with_ai(st.session_state.fanuc_context, question, st.session_state.fanuc_chat_history)
