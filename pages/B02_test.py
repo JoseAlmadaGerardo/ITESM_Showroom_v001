@@ -114,17 +114,44 @@ def fanuc_robot_assistant2():
         common errors in Fanuc robotic systems for smooth manufacturing workflows.
         """
     )
-    st.write("More details about Fanuc Robot Assistant functionalities will be added here.")
-
-    # Ask for the alarm code directly instead of uploading a document.
-    st.write(" I'm Lucas_727, your Fanuc Robot Assistant powered by OpenAI API!")
-    st.write(" I will provide you the explanation and road map for troubleshooting a robot alarm code.")
+    st.write(" I'm Lucas_7, your Fanuc Robot Assistant powered by OpenAI API!. I will provide you the explanation and road map for troubleshooting a robot alarm code.")
     alarm_code = st.text_area(
         "Describe the Robot Alarm Code:",
         placeholder="Enter the alarm code (e.g., SRVO-023 or a description of the issue)...",
     )
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.info("👋 I'm your Fanuc Robot Assistant!")
+        st.warning("Note: This AI assistant is still in development mode.")
+    with col2:
+        st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
 
-    # Add a Submit button to trigger the request
+    # Document upload
+    uploaded_file = st.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
+    if uploaded_file:
+        if uploaded_file.type == "application/pdf":
+            text = extract_text_from_pdf(uploaded_file)
+        #elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+            text = extract_text_from_docx(uploaded_file)
+        elif uploaded_file.type == "text/markdown":
+            text = extract_text_from_md(uploaded_file)
+        elif uploaded_file.type == "text/plain":
+            text = extract_text_from_txt(uploaded_file)
+        else:
+            st.error("Unsupported file type")
+            return
+
+        st.session_state.fanuc_context = text
+        st.success("Document uploaded and processed successfully!")
+
+        # Key points extraction
+        num_points = st.number_input("Number of key points", min_value=3, max_value=10, value=3, step=1)
+        if st.button("Extract Key Points"):
+            key_points = get_key_points(text, num_points)
+            st.markdown("### Key Points:")
+            st.write(key_points)
+
+    # Chat functionality
 # Add a Submit button to trigger the request
 if st.button("Submit"):
     if alarm_code:
@@ -143,6 +170,14 @@ if st.button("Submit"):
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
                 return None, 0
+
+    # Chat history
+    if st.session_state.fanuc_chat_history:
+        st.subheader("Chat History")
+        for chat in reversed(st.session_state.fanuc_chat_history):
+            with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
+                st.markdown(f"**A:** {chat['answer']}")
+                st.markdown("---")
 
 
 # Page 1: Fanuc Robot Assistant
