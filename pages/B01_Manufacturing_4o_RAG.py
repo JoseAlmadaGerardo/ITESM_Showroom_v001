@@ -14,6 +14,13 @@ st.set_page_config(
     page_title="Manufacturing_4o_RAG", page_icon="🏭", layout="wide", initial_sidebar_state="expanded")
 st.title("AI at manufacturing 4.0 using upadate documents for a RAG")
 
+# Load the API key from secrets
+if "api_key" not in st.session_state:
+    st.session_state.api_key = st.secrets["openai"]["api_key"]
+else:
+    openai_api_key = st.session_state.api_key
+    client = OpenAI(api_key=openai_api_key)
+
 # Initialize session state variables
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["openai"]["api_key"]
@@ -31,9 +38,6 @@ if "fanuc_context" not in st.session_state:
     st.session_state.fanuc_context = ""
 if "components_context" not in st.session_state:
     st.session_state.components_context = ""
-
-# Initialize OpenAI client
-client = OpenAI(api_key=st.session_state.api_key)
 
 # Utility function for OpenAI API calls
 def get_ai_response(prompt, model="gpt-3.5-turbo", temperature=1, max_tokens=126):
