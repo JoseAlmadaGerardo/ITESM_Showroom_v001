@@ -105,7 +105,7 @@ def chat_with_ai(context, question, chat_history):
 
 
 # Page 1: Fanuc Robot Assistant
-def fanuc_robot_assistant():
+def fanuc_robot_assistant2():
     st.markdown("# 📄 Fanuc Robot Assistant")
     st.markdown(
         """
@@ -130,26 +130,19 @@ def fanuc_robot_assistant():
             # Construct the specific prompt for the AI assistant.
             question = f"Can you give me the explanation and road map to troubleshoot the Robot alarm code: {alarm_code}"
 
-            # Generate a response using the OpenAI API.
-            messages = [
-                {
-                    "role": "user",
-                    "content": question,
-                }
-            ]
+            def get_ai_response_fanuc(prompt, model="gpt-3.5-turbo", temperature=1, max_tokens=256):
+    try:
+        response = client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": question}],
+            temperature=temperature,
+            max_tokens=max_tokens
+        )
+        return response.choices[0].message.content, response.usage.total_tokens
+    except Exception as e:
+        st.error(f"An error occurred: {str(e)}")
+        return None, 0
 
-            stream = client.chat.completions.create(
-                model="gpt-4",
-                temperature=1.3,
-                max_tokens=256,
-                messages=messages,
-                stream=True,
-            )
-
-            # Display the response in the app using `st.write_stream`.
-            st.write_stream(stream)
-        else:
-            st.error("Please enter a robot alarm code before submitting.")
 
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
@@ -297,6 +290,7 @@ def main_page():
         
         **Available Features:**
         - 🤖 Fanuc Robot Assistant
+        - Fanuc Assistant 2
         - 🔌 Electronic Components Assistant
         - 📚 Documentation Management
         
@@ -309,6 +303,7 @@ with st.sidebar:
     
     pages = {
         "Home": main_page,
+        " Fanuc Robot Assistant 2": fanuc_robot_assistant2,
         "🤖 Fanuc Robot Assistant": fanuc_robot_assistant,
         "🔌 Electronic Components": electronic_components_assistant,
         "📚 Documentation": documentation
