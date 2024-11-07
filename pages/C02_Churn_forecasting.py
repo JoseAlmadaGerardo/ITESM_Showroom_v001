@@ -9,8 +9,20 @@ import joblib
 
 # Page Configuration
 st.set_page_config(
-    page_title="# Customer Turnover Forecasting",page_icon="💰", layout="wide",initial_sidebar_state="expanded")
-st.title("📊 Customer Turnover Forecasting")
+    page_title="# AI at finance services",page_icon="💰", layout="wide",initial_sidebar_state="expanded")
+st.title("📊 AI at finance services")
+st.subheader("# Redirection/forecasting customer turnover")
+    st.markdown(
+        """
+        Financial services are leveraging AI to improve customer experiences, streamline operations, 
+        and enhance decision-making processes.
+        """
+        """
+        Redirection and forecasting of customer turnover helps finance companies anticipate
+        customer behavior and take proactive steps to retain customers and minimize churn.
+        AI-based solutions can help forecast customer trends based on historical data.
+        """
+    )
 
 # Initialize session state
 if 'data_params' not in st.session_state:
