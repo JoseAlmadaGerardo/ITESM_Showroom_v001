@@ -72,12 +72,12 @@ def documentation():
 
 # Main Page Selection
 page_names_to_funcs = {
-    "—": lambda: st.write("Select a page from the sidebar."),
-    "📄 Content Co-pilot": content_copilot,
-    "📄 Content Localization": content_localization,
-    "📄 Authenticity of the Content": content_authenticity,
-    "📄 Social Commitment": social_commitment,
-    "📄 Documentation": documentation,
+    "Home": lambda: st.write("Select a page from the sidebar."),
+    "Content Co-pilot": content_copilot,
+    "Content Localization": content_localization,
+    "Authenticity of the Content": content_authenticity,
+    "Social Commitment": social_commitment,
+    "Documentation": documentation,
 }
 
 # Sidebar for Navigation
@@ -93,11 +93,11 @@ if demo_name == "—":
         the authenticity of brand messaging. Additionally, AI tools can help brands demonstrate their social commitment.
         
         **Explore Use Cases:**
-        - 📄 Content Co-pilot.
-        - 📄 Content Localization.
-        - 📄 Authenticity of the Content.
-        - 📄 Social Commitment.
-        - 📄 Documentation.
+        - Content Co-pilot.
+        - Content Localization.
+        - Authenticity of the Content.
+        - Social Commitment.
+        - Documentation.
         """
     )
     st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
