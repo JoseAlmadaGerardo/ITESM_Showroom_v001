@@ -38,13 +38,15 @@ if "fanuc_context" not in st.session_state:
     st.session_state.fanuc_context = ""
 if "components_context" not in st.session_state:
     st.session_state.components_context = ""
-
+    
+"content": f"Assistant ID: {assistant_id}"
 # Utility function for OpenAI API calls
 def get_ai_response(prompt, model="gpt-3.5-turbo", temperature=1, max_tokens=126):
     try:
         response = client.chat.completions.create(
             model=model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[{"role": "assistant", "content": f"Assistant ID: {assistant_id}"},
+                      {"role": "user", "content": prompt}],
             temperature=temperature,
             max_tokens=max_tokens
         )
@@ -109,7 +111,15 @@ def chat_with_ai(context, question, chat_history):
 
 # Page 1: Fanuc Robot Assistant
 def fanuc_robot_assistant():
-    st.header("🤖 Fanuc Robot Assistant")
+    st.markdown("# 🤖  Fanuc Robot Assistant")
+    st.markdown(
+        """
+        The Fanuc Robot Assistant supports automated operations, error troubleshooting, and 
+        configuration management of industrial robots. It helps in diagnosing and resolving 
+        common errors in Fanuc robotic systems for smooth manufacturing workflows.
+        """
+    )
+    st.write(" I'm Lucas_7, your Fanuc Robot Assistant powered by OpenAI API!. I will provide you the explanation and road map for troubleshooting a robot alarm code.")
     
     col1, col2 = st.columns([2, 1])
     with col1:
@@ -145,9 +155,13 @@ def fanuc_robot_assistant():
 
     # Chat functionality
     st.subheader("Chat with Fanuc Robot Assistant")
-    question = st.text_input("Ask a question about Fanuc robots:")
+    question = st.text_area(
+        "Describe the Robot Alarm Code:",
+        placeholder="Enter the alarm code (e.g., SRVO-023 or a description of the issue)...",
+    )
     if st.button("Send"):
         if question:
+            assistant_id = "asst_y1Nv3ALfFtxSHhsp3I6Knw1J"
             response, tokens = chat_with_ai(st.session_state.fanuc_context, question, st.session_state.fanuc_chat_history)
             st.markdown(f"**Answer:** {response}")
             st.session_state.fanuc_total_tokens += tokens
@@ -209,7 +223,11 @@ def electronic_components_assistant():
 
     # Chat functionality
     st.subheader("Chat with Electronic Components Assistant")
-    question = st.text_input("Ask a question about electronic components:")
+    question = st.text_area(
+        "Describe your configuration question:",
+        placeholder="E.g., How to set up communication between a Siemens S7-1200 PLC and an HMI panel?",
+        height=100
+    )
     if st.button("Send"):
         if question:
             response, tokens = chat_with_ai(st.session_state.components_context, question, st.session_state.components_chat_history)
