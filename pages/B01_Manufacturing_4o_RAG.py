@@ -279,7 +279,7 @@ with st.sidebar:
     st.title("AI AT MANUFACTURING 4.0")
     
     pages = {
-        "Home": main_page,
+        "🏡  Home": main_page,
         "🤖 Fanuc Robot Assistant": fanuc_robot_assistant,
         "🔌 Electronic Components": electronic_components_assistant,
         "📚 Documentation": documentation
