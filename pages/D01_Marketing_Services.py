@@ -86,7 +86,7 @@ demo_name = st.sidebar.radio("Choose a use case", page_names_to_funcs.keys())
 st.markdown("# AI at marketing services")
 
 # Render Main Introductory Content Only on Main Page
-if demo_name == "—":
+if demo_name == "Home":
     st.markdown(
         """
         AI is revolutionizing marketing services by enhancing content creation, localization, and ensuring 
