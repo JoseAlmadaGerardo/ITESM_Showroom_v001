@@ -158,11 +158,11 @@ def documentation():
 
 # Page Navigation
 page_names_to_funcs = {
-    "—": lambda: st.write("Select a page from the sidebar."),
-    "📄 Straight-Line Depreciation": straight_line_depreciation,
-    "📄 Declining Balance Depreciation": declining_balance_depreciation,
-    "📄 Amortization Calculator": amortization_calculator,
-    "📄 Documentation": documentation,
+    "Home": lambda: st.write("Select a page from the sidebar."),
+    "Straight-Line Depreciation": straight_line_depreciation,
+    "Declining Balance Depreciation": declining_balance_depreciation,
+    "Amortization Calculator": amortization_calculator,
+    "Documentation": documentation,
 }
 
 # Sidebar for Navigation
@@ -179,10 +179,10 @@ if demo_name == "—":
         and utility of an asset over time..
         
         **Explore use cases for the calculator:**
-        - 📄 Straight-Line Depreciation.
-        - 📄 Declining Balance Depreciation.
-        - 📄 Amortization.
-        - 📄 Documentation.
+        - Straight-Line Depreciation.
+        - Declining Balance Depreciation.
+        - Amortization.
+        - Documentation.
         """
     )
     st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
