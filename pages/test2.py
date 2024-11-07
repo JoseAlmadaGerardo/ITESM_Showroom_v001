@@ -149,7 +149,28 @@ def electronic_components_assistant():
             with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
                 st.markdown(f"**A:** {chat['answer']}")
                 st.markdown("---")
-              
+
+# Page 3: Documentation
+def documentation():
+    st.header("📚 Documentation")
+    st.markdown(
+        """
+        In this section, you will find comprehensive documentation about the use cases explained for the Business Units.
+        """
+    )
+    
+    st.subheader("Available Documentation:")
+    doc_types = {
+        "User Manuals": "https://example.com/user-manuals",
+        "Technical Specifications": "https://example.com/tech-specs",
+        "Troubleshooting Guides": "https://example.com/troubleshooting",
+        "Best Practices": "https://example.com/best-practices"
+    }
+    for doc, link in doc_types.items():
+        st.markdown(f"- [{doc}]({link})")
+    
+    st.info("For specific documentation requests, please contact your system administrator.")
+
 # Main Page
 def main_page():
     st.markdown("""
