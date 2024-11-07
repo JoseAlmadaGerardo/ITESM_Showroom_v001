@@ -56,7 +56,6 @@ def chat_with_assistant(assistant_id, thread_id, user_message):
 
     messages = client.beta.threads.messages.list(thread_id=thread_id)
     assistant_message = next((msg.content[0].text.value for msg in messages if msg.role == 'assistant'), None)
-
     return assistant_message, thread_id
 
 # Fanuc Robot Assistant
