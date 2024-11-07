@@ -72,7 +72,7 @@ def documentation():
 
 # Main Page Selection
 page_names_to_funcs = {
-    "Home": lambda: st.write("Select a page from the sidebar."),
+    "🏡 Home": lambda: st.write("Select a page from the sidebar."),
     "Content Co-pilot": content_copilot,
     "Content Localization": content_localization,
     "Authenticity of the Content": content_authenticity,
