@@ -217,12 +217,12 @@ if uploaded_file is not None:
 # Main Page Selection
 page_names_to_funcs = {
     "🏡 Home": lambda: st.write("Select a page from the sidebar."),
-    "📄 Document Analyzer": document_analyzer,
-    "📄 Sales": sales,
-    "📄 Human Resources": human_resources,
-    "📄 IT Support": it_support,
-    "📄 Customer Support": customer_support,
-    "📄 Documentation": documentation,
+    "Document Analyzer": document_analyzer,
+    "Sales": sales,
+    "Human Resources": human_resources,
+    "IT Support": it_support,
+    "Customer Support": customer_support,
+    "Documentation": documentation,
 }
 
 # Sidebar for Navigation
