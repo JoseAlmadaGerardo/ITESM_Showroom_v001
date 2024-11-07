@@ -59,7 +59,7 @@ def main():
     # Load data
     data = load_data(st.session_state.data_params)
 
-    if page == "Home":
+    if page == "🏡 Home":
         st.header("Data Generation Parameters")
         st.write("Adjust the parameters below to generate different datasets:")
 
