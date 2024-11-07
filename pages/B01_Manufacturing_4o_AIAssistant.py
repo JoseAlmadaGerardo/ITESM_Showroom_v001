@@ -11,13 +11,12 @@ import re
 
 # Page Configuration
 st.set_page_config(
-    page_title="Manufacturing_4o_RAG", page_icon="🏭", layout="wide", initial_sidebar_state="expanded")
-st.title("AI at manufacturing 4.0 using updated documents for a RAG")
+    page_title="Manufacturing_4o_with_OpenAI_assistants", page_icon="🏭", layout="wide", initial_sidebar_state="expanded")
+st.title("AI at manufacturing 4.0 using OpenAI assistants trained to resolve industrial challenges")
 
 # Load the API key from secrets
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["openai"]["api_key"]
-
 client = OpenAI(api_key=st.session_state.api_key)
 
 # Initialize session state variables
@@ -76,7 +75,6 @@ def fanuc_robot_assistant():
     col1, col2 = st.columns([2, 1])
     with col1:
         st.info("👋 I'm your Fanuc Robot Assistant!")
-        st.warning("Note: This AI assistant is still in development mode.")
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
 
