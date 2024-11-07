@@ -167,8 +167,8 @@ page_names_to_funcs = {
 
 # Sidebar for Navigation
 st.sidebar.header("AI AT ACCOUNTING AND TAXES.")
-#demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
-demo_name = st.radio("Navigation", list(pages.keys()))
+demo_name = st.sidebar.radio("Choose a use case", page_names_to_funcs.keys())
+#demo_name = st.radio("Navigation", list(pages.keys()))
 
 # Render Main Introductory Content Only on Main Page
 if demo_name == "—":
