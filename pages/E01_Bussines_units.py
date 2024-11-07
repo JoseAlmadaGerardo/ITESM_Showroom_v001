@@ -230,7 +230,7 @@ st.sidebar.header("AI AT BUSSINES UNITS")
 demo_name = st.sidebar.radio("Choose a use case", page_names_to_funcs.keys())
 
 # Render Main Introductory Content Only on Main Page
-if demo_name == "Home":
+if demo_name == "🏡 Home":
     st.markdown(
         """
         AI is transforming various business unit operations, from customer support and sales to human resources and IT support. 
