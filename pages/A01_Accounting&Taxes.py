@@ -171,7 +171,7 @@ demo_name = st.sidebar.radio("Choose a use case", page_names_to_funcs.keys())
 #demo_name = st.radio("Navigation", list(pages.keys()))
 
 # Render Main Introductory Content Only on Main Page
-if demo_name == "—":
+if demo_name == "Home":
     st.markdown(
         """
         Accounting, finance, and taxation in Mexico are critical areas that demand accuracy 
