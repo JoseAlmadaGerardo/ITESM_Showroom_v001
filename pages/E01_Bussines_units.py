@@ -227,22 +227,22 @@ page_names_to_funcs = {
 
 # Sidebar for Navigation
 st.sidebar.header("AI AT BUSSINES UNITS")
-demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
+demo_name = st.sidebar.radio("Choose a use case", page_names_to_funcs.keys())
 
 # Render Main Introductory Content Only on Main Page
-if demo_name == "—":
+if demo_name == "Home":
     st.markdown(
         """
         AI is transforming various business unit operations, from customer support and sales to human resources and IT support. 
         Explore how AI can improve efficiency, decision-making, and overall performance across these areas.
         
         **Explore Use Cases:**
-        - 📄 CDocument Analyzer.
-        - 📄 Sales.
-        - 📄 Human Resources.
-        - 📄 IT Support.
-        - 📄 Customer Support.
-        - 📄 Documentation.
+        - CDocument Analyzer.
+        - Sales.
+        - Human Resources.
+        - IT Support.
+        - Customer Support.
+        - Documentation.
         """
     )
     st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
