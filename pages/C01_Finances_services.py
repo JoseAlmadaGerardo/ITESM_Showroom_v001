@@ -88,7 +88,7 @@ def main():
     
     # Radio button for navigation
     pages = [
-        "Home",
+        "🏡  Home",
         "Churn_Forecasting",
         "Customer Service",
         "Co-pilot Market Planner",
