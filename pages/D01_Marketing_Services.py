@@ -82,7 +82,7 @@ page_names_to_funcs = {
 
 # Sidebar for Navigation
 st.sidebar.header("AI AT MARKETING SERVICES")
-demo_name = st.sidebar.selectbox("Choose a use case", page_names_to_funcs.keys())
+demo_name = st.sidebar.radio("Choose a use case", page_names_to_funcs.keys())
 st.markdown("# AI at marketing services")
 
 # Render Main Introductory Content Only on Main Page
