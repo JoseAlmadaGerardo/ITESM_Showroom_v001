@@ -11,8 +11,8 @@ import re
 
 # Page Configuration
 st.set_page_config(
-    page_title="Manufacturing_4o_RAG", page_icon="🏭", layout="wide", initial_sidebar_state="expanded")
-st.title("AI at manufacturing 4.0 using upadate documents for a RAG")
+    page_title="# Marketing Services",page_icon="💡", layout="wide",initial_sidebar_state="expanded")
+st.title("AI at marketing services")
 
 # Load the API key from secrets
 if "api_key" not in st.session_state:
