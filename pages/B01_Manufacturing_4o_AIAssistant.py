@@ -111,7 +111,6 @@ def fanuc_robot_assistant():
     col1, col2 = st.columns([2, 1])
     with col1:
         st.info(f"👋 I'm your {assistant_name}!")
-        st.warning("Note: This AI assistant is still in development mode.")
     with col2:
         st.metric("Tokens Used", st.session_state.fanuc_total_tokens)
 
