@@ -38,6 +38,12 @@ if "fanuc_context" not in st.session_state:
     st.session_state.fanuc_context = ""
 if "components_context" not in st.session_state:
     st.session_state.components_context = ""
+if 'assistants' not in st.session_state:
+    st.session_state.assistants = []
+if 'selected_assistant' not in st.session_state:
+    st.session_state.selected_assistant = None
+if 'total_tokens' not in st.session_state:
+    st.session_state.total_tokens = 0
     
 #"content": f"Assistant ID: {assistant_id}"
 # Utility function for OpenAI API calls
@@ -120,7 +126,7 @@ def fanuc_robot_assistant():
         """
     )
     st.write(" I'm Lucas_7, your Fanuc Robot Assistant powered by OpenAI API!. I will provide you the explanation and road map for troubleshooting a robot alarm code.")
-    
+    assistant_id= "asst_y1Nv3ALfFtxSHhsp3I6Knw1J"
     col1, col2 = st.columns([2, 1])
     with col1:
         st.info("👋 I'm your Fanuc Robot Assistant!")
