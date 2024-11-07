@@ -98,7 +98,7 @@ def main():
     
     page = st.sidebar.radio("Choose a use case", pages)
 
-    if page == "Home":
+    if page == "🏡 Home":
         st.markdown(
             """
             Financial services are leveraging AI to improve customer experiences, streamline operations, 
