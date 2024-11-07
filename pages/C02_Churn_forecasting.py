@@ -54,7 +54,7 @@ def train_model(X, y):
 def main():
     # Sidebar
     st.sidebar.header("Navigation")
-    page = st.sidebar.radio("Go to", ["Home", "Dashboard", "Prediction Model", "Customer Analysis"])
+    page = st.sidebar.radio("Go to", ["🏡 Home", "Dashboard", "Prediction Model", "Customer Analysis"])
 
     # Load data
     data = load_data(st.session_state.data_params)
