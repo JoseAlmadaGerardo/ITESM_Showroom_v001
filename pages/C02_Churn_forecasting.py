@@ -15,12 +15,9 @@ st.subheader("# Redirection/forecasting customer turnover")
     st.markdown(
         """
         Financial services are leveraging AI to improve customer experiences, streamline operations, 
-        and enhance decision-making processes.
-        """
-        """
-        Redirection and forecasting of customer turnover helps finance companies anticipate
-        customer behavior and take proactive steps to retain customers and minimize churn.
-        AI-based solutions can help forecast customer trends based on historical data.
+        and enhance decision-making processes.Redirection and forecasting of customer turnover helps 
+        finance companies anticipate customer behavior and take proactive steps to retain customers and 
+        minimize churn. AI-based solutions can help forecast customer trends based on historical data.
         """
     )
 
