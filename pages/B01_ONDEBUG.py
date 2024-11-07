@@ -39,7 +39,7 @@ if "fanuc_context" not in st.session_state:
 if "components_context" not in st.session_state:
     st.session_state.components_context = ""
     
-"content": f"Assistant ID: {assistant_id}"
+#"content": f"Assistant ID: {assistant_id}"
 # Utility function for OpenAI API calls
 def get_ai_response(prompt, model="gpt-3.5-turbo", temperature=1, max_tokens=126):
     try:
