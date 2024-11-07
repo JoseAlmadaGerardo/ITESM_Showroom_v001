@@ -158,7 +158,7 @@ def documentation():
 
 # Page Navigation
 page_names_to_funcs = {
-    "Home": lambda: st.write("Select a page from the sidebar."),
+    "🏡 Home": lambda: st.write("Select a page from the sidebar."),
     "Straight-Line Depreciation": straight_line_depreciation,
     "Declining Balance Depreciation": declining_balance_depreciation,
     "Amortization Calculator": amortization_calculator,
