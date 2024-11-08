@@ -1,121 +1,207 @@
 import streamlit as st
-import os
-from langchain.document_loaders import PyPDFLoader
-from langchain.document_loaders import Docx2txtLoader
-from langchain.document_loaders import TextLoader
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.chains import RetrievalQA
-from langchain.llms import OpenAI
-from langchain.prompts import PromptTemplate
+from openai import OpenAI
+import PyPDF2
+import docx
+import markdown
+import re
+import json
+import base64
+from datetime import datetime
 
-# Set up OpenAI API key
-os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+# Page Configuration
+st.set_page_config(
+    page_title="Content Co-pilot",
+    page_icon="📝",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
-# Function to load and process documents
-def process_document(file):
-    file_extension = os.path.splitext(file.name)[1].lower()
-    
-    if file_extension == ".pdf":
-        loader = PyPDFLoader(file.name)
-    elif file_extension == ".docx":
-        loader = Docx2txtLoader(file.name)
-    elif file_extension in [".txt", ".md"]:
-        loader = TextLoader(file.name)
-    else:
-        st.error("Unsupported file format. Please upload PDF, DOCX, MD, or TXT files.")
-        return None
-
-    documents = loader.load()
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-    texts = text_splitter.split_documents(documents)
-    embeddings = OpenAIEmbeddings()
-    vectorstore = FAISS.from_documents(texts, embeddings)
-    return vectorstore
-
-# Function to generate content
-def generate_content(vectorstore, prompt):
-    llm = OpenAI(temperature=0.7)
-    qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=vectorstore.as_retriever())
-    result = qa.run(prompt)
-    return result
-
-# Function to refine content
-def refine_content(content, refinement_prompt):
-    llm = OpenAI(temperature=0.5)
-    refined_content = llm(f"{refinement_prompt}\n\nOriginal content:\n{content}")
-    return refined_content
-
-# Function to check brand consistency
-def check_brand_consistency(content, brand_guidelines):
-    llm = OpenAI(temperature=0.2)
-    prompt = f"""
-    Analyze the following content and check if it aligns with the brand guidelines.
-    Provide feedback on consistency and suggestions for improvement.
-
-    Content:
-    {content}
-
-    Brand Guidelines:
-    {brand_guidelines}
-
-    Feedback:
-    """
-    feedback = llm(prompt)
-    return feedback
-
-# Streamlit UI
 st.title("Content Co-pilot for Marketing Teams")
 
-# File upload
-uploaded_file = st.file_uploader("Upload a document (PDF, DOCX, MD, or TXT)", type=["pdf", "docx", "md", "txt"])
+# Load the API key from secrets
+if "api_key" not in st.session_state:
+    st.session_state.api_key = st.secrets["openai"]["api_key"]
 
-if uploaded_file:
-    vectorstore = process_document(uploaded_file)
+openai_api_key = st.session_state.api_key
+client = OpenAI(api_key=openai_api_key)
+
+# Initialize session state variables
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+if "total_tokens" not in st.session_state:
+    st.session_state.total_tokens = 0
+if "context" not in st.session_state:
+    st.session_state.context = ""
+
+# Utility function for OpenAI API calls
+def get_ai_response(prompt, model="gpt-3.5-turbo", temperature=0.7, max_tokens=500):
+    try:
+        response = client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=temperature,
+            max_tokens=max_tokens
+        )
+        return response.choices[0].message.content, response.usage.total_tokens
+    except Exception as e:
+        st.error(f"An error occurred: {str(e)}")
+        return None, 0
+
+# Function to download chat history
+def download_chat_history():
+    data = {
+        "chat_history": st.session_state.chat_history,
+        "total_tokens": st.session_state.total_tokens
+    }
+    json_string = json.dumps(data, indent=2)
+    b64 = base64.b64encode(json_string.encode()).decode()
+    href = f'<a href="data:application/json;base64,{b64}" download="content_copilot_history.json">Download Chat History</a>'
+    return href
+
+# Text extraction functions
+def extract_text_from_pdf(file):
+    pdf_reader = PyPDF2.PdfReader(file)
+    text = ""
+    for page in pdf_reader.pages:
+        text += page.extract_text()
+    return text
+
+def extract_text_from_docx(file):
+    doc = docx.Document(file)
+    text = ""
+    for para in doc.paragraphs:
+        text += para.text + "\n"
+    return text
+
+def extract_text_from_md(file):
+    content = file.read().decode('utf-8')
+    html = markdown.markdown(content)
+    text = re.sub('<[^<]+?>', '', html)
+    return text
+
+def extract_text_from_txt(file):
+    return file.read().decode('utf-8')
+
+# Function to extract key points
+def get_key_points(text, num_points):
+    prompt = f"Extract {num_points} key points from the following text:\n\n{text}"
+    response, tokens = get_ai_response(prompt, max_tokens=1000)
+    st.session_state.total_tokens += tokens
+    return response
+
+# Function for content generation
+def generate_content(context, prompt, target_audience):
+    full_prompt = f"""
+    Context: {context}
+
+    Target Audience: {target_audience}
+
+    Task: {prompt}
+
+    Generate creative marketing content based on the given context and target audience. Ensure the content is engaging, relevant, and tailored to the specified audience.
+    """
+    response, tokens = get_ai_response(full_prompt, max_tokens=1000)
+    st.session_state.total_tokens += tokens
+    return response
+
+# Function for content localization
+def localize_content(content, target_locale, target_culture):
+    prompt = f"""
+    Original Content: {content}
+
+    Target Locale: {target_locale}
+    Target Culture: {target_culture}
+
+    Task: Adapt the given content for the target locale and culture. Consider language nuances, cultural references, and local preferences. Ensure the localized content maintains the original message while being culturally appropriate and engaging for the target audience.
+    """
+    response, tokens = get_ai_response(prompt, max_tokens=1000)
+    st.session_state.total_tokens += tokens
+    return response
+
+# Main application
+def main():
+    st.sidebar.title("Content Co-pilot")
     
-    if vectorstore:
-        st.success("Document processed successfully!")
+    # Document upload
+    uploaded_file = st.sidebar.file_uploader("Upload a document for context (PDF, DOCX, MD, TXT)", type=['pdf', 'docx', 'md', 'txt'])
+    if uploaded_file:
+        if uploaded_file.type == "application/pdf":
+            text = extract_text_from_pdf(uploaded_file)
+        elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+            text = extract_text_from_docx(uploaded_file)
+        elif uploaded_file.type == "text/markdown":
+            text = extract_text_from_md(uploaded_file)
+        elif uploaded_file.type == "text/plain":
+            text = extract_text_from_txt(uploaded_file)
+        else:
+            st.error("Unsupported file type")
+            return
 
-        # Content generation
-        st.header("Content Generation")
-        content_prompt = st.text_area("Enter a prompt for content generation:")
-        if st.button("Generate Content"):
-            generated_content = generate_content(vectorstore, content_prompt)
+        st.session_state.context = text
+        st.sidebar.success("Document uploaded and processed successfully!")
+
+        # Key points extraction
+        num_points = st.sidebar.number_input("Number of key points to extract", min_value=3, max_value=10, value=5)
+        if st.sidebar.button("Extract Key Points"):
+            key_points = get_key_points(text, num_points)
+            st.sidebar.subheader("Key Points:")
+            st.sidebar.write(key_points)
+
+    # Content Generation
+    st.header("Content Generation")
+    target_audience = st.text_input("Target Audience", placeholder="E.g., Young professionals in urban areas")
+    content_prompt = st.text_area("Content Prompt", placeholder="E.g., Create a social media post about our new eco-friendly product line")
+    
+    if st.button("Generate Content"):
+        if content_prompt:
+            generated_content = generate_content(st.session_state.context, content_prompt, target_audience)
             st.subheader("Generated Content:")
             st.write(generated_content)
+            st.session_state.chat_history.append({
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "type": "content_generation",
+                "prompt": content_prompt,
+                "result": generated_content
+            })
 
-            # Content refinement
-            st.header("Content Refinement")
-            refinement_prompt = st.text_area("Enter refinement instructions:")
-            if st.button("Refine Content"):
-                refined_content = refine_content(generated_content, refinement_prompt)
-                st.subheader("Refined Content:")
-                st.write(refined_content)
+    # Content Localization
+    st.header("Content Localization")
+    content_to_localize = st.text_area("Content to Localize", placeholder="Paste the content you want to localize")
+    target_locale = st.text_input("Target Locale", placeholder="E.g., fr-FR, es-ES, de-DE")
+    target_culture = st.text_input("Target Culture", placeholder="E.g., French, Spanish, German")
+    
+    if st.button("Localize Content"):
+        if content_to_localize and target_locale and target_culture:
+            localized_content = localize_content(content_to_localize, target_locale, target_culture)
+            st.subheader("Localized Content:")
+            st.write(localized_content)
+            st.session_state.chat_history.append({
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "type": "content_localization",
+                "original": content_to_localize,
+                "locale": target_locale,
+                "culture": target_culture,
+                "result": localized_content
+            })
 
-            # Brand consistency check
-            st.header("Brand Consistency Check")
-            brand_guidelines = st.text_area("Enter your brand guidelines:")
-            if st.button("Check Brand Consistency"):
-                consistency_feedback = check_brand_consistency(generated_content, brand_guidelines)
-                st.subheader("Brand Consistency Feedback:")
-                st.write(consistency_feedback)
+    # Display token usage
+    st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
 
-# Instructions
-st.sidebar.header("Instructions")
-st.sidebar.markdown("""
-1. Upload a document (PDF, DOCX, MD, or TXT) containing relevant marketing information.
-2. Enter a prompt to generate content based on the uploaded document.
-3. Refine the generated content by providing specific instructions.
-4. Check brand consistency by entering your brand guidelines.
-""")
+    # Download chat history
+    st.sidebar.markdown(download_chat_history(), unsafe_allow_html=True)
 
-# About
-st.sidebar.header("About")
-st.sidebar.markdown("""
-This Content Co-pilot app assists marketing teams in generating creative content. It uses LangChain and OpenAI to:
-- Extract information from uploaded documents
-- Generate content based on prompts
-- Refine content with specific instructions
-- Check brand consistency
-""")
+    # Display chat history
+    st.header("Activity History")
+    for item in reversed(st.session_state.chat_history):
+        with st.expander(f"{item['type']} - {item['timestamp']}"):
+            if item['type'] == 'content_generation':
+                st.write(f"**Prompt:** {item['prompt']}")
+                st.write(f"**Generated Content:** {item['result']}")
+            elif item['type'] == 'content_localization':
+                st.write(f"**Original:** {item['original']}")
+                st.write(f"**Locale:** {item['locale']}")
+                st.write(f"**Culture:** {item['culture']}")
+                st.write(f"**Localized Content:** {item['result']}")
+
+if __name__ == "__main__":
+    main()
