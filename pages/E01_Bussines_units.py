@@ -209,10 +209,10 @@ if uploaded_file is not None:
         st.write(st.session_state.key_points)
 
     # Display chat history with expanders
-    st.subheader("Chat History")
-    for chat in reversed(st.session_state.chat_history):
+    #st.subheader("Chat History")
+    #for chat in reversed(st.session_state.chat_history):
        # with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
-            st.markdown(f"**A:** {chat['answer']}")
+            #st.markdown(f"**A:** {chat['answer']}")
 
 # Main Page Selection
 page_names_to_funcs = {
