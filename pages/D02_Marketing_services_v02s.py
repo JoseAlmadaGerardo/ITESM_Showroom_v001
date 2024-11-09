@@ -207,11 +207,10 @@ def display_chat_history():
                     st.write(f"**Culture:** {item['culture']}")
                     st.write(f"**Localized Content:** {item['result']}")
 
-# Call the function to display chat history
-display_chat_history()
-
     # Display token usage
     st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
 
 if __name__ == "__main__":
     main()
+# Call the function to display chat history
+display_chat_history()
