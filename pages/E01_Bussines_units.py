@@ -211,7 +211,7 @@ if uploaded_file is not None:
     # Display chat history with expanders
     st.subheader("Chat History")
     for chat in reversed(st.session_state.chat_history):
-        with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
+       # with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
             st.markdown(f"**A:** {chat['answer']}")
 
 # Main Page Selection
