@@ -217,10 +217,5 @@ def display_chat_history():
 def display_token_usage():
     st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
 
-# Main function
-def main():
-    display_chat_history()
-    display_token_usage()
-
 if __name__ == "__main__":
     main()
