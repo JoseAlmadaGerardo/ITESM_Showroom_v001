@@ -193,22 +193,27 @@ def main():
     # Display token usage
     st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
 
-# Display chat history
-st.write("Activity History")
-for item in reversed(st.session_state.chat_history):
-    # Check if 'type' and 'timestamp' exist in the item dictionary
-    if 'type' in item and 'timestamp' in item:
-        with st.expander(f"{item['type']} - {item['timestamp']}"):
-            if item['type'] == 'content_generation':
-                st.write(f"**Prompt:** {item['prompt']}")
-                st.write(f"**Generated Content:** {item['result']}")
-            elif item['type'] == 'content_localization':
-                st.write(f"**Original:** {item['original']}")
-                st.write(f"**Locale:** {item['locale']}")
-                st.write(f"**Culture:** {item['culture']}")
-                st.write(f"**Localized Content:** {item['result']}")
-    else:
-        st.write("Missing 'type' or 'timestamp' in chat item.")
+
+# Create a placeholder at the bottom of the page
+placeholder = st.empty()
+
+# Function to display chat history
+def display_chat_history():
+    with placeholder.container():
+        st.header("Activity History")
+        for item in reversed(st.session_state.chat_history):
+            with st.expander(f"{item['type']} - {item['timestamp']}"):
+                if item['type'] == 'content_generation':
+                    st.write(f"**Prompt:** {item['prompt']}")
+                    st.write(f"**Generated Content:** {item['result']}")
+                elif item['type'] == 'content_localization':
+                    st.write(f"**Original:** {item['original']}")
+                    st.write(f"**Locale:** {item['locale']}")
+                    st.write(f"**Culture:** {item['culture']}")
+                    st.write(f"**Localized Content:** {item['result']}")
+
+# Call the function to display chat history
+display_chat_history()
 
 if __name__ == "__main__":
     main()
