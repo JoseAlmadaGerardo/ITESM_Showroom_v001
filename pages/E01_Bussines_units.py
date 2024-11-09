@@ -112,8 +112,8 @@ def chat_with_ai(user_input, context):
 col_file, col_tokens = st.columns([3, 1])
 
 with col_file:
-    uploaded_file = st.file_uploader("Choose a file to explore our key points tool and chat with the AI assistant about the document. Note:Maximum size allowed 5MB", 
-                                     type=["txt", "pdf", "md", "docx", "(The Real tool limit per file is 5MB)"])
+    uploaded_file = st.file_uploader("Choose a file to explore our key points tool and chat with the AI assistant about the document. Note:Maximum size allowed 5MB.", 
+                                     type=["txt", "pdf", "md", "docx", "(The Real tool limit per file is 5MB)."])
 
 with col_tokens:
     st.subheader("Token Usage")
@@ -156,7 +156,7 @@ if uploaded_file is not None:
 
 # Main Page Selection
 page_names_to_funcs = {
-    "🏡 Home": lambda: st.write("Select a page from the sidebar."),
+    "🏡 Home": lambda: st.write("Thanks!"),
 }
 
 # Sidebar for Navigation
@@ -165,7 +165,7 @@ demo_name = st.sidebar.radio("Choose a use case", page_names_to_funcs.keys())
 
 # Render Main Introductory Content Only on Main Page
 if demo_name == "🏡 Home":
-    st.write("👈 Select a demo from the dropdown on the left to explore examples of what AI assistance can achieve!")
+    #st.write("Thanks!")
 
 # Render Selected Page
 page_names_to_funcs[demo_name]()
