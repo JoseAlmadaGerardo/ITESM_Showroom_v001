@@ -149,6 +149,14 @@ def main():
 
     # Content Generation
     st.header("Content Generation")
+    st.markdown(
+        """
+        The Content Co-pilot assists in generating creative content. It helps 
+        streamline the content creation process by offering suggestions, refining ideas, and 
+        ensuring consistency with brand messaging.
+        """
+    )
+    st.write("Add target audience and contente prompt to create marketing content")
     target_audience = st.text_input("Target Audience", placeholder="E.g., Young professionals in urban areas")
     content_prompt = st.text_area("Content Prompt", placeholder="E.g., Create a social media post about our new eco-friendly product line")
     
