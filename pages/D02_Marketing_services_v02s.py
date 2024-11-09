@@ -185,21 +185,20 @@ def main():
 
     # Display chat history
     if 'type' in item and 'timestamp' in item:
-    with st.expander(f"{item['type']} - {item['timestamp']}"):
-    st.header("Activity History")
-    for item in reversed(st.session_state.chat_history):
         with st.expander(f"{item['type']} - {item['timestamp']}"):
-            if item['type'] == 'content_generation':
-                st.write(f"**Prompt:** {item['prompt']}")
-                st.write(f"**Generated Content:** {item['result']}")
-            elif item['type'] == 'content_localization':
-                st.write(f"**Original:** {item['original']}")
-                st.write(f"**Locale:** {item['locale']}")
-                st.write(f"**Culture:** {item['culture']}")
-                st.write(f"**Localized Content:** {item['result']}")
+            st.header("Activity History")
+            for item in reversed(st.session_state.chat_history):
+                with st.expander(f"{item['type']} - {item['timestamp']}"):
+                    if item['type'] == 'content_generation':
+                        st.write(f"**Prompt:** {item['prompt']}")
+                        st.write(f"**Generated Content:** {item['result']}")
+                    elif item['type'] == 'content_localization':
+                        st.write(f"**Original:** {item['original']}")
+                        st.write(f"**Locale:** {item['locale']}")
+                        st.write(f"**Culture:** {item['culture']}")
+                        st.write(f"**Localized Content:** {item['result']}")
     else:
-    # Handle the case where keys are missing
-    st.write("Missing 'type' or 'timestamp' in item data.")
+        st.write("Missing 'type' or 'timestamp' in item data.")
 
 if __name__ == "__main__":
     main()
