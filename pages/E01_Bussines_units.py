@@ -12,10 +12,13 @@ st.set_page_config(
 st.title("AI at bussines units Using Document Analyzer")
 st.markdown(
         """
-        An AI-powered document analyzer utilizing the OpenAI API extracts insights, summarizes content, 
+        This AI-powered document analyzer utilizing the OpenAI API 3.5 turbo extracts insights, summarizes content, 
         and identifies key points from documents, enabling efficient data processing and knowledge extraction.
         This tool aids users in quickly understanding and analyzing text, streamlining document review, and 
-        facilitating informed decision-making. In sales, AI optimizes processes by analyzing customer data, 
+        facilitating informed decision-making. 
+        """ 
+        """
+        In sales, AI optimizes processes by analyzing customer data, 
         predicting behavior, and recommending actions, allowing teams to focus on high-value opportunities. 
         In human resources, AI streamlines recruitment, assists in talent management, and enhances employee engagement by matching candidates with roles and automating tasks. 
         In IT support, AI diagnoses issues, automates troubleshooting, and monitors infrastructure, providing real-time alerts and reducing downtime. 
@@ -109,7 +112,7 @@ def chat_with_ai(user_input, context):
 col_file, col_tokens = st.columns([3, 1])
 
 with col_file:
-    uploaded_file = st.file_uploader("Choose a file", type=["txt", "pdf", "md", "docx"])
+    uploaded_file = st.file_uploader("Choose a file to explore our key points tool and chat with the AI assistant about the document. Note:Maximum size allowed 5MB", type=["txt", "pdf", "md", "docx"])
 
 with col_tokens:
     st.subheader("Token Usage")
