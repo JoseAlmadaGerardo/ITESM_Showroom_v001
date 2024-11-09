@@ -194,7 +194,7 @@ def main():
     st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
 
 # Display chat history
-st.header("Activity History")
+st.write("Activity History")
 for item in reversed(st.session_state.chat_history):
     # Check if 'type' and 'timestamp' exist in the item dictionary
     if 'type' in item and 'timestamp' in item:
