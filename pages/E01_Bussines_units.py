@@ -156,7 +156,7 @@ if uploaded_file is not None:
 
 # Main Page Selection
 page_names_to_funcs = {
-    "🏡 Home": lambda: st.write("😁"),
+    "🏡 Home": lambda: st.write("😊"),
 }
 
 # Sidebar for Navigation
