@@ -2,7 +2,7 @@ import streamlit as st
 
 # Set page configuration
 st.set_page_config(page_title="Hello", page_icon="👋", layout="wide")
-st.write("# Welcome to the Data Science Hub Showroom at Tecnológico de Monterrey! 👋🐏")
+st.write("# Welcome to the Data Science Hub Showroom at Tecnológico de Monterrey! 🐏")
 st.sidebar.success("Select a demo above.")
 st.markdown(
         """
