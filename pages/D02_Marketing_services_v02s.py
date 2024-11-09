@@ -184,7 +184,7 @@ def main():
     st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
 
     # Download chat history
-    st.sidebar.markdown(download_chat_history(), unsafe_allow_html=True)
+    st.sidebar.markdown(download_chat_history(), unsafe_allow_html=False)
 
     # Display chat history
     st.header("Activity History")
