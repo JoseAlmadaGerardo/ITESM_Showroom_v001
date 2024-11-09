@@ -93,12 +93,11 @@ def get_key_points(text, num_points):
 def generate_content(context, prompt, target_audience):
     full_prompt = f"""
     Context: {context}
-
     Target Audience: {target_audience}
-
     Task: {prompt}
 
-    Generate creative marketing content based on the given context and target audience. Ensure the content is engaging, relevant, and tailored to the specified audience.
+    Generate creative marketing content based on the given context and target audience. Ensure the content is engaging, relevant, 
+    and tailored to the specified audience.
     """
     response, tokens = get_ai_response(full_prompt, max_tokens=1000)
     st.session_state.total_tokens += tokens
@@ -108,11 +107,11 @@ def generate_content(context, prompt, target_audience):
 def localize_content(content, target_locale, target_culture):
     prompt = f"""
     Original Content: {content}
-
     Target Locale: {target_locale}
     Target Culture: {target_culture}
 
-    Task: Adapt the given content for the target locale and culture. Consider language nuances, cultural references, and local preferences. Ensure the localized content maintains the original message while being culturally appropriate and engaging for the target audience.
+    Task: Adapt the given content for the target locale and culture. Consider language nuances, cultural references, and local preferences. 
+    Ensure the localized content maintains the original message while being culturally appropriate and engaging for the target audience.
     """
     response, tokens = get_ai_response(prompt, max_tokens=1000)
     st.session_state.total_tokens += tokens
@@ -156,7 +155,7 @@ def main():
         ensuring consistency with brand messaging.
         """
     )
-    st.write("Add target audience and contente prompt to create marketing content")
+    st.write("Add target audience and contente prompt to create a custom marketing content.")
     target_audience = st.text_input("Target Audience", placeholder="E.g., Young professionals in urban areas")
     content_prompt = st.text_area("Content Prompt", placeholder="E.g., Create a social media post about our new eco-friendly product line")
     
