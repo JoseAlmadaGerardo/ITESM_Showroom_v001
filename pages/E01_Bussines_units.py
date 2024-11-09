@@ -112,7 +112,8 @@ def chat_with_ai(user_input, context):
 col_file, col_tokens = st.columns([3, 1])
 
 with col_file:
-    uploaded_file = st.file_uploader("Choose a file to explore our key points tool and chat with the AI assistant about the document. Note:Maximum size allowed 5MB", type=["txt", "pdf", "md", "docx"])
+    uploaded_file = st.file_uploader("Choose a file to explore our key points tool and chat with the AI assistant about the document. Note:Maximum size allowed 5MB", 
+                                     type=["txt", "pdf", "md", "docx", "Real tool limit:5MB"])
 
 with col_tokens:
     st.subheader("Token Usage")
