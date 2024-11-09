@@ -136,19 +136,22 @@ def main():
             key_points = get_key_points(text, num_points)
             st.sidebar.subheader("Key Points:")
             st.sidebar.write(key_points)
+    
+    col1, col2 = st.columns([3, 1])
 
     # Content Generation
-    st.header("Content Generation")
-    st.markdown(
+    with col1:
+        st.header("Content Generation")
+        st.markdown(
         """
         The Content Co-pilot assists in generating creative content. It helps 
         streamline the content creation process by offering suggestions, refining ideas, and 
         ensuring consistency with brand messaging.
         """
-    )
-    st.write("Add target audience and contente prompt to create a custom marketing content.")
-    target_audience = st.text_input("Target Audience", placeholder="E.g., Young professionals in urban areas")
-    content_prompt = st.text_area("Content Prompt", placeholder="E.g., Create a social media post about our new eco-friendly product line")
+        )
+        st.write("Add target audience and contente prompt to create a custom marketing content.")
+        target_audience = st.text_input("Target Audience", placeholder="E.g., Young professionals in urban areas")
+        content_prompt = st.text_area("Content Prompt", placeholder="E.g., Create a social media post about our new eco-friendly product line")
     
     if st.button("Generate Content"):
         if content_prompt:
@@ -193,6 +196,7 @@ def main():
 placeholder = st.empty()
 
 # Function to display chat history
+ with col2:
 def display_chat_history():
     with placeholder.container():
         st.header("Activity History")
