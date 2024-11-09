@@ -47,17 +47,6 @@ def get_ai_response(prompt, model="gpt-3.5-turbo", temperature=0.7, max_tokens=5
         st.error(f"An error occurred: {str(e)}")
         return None, 0
 
-# Function to download chat history
-def download_chat_history():
-    data = {
-        "chat_history": st.session_state.chat_history,
-        "total_tokens": st.session_state.total_tokens
-    }
-    json_string = json.dumps(data, indent=2)
-    b64 = base64.b64encode(json_string.encode()).decode()
-    href = f'<a href="data:application/json;base64,{b64}" download="content_copilot_history.json">Download Chat History</a>'
-    return href
-
 # Text extraction functions
 def extract_text_from_pdf(file):
     pdf_reader = PyPDF2.PdfReader(file)
@@ -200,7 +189,7 @@ def main():
     # Display chat history
     st.header("Activity History")
     for item in reversed(st.session_state.chat_history):
-        with st.expander(f"{item['type']}"):
+        with st.expander(f"{item['type']} - {item['timestamp']}"):
             if item['type'] == 'content_generation':
                 st.write(f"**Prompt:** {item['prompt']}")
                 st.write(f"**Generated Content:** {item['result']}")
@@ -209,7 +198,6 @@ def main():
                 st.write(f"**Locale:** {item['locale']}")
                 st.write(f"**Culture:** {item['culture']}")
                 st.write(f"**Localized Content:** {item['result']}")
-                 #with st.expander(f"{item['type']} - {item['timestamp']}"):
 
 if __name__ == "__main__":
     main()
