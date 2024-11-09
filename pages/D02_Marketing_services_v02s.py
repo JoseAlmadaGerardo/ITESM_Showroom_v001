@@ -12,7 +12,14 @@ from datetime import datetime
 st.set_page_config(
     page_title="# Marketing Services",page_icon="💡", layout="wide",initial_sidebar_state="expanded")
 st.title("AI at marketing services")
+st.markdown(
+        """
+        AI is revolutionizing marketing services by enhancing content creation, localization, and ensuring 
+        the authenticity of brand messaging. Additionally, AI tools can help brands demonstrate their social commitment.
 
+        I this page we are explooring how GenAI can help to create a content creation and content localization tool to boost marketing teams efficiency.
+        """
+    )
 # Load the API key from secrets
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["openai"]["api_key"]
