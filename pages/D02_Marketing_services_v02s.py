@@ -10,20 +10,15 @@ from datetime import datetime
 
 # Page Configuration
 st.set_page_config(
-    page_title="Content Co-pilot",
-    page_icon="📝",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-st.title("Content Co-pilot for Marketing Teams")
+    page_title="# Marketing Services",page_icon="💡", layout="wide",initial_sidebar_state="expanded")
+st.title("AI at marketing services")
 
 # Load the API key from secrets
 if "api_key" not in st.session_state:
     st.session_state.api_key = st.secrets["openai"]["api_key"]
-
-openai_api_key = st.session_state.api_key
-client = OpenAI(api_key=openai_api_key)
+else:
+    openai_api_key = st.session_state.api_key
+    client = OpenAI(api_key=openai_api_key)
 
 # Initialize session state variables
 if "chat_history" not in st.session_state:
@@ -162,9 +157,17 @@ def main():
 
     # Content Localization
     st.header("Content Localization")
+    st.markdown(
+        """
+        Content localization allows marketing teams to tailor content to different regions and 
+        cultures, ensuring relevance and engagement across diverse markets. AI helps adapt content 
+        by analyzing local preferences and language nuances.
+        """
+    )
+    st.write("Add content to localize, target locale and target culture to create a custom content localization.")
     content_to_localize = st.text_area("Content to Localize", placeholder="Paste the content you want to localize")
-    target_locale = st.text_input("Target Locale", placeholder="E.g., fr-FR, es-ES, de-DE")
-    target_culture = st.text_input("Target Culture", placeholder="E.g., French, Spanish, German")
+    target_locale = st.text_input("Target Locale", placeholder="E.g., France , Mexico, England")
+    target_culture = st.text_input("Target Culture", placeholder="E.g., Provence-Alpes-Côte d'Azur, Noroeste de mexico, London")
     
     if st.button("Localize Content"):
         if content_to_localize and target_locale and target_culture:
