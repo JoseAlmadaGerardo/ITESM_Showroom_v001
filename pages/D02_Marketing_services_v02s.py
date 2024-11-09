@@ -184,6 +184,8 @@ def main():
     st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
 
     # Display chat history
+    if 'type' in item and 'timestamp' in item:
+    with st.expander(f"{item['type']} - {item['timestamp']}"):
     st.header("Activity History")
     for item in reversed(st.session_state.chat_history):
         with st.expander(f"{item['type']} - {item['timestamp']}"):
@@ -195,6 +197,9 @@ def main():
                 st.write(f"**Locale:** {item['locale']}")
                 st.write(f"**Culture:** {item['culture']}")
                 st.write(f"**Localized Content:** {item['result']}")
+    else:
+    # Handle the case where keys are missing
+    st.write("Missing 'type' or 'timestamp' in item data.")
 
 if __name__ == "__main__":
     main()
