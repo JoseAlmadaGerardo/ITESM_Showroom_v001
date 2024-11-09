@@ -9,7 +9,7 @@ from datetime import datetime
 # Page Configuration
 st.set_page_config(
     page_title="# Bussines_units",page_icon="📈", layout="wide",initial_sidebar_state="expanded")
-st.title("AI at bussines units")
+st.title("AI at bussines units Using Document Analyzer")
 st.markdown(
         """
         An AI-powered document analyzer utilizing the OpenAI API extracts insights, summarizes content, 
