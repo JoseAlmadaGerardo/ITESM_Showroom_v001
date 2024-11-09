@@ -195,26 +195,32 @@ def main():
     # Create a placeholder at the bottom of the page
 placeholder = st.empty()
 
-# Function to display chat history
- with col2:
-     def display_chat_history():
-         with placeholder.container():
-             st.header("Activity History")
-             for item in reversed(st.session_state.chat_history):
-                 with st.expander(f"{item['type']} - {item['timestamp']}"):
-                     if item['type'] == 'content_generation':
-                         st.write(f"**Prompt:** {item['prompt']}")
-                         st.write(f"**Generated Content:** {item['result']}")
-                     elif item['type'] == 'content_localization':
-                         st.write(f"**Original:** {item['original']}")
-                         st.write(f"**Locale:** {item['locale']}")
-                         st.write(f"**Culture:** {item['culture']}")
-                         st.write(f"**Localized Content:** {item['result']}")
+import streamlit as st
 
-    # Display token usage
+# Function to display chat history
+def display_chat_history():
+    placeholder = st.empty()
+    with placeholder.container():
+        st.header("Activity History")
+        for item in reversed(st.session_state.chat_history):
+            with st.expander(f"{item['type']} - {item['timestamp']}"):
+                if item['type'] == 'content_generation':
+                    st.write(f"**Prompt:** {item['prompt']}")
+                    st.write(f"**Generated Content:** {item['result']}")
+                elif item['type'] == 'content_localization':
+                    st.write(f"**Original:** {item['original']}")
+                    st.write(f"**Locale:** {item['locale']}")
+                    st.write(f"**Culture:** {item['culture']}")
+                    st.write(f"**Localized Content:** {item['result']}")
+
+# Function to display token usage
+def display_token_usage():
     st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
+
+# Main function
+def main():
+    display_chat_history()
+    display_token_usage()
 
 if __name__ == "__main__":
     main()
-# Call the function to display chat history
-display_chat_history()
