@@ -219,3 +219,5 @@ def display_token_usage():
 
 if __name__ == "__main__":
     main()
+    display_chat_history()
+    display_token_usage()
