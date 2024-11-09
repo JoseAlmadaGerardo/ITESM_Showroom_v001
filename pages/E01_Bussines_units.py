@@ -214,6 +214,14 @@ if uploaded_file is not None:
        # with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
             #st.markdown(f"**A:** {chat['answer']}")
 
+    # Chat history
+        st.subheader("Chat History")
+        for chat in reversed(st.session_state.chat_history):
+            with st.expander(f"Q: {chat['question']} - {chat['timestamp']}"):
+                st.markdown(f"**A:** {chat['answer']}")
+                st.markdown("---")
+
+
 # Main Page Selection
 page_names_to_funcs = {
     "🏡 Home": lambda: st.write("Select a page from the sidebar."),
