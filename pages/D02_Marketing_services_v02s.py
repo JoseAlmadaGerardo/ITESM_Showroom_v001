@@ -197,19 +197,19 @@ placeholder = st.empty()
 
 # Function to display chat history
  with col2:
-def display_chat_history():
-    with placeholder.container():
-        st.header("Activity History")
-        for item in reversed(st.session_state.chat_history):
-            with st.expander(f"{item['type']} - {item['timestamp']}"):
-                if item['type'] == 'content_generation':
-                    st.write(f"**Prompt:** {item['prompt']}")
-                    st.write(f"**Generated Content:** {item['result']}")
-                elif item['type'] == 'content_localization':
-                    st.write(f"**Original:** {item['original']}")
-                    st.write(f"**Locale:** {item['locale']}")
-                    st.write(f"**Culture:** {item['culture']}")
-                    st.write(f"**Localized Content:** {item['result']}")
+     def display_chat_history():
+         with placeholder.container():
+             st.header("Activity History")
+             for item in reversed(st.session_state.chat_history):
+                 with st.expander(f"{item['type']} - {item['timestamp']}"):
+                     if item['type'] == 'content_generation':
+                         st.write(f"**Prompt:** {item['prompt']}")
+                         st.write(f"**Generated Content:** {item['result']}")
+                     elif item['type'] == 'content_localization':
+                         st.write(f"**Original:** {item['original']}")
+                         st.write(f"**Locale:** {item['locale']}")
+                         st.write(f"**Culture:** {item['culture']}")
+                         st.write(f"**Localized Content:** {item['result']}")
 
     # Display token usage
     st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
