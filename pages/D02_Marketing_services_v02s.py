@@ -189,12 +189,7 @@ def main():
                 "culture": target_culture,
                 "result": localized_content
             })
-
-    # Display token usage
-    st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
-
-
-# Create a placeholder at the bottom of the page
+    # Create a placeholder at the bottom of the page
 placeholder = st.empty()
 
 # Function to display chat history
@@ -214,6 +209,9 @@ def display_chat_history():
 
 # Call the function to display chat history
 display_chat_history()
+
+    # Display token usage
+    st.sidebar.metric("Total Tokens Used", st.session_state.total_tokens)
 
 if __name__ == "__main__":
     main()
