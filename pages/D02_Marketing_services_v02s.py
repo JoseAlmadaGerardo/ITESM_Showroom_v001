@@ -200,7 +200,7 @@ def main():
     # Display chat history
     st.header("Activity History")
     for item in reversed(st.session_state.chat_history):
-        with st.expander(f"{item['type']} - {item['timestamp']}"):
+        with st.expander(f"{item['type']}"):
             if item['type'] == 'content_generation':
                 st.write(f"**Prompt:** {item['prompt']}")
                 st.write(f"**Generated Content:** {item['result']}")
@@ -209,6 +209,7 @@ def main():
                 st.write(f"**Locale:** {item['locale']}")
                 st.write(f"**Culture:** {item['culture']}")
                 st.write(f"**Localized Content:** {item['result']}")
+                 #with st.expander(f"{item['type']} - {item['timestamp']}"):
 
 if __name__ == "__main__":
     main()
